@@ -1,0 +1,120 @@
+#Main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    
+
+        .intro {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            
+
+            p {
+                display: flex;
+                margin-bottom: 20px;
+                color: #034a8e;
+                max-width: 74%;
+                font-size: 17px;
+                font-weight: bold;
+            }
+
+            .buttons {
+                display: flex;
+                gap: 20px;
+
+                button {
+                    padding: 10px 68px;
+                    font-size: 16px;
+                    color: white;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    background-color: #034a8e;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 520px) {
+    #Main {
+        
+        .container {
+            .intro {  
+
+                p {  
+                    max-width: 78%;     
+                }
+
+                .buttons {
+                    button {
+                        padding: 10% 70px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 496px) {
+    #Main {   
+        .container {
+            .intro {  
+                p {  
+                    max-width: 85%;     
+                }
+
+                .buttons {
+                    button {
+                        padding: 10px 68px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 440px) {
+    #Main {   
+        .container {
+            .intro {  
+                p {  
+                    max-width: 90%;     
+                }
+
+                .buttons {
+                    button {
+                        padding: 10px 68px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 338px) {
+    #Main {   
+        .container {
+            .intro {  
+                p {  
+                    max-width: 100%;  
+                    font-size: 16px;   
+                }
+
+                .buttons {
+                    button {
+                        padding: 10px 48px;
+                    }
+                }
+            }
+        }
+    }
+}
