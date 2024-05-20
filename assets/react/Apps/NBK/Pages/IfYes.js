@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ProgressBar from '../Component/ProgressBar';
-import PhoneInput from 'react-phone-number-input';
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from "react-redux";
@@ -17,40 +18,29 @@ const IfYes = () => {
   const [errors, setErrors] = useState({});
 
   const dispatch = useDispatch();
-  const updateUserDataHandler = (category, data) => {
-    dispatch(updateUserData({ category, data }));
+  const updateUserFieldInUserData = (field, value) => {
+    dispatch(updateUserData({ category: "user", data: { [field]: value } }));
   };
   const validateForm = () => {
-    let errors = {};
-    let formIsValid = true;
-
+    const errors = {};
     if (!fullName.trim()) {
-      errors.fullName = "Full name is required";
-      formIsValid = false;
+      errors.fullName = "Full Name is required";
     }
-
-    if (!phoneNumber.trim()) {
-      errors.phoneNumber = "Phone number is required";
-      formIsValid = false;
-    }
-
     if (!email.trim()) {
       errors.email = "Email is required";
-      formIsValid = false;
+    } else if (!isValidEmail(email)) {
+      errors.email = "Invalid email address";
+    }
+    if (!phoneNumber.trim()) {
+      errors.phoneNumber = "Phone number is required";
     }
 
-    if (!branch.trim()) {
-      errors.branch = "Branch is required";
-      formIsValid = false;
+    if (!branch) {
+      errors.branch = "Branch/Unit selection is required";
     }
-
-    setErrors(errors);
-    return formIsValid;
+    return errors;
   };
 
-  const handlePhoneNumberChange = (e) => {
-    setPhoneNumber(e.target.value);
-  };
 
   const handleFullNameChange = (e) => {
     setFullName(e.target.value);
@@ -64,19 +54,28 @@ const IfYes = () => {
     setBranch(e.target.value);
   };
  
-    updateUserDataHandler("user", {
-      fullName: fullName,
-      mobileNumb: phoneNumber,
-      email:email,
-      branchUnit:branch
-    });
 
+
+
+  
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (validateForm()) {
-      // Proceed with form submission
-      console.log("Form submitted successfully");
+
+    const validationErrors = validateForm();
+    if (Object.keys(validationErrors).length === 0) {
+      setProgress(progress + 20);
+      if (progress >= 100) {
+        setProgress(100);
+      }
+      getHeaderTitle();
+    } else {
+      setErrors(validationErrors);
     }
+    updateUserFieldInUserData("fullName", fullName);
+    updateUserFieldInUserData("mobileNumb", phoneNumber);
+    updateUserFieldInUserData("email", email);
+    updateUserFieldInUserData("branchUnit", branch);
+
   };
 
   const getHeaderTitleBack = () => {
@@ -121,16 +120,25 @@ const IfYes = () => {
             <label className="floating-label">Full Name of Branch</label>
           </div>
           {errors.fullName && <div className="error text-danger ">{errors.fullName}</div>}
+          <div>
+            
+          </div>
+ 
           <PhoneInput
-
-  withCountryCallingCode
-  value={phoneNumber}
-  className="form-control mb-3"
-  onChange={setPhoneNumber}
-  defaultCountry='LB'
-  placeholder
-  prefix="+"
-/>
+          className="mb-3"
+          country={"lb"}
+          // value={"phoneNumber"}
+          value={phoneNumber}
+          defaultValue={phoneNumber}
+          onChange={(phoneNumber, country) =>
+           setPhoneNumber( phoneNumber)
+          }
+          disableSearchIcon={true}
+          // enableAreaCodeStretch={true}
+          prefix="+"
+          inputStyle={{ width: "100%" , paddingLeft: "50px",height:"45px"}}
+       
+        />
           {errors.phoneNumber && <div className="error text-danger  ">{errors.phoneNumber}</div>}
           <div className="form-group">
             <input
@@ -154,7 +162,7 @@ const IfYes = () => {
             <option value="private bank">Private Bank</option>
           </select>
           {errors.branch && <div className="error text-danger error-status">{errors.branch}</div>}
-          <button type="submit" className="btn-proceed submit-btn" onClick={()=>updateUserDataHandler()}>
+          <button type="submit" className="btn-proceed submit-btn" >
             Proceed
           </button>
         </form>

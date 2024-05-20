@@ -3,21 +3,23 @@ import ProgressBar from "../Component/ProgressBar";
 import { CountryDropdown } from "react-country-region-selector";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
-import { useDispatch } from "react-redux";
-import { settingObjectData } from "../Redux/Slices/AppSlice";
+import { useDispatch ,useSelector} from "react-redux";
+import { settingObjectData ,updateUserData} from "../Redux/Slices/AppSlice";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 
 const UserAcountBank = () => {
+  const userData = useSelector((state) => state.appData.userData.financialDetails || {});
+
   const [progress, setProgress] = useState(90);
 
-  const [activeButton, setActiveButton] = useState("No");
-  const [country1, setCountry1] = useState("");
-  const [accountBalanceUsd, setAccountBalanceUsd] = useState("");
-  const [purposeOfRelation, setPurposeOfRelation] = useState("");
-  const [natureOfRelation, setNatureOfRelation] = useState("");
-  const [bankName, setBankName] = useState("");
+  const [activeButton, setActiveButton] = useState( userData.hasOtherAccounts || "No");
+  const [country1, setCountry1] = useState(userData.country ||"");
+  const [accountBalanceUsd, setAccountBalanceUsd] = useState( userData.accountBalance || "");
+  const [purposeOfRelation, setPurposeOfRelation] = useState(userData.purposeOfRelation || "");
+  const [natureOfRelation, setNatureOfRelation] = useState(userData.natureOfRelation || "");
+  const [bankName, setBankName] = useState( userData.bankName || "");
   const [inputs, setInputs] = useState(['']);
   const [errors, setErrors] = useState({});
   const [next,setNext]=useState(false);
@@ -34,6 +36,10 @@ const handleChanges = (event, index) => {
 };
 
   const dispatch = useDispatch();
+  const updateUserFieldInUserData = (field, value) => {
+    dispatch(updateUserData({ category: "financialDetails", data: { [field]: value } }));
+  };
+
 
   const getHeaderTitle = () => {
     dispatch(
@@ -65,6 +71,13 @@ const handleChanges = (event, index) => {
     } else {
         setErrors(validationErrors);
     }
+    updateUserFieldInUserData("hasOtherAccounts", activeButton);
+    updateUserFieldInUserData("bankName", bankName);
+    updateUserFieldInUserData("country", country1);
+    updateUserFieldInUserData("accountBalance", accountBalanceUsd);
+    updateUserFieldInUserData("natureOfRelation", natureOfRelation);
+    updateUserFieldInUserData("purposeOfRelation", purposeOfRelation);
+  
 };
 
   const handleAccountBalanceUsdChange = (e) => {
@@ -163,7 +176,7 @@ const handleChanges = (event, index) => {
           </div>
           {errors.accountBalanceUsd && <div className="text-danger error">{errors.accountBalanceUsd}</div>}
           <div className='add-input'>
-            {inputs.map((input, index) => (
+
                 <input
                 className='border-add'
                     key={index}
@@ -173,7 +186,7 @@ const handleChanges = (event, index) => {
                     onChange={(e) => handleChanges(e, index)}
                     onClick={() => handleAddInput(index)}
                 />
-            ))}
+    
         </div>
           <div className="form-group">
             <input type="text" value={natureOfRelation} onChange={handleNatureOfRelationChange} placeholder="" className="form-control mb-3"  />

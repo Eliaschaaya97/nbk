@@ -1,27 +1,30 @@
 import React, { useState,useEffect } from "react";
 import ProgressBar from "../Component/ProgressBar";
-import { useDispatch } from "react-redux";
-import { settingObjectData } from "../Redux/Slices/AppSlice";
+import { useDispatch ,useSelector} from "react-redux";
+import { settingObjectData,updateUserData } from "../Redux/Slices/AppSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import "react-phone-number-input/style.css";
 import { list } from 'iso-currencies';
 
 const UserInfoSalary = () => {
-  const [currency, setCurrency] = useState("");
+  const userData = useSelector((state) => state.appData.userData.financialDetails || {});
+
+
+  const [currency, setCurrency] = useState(userData.currency || "");
   const [progress, setProgress] = useState(80);
-  const [sourceOfFunds, setSourceOfFunds] = useState("");
-  const [additionalIncomeSource, setAdditionalIncomeSource] = useState("");
-  const [monthlyBasicSal, setMonthlyBasicSal] = useState("");
-  const [monthlyAllowances, setMonthlyAllowances] = useState("");
-  const [totalEstimatedMonthlyin, setTotalEstimatedMonthlyin] = useState("");
-  const [estimatedWealthMonth, setEstimatedWealthMonth] = useState("");
-  const [otherSpecify, setotherSpecify] = useState("");
-  const [activeButton, setActiveButton] = useState("No");
-  const [sourceOfYourWealth, setSourceOfYourWealth] = useState("");
-  const [expectedNoTrans, setExpectedNoTrans] = useState("");
-  const [expectedValueTrans, setExpectedValueTrans] = useState("");
-  const [frequency, setFrequency] = useState("");
+  const [sourceOfFunds, setSourceOfFunds] = useState(userData.sourceOfFunds || "");
+  const [additionalIncomeSource, setAdditionalIncomeSource] = useState(userData.additionalIncomeSources || "");
+  const [monthlyBasicSal, setMonthlyBasicSal] = useState(userData.monthlyBasicSalary || "");
+  const [monthlyAllowances, setMonthlyAllowances] = useState(userData.monthlyAllowances || "");
+  const [totalEstimatedMonthlyin, setTotalEstimatedMonthlyin] = useState(userData.totalEstimatedMonthlyIncome || "");
+  const [estimatedWealthMonth, setEstimatedWealthMonth] = useState(userData.estimatedWealthAmount || "");
+  const [otherSpecify, setotherSpecify] = useState(userData.othersSourceOfFound || "");
+  const [activeButton, setActiveButton] = useState(userData.isWealthInherited || "No");
+  const [sourceOfYourWealth, setSourceOfYourWealth] = useState(userData.sourcesOfWealth || "");
+  const [expectedNoTrans, setExpectedNoTrans] = useState(userData.expectedNumberOfTransactions || "");
+  const [expectedValueTrans, setExpectedValueTrans] = useState(userData.expectedValueOfTransactions || "");
+  const [frequency, setFrequency] = useState(userData.frequency || "");
   const [errors, setErrors] = useState({});
   const [next, setNext] = useState(false);
 
@@ -34,12 +37,15 @@ const UserInfoSalary = () => {
     setCountryISO(updatedCountryISO);
 }, []);
 
-
+const dispatch = useDispatch();
+const updateUserFieldInUserData = (field, value) => {
+  dispatch(updateUserData({ category: "financialDetails", data: { [field]: value } }));
+};
 const handleISOChange = (event) => {
   setCurrency(event.target.value);
 };
 
-  const dispatch = useDispatch();
+
 
   const getHeaderTitle = () => {
     dispatch(
@@ -63,6 +69,24 @@ const handleISOChange = (event) => {
     } else {
       setErrors(validationErrors);
     }
+    updateUserFieldInUserData("sourceOfFunds", sourceOfFunds);
+    updateUserFieldInUserData("currency", currency);
+    updateUserFieldInUserData("monthlyBasicSalary", monthlyBasicSal);
+    updateUserFieldInUserData("monthlyAllowances", monthlyAllowances);
+    updateUserFieldInUserData("additionalIncomeSources", additionalIncomeSource);
+    updateUserFieldInUserData("totalEstimatedMonthlyIncome", totalEstimatedMonthlyin);
+    updateUserFieldInUserData("isWealthInherited", activeButton);
+    updateUserFieldInUserData("expectedNumberOfTransactions", expectedNoTrans);
+    updateUserFieldInUserData(
+      "expectedValueOfTransactions",
+      expectedValueTrans
+    );
+    updateUserFieldInUserData(
+      "frequency",
+      frequency);
+      updateUserFieldInUserData("othersSourceOfFound", otherSpecify);
+      updateUserFieldInUserData("estimatedWealthAmount", estimatedWealthMonth);
+      updateUserFieldInUserData("sourcesOfWealth", sourceOfYourWealth);
   };
 
   const validateForm = () => {

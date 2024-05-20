@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch ,useSelector } from "react-redux";
 import { settingObjectData,updateUserData } from "../Redux/Slices/AppSlice";
 import ProgressBar from "../Component/ProgressBar";
 import { CountryDropdown, RegionDropdown } from "react-country-region-selector";
@@ -7,32 +7,34 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 const UserIntroduce = () => {
-  const [motherName, setMotherName] = useState("");
-  const [date, setDate] = useState("");
+  const userData = useSelector((state) => state.appData.userData.user || {});
+
+  const [motherName, setMotherName] = useState( userData.mothersName ||"");
+  const [date, setDate] = useState(  userData.dob || "");
   const [progress, setProgress] = useState(8);
-  const [selectedGender, setSelectedGender] = useState("Female");
-  const [selectedCountry, setSelectedCountry] = useState("");
-  const [selectedState, setSelectedState] = useState("");
-  const [placeOfBirth, setPlaceOfBirth] = useState("");
-  const [civilNational, setCivilNational] = useState("");
-  const [expirationDate, setExpirationDate] = useState("");
-  const [status, setStatus] = useState("");
-  const [passport, setPassport] = useState("");
-  const [placeOfIssue, setPlaceOfIssue] = useState("");
-  const [secondExpirationDate, setSecondExpirationDate] = useState("");
-  const [otherNationalities, setOtherNationalities] = useState("");
-  const [statusInLebanon, setStatusInLebanon] = useState("");
+
+  const [selectedCountry, setSelectedCountry] = useState( userData.countryOfOrigin || "");
+  const [selectedState, setSelectedState] = useState(  userData.registerPlaceAndNo || "");
+  const [placeOfBirth, setPlaceOfBirth] = useState( userData.placeOfBirth ||"");
+  const [civilNational, setCivilNational] = useState(  userData.nationalId ||"");
+  const [expirationDate, setExpirationDate] = useState(  userData.expirationDateNationalId|| "");
+  const [status, setStatus] = useState( userData.maritalStatus||"");
+  const [passport, setPassport] = useState( userData.passportNumber||"");
+  const [placeOfIssue, setPlaceOfIssue] = useState( userData.placeOfIssuePassport || "");
+  const [secondExpirationDate, setSecondExpirationDate] = useState( userData.expirationDatePassport|| "");
+  const [otherNationalities, setOtherNationalities] = useState( userData.otherNationalities|| "");
+  const [statusInLebanon, setStatusInLebanon] = useState( userData.statusInLebanon|| "");
   const [errors, setErrors] = useState({});
   const [dateEx ,setDateEx]=useState("");
   const [validDate,setValidDate]=useState(false);
-  const [gender,setGender] =useState("female");
+  const [gender,setGender] =useState(  userData.gender || "female");
 
   localStorage.setItem("status",status);
 
 
   const dispatch = useDispatch();
-  const updateUserDataHandler = (category, data) => {
-    dispatch(updateUserData({ category, data }));
+  const updateUserFieldInUserData = (field, value) => {
+    dispatch(updateUserData({ category: "user", data: { [field]: value } }));
   };
 
   useEffect(() => {
@@ -78,6 +80,22 @@ const UserIntroduce = () => {
     } else {
       setErrors(validationErrors);
     }
+     updateUserFieldInUserData("mothersName", motherName);
+     updateUserFieldInUserData("gender", gender);
+     updateUserFieldInUserData("dob", date);
+     updateUserFieldInUserData("placeOfBirth", placeOfBirth);
+     updateUserFieldInUserData("countryOfOrigin", selectedCountry);
+     updateUserFieldInUserData("nationalId", civilNational);
+     updateUserFieldInUserData("expirationDateNationalId", expirationDate);
+     updateUserFieldInUserData("registerPlaceAndNo", selectedState);
+     updateUserFieldInUserData("maritalStatus", status);
+     updateUserFieldInUserData("passportNumber", passport);
+      updateUserFieldInUserData("expirationDatePassport", secondExpirationDate);
+       updateUserFieldInUserData("otherNationalities", otherNationalities);
+            updateUserFieldInUserData("statusInLebanon", statusInLebanon);
+     updateUserFieldInUserData("placeOfIssuePassport", placeOfIssue);
+
+     
   };
 
   const validateForm = () => {
@@ -153,17 +171,34 @@ const UserIntroduce = () => {
       
           </div>
           {errors.motherName && <div className="text-danger error">{errors.motherName}</div>}
-          <select
-            value={gender}
-            onChange={(e) => setGender(e.target.value)}
-            className="form-select form-control mb-3"
-          >
-            <option value="">Gender</option>
-            <option value="male">Male</option>
-            <option value="female">Femalae</option>
-  
-            
-          </select>
+     
+          <div className="radioOptionsFlex">
+        <div className="radio-options">
+          <input
+            type="radio"
+            id="female"
+            name="gender"
+            className="formborders"
+            value="female"
+            defaultChecked={gender == "female" }
+            onChange={(e) => setGender( e.target.value)}
+          />
+          <label htmlFor="female">Female</label>
+        </div>
+        <div className="radio-options">
+          <input
+            type="radio"
+            id="male"
+            name="gender"
+            className="formborders"
+            value="male"
+            defaultChecked={gender == "male"}
+            onChange={(e) => setGender( e.target.value)}
+          />
+          <label htmlFor="male">Male</label>
+        </div>
+      </div>
+
           {errors.gender && <div className="text-danger error error-status">{errors.gender}</div>}
           <div className="form-group">
             <input
@@ -362,7 +397,7 @@ const UserIntroduce = () => {
 
           </div>
           {errors.statusInLebanon && <div className="text-danger error">{errors.statusInLebanon}</div>}
-          <button type="submit" className="btn-proceed" onClick={()=>updateUserDataHandler()}>
+          <button type="submit" className="btn-proceed" >
             Next
           </button>
         </form>

@@ -45,7 +45,14 @@ const initialState = {
       internationalHouseTelephoneNumber: "",
       internationalMobileNumber: "",
       alternateContactName: "",
-      alternateTelephoneNumber: ""
+      alternateTelephoneNumber: "",
+      intArea:"",
+      intStreet:"",
+      intBuilding:"",
+      intFloor:"",
+      intApartment:""
+
+
     },
     workDetails: {
       profession: "",
@@ -86,8 +93,11 @@ const initialState = {
       monthlyBasicSalary: "",
       monthlyAllowances: "",
       additionalIncomeSources: "",
+      othersSourceOfFound:"",
       totalEstimatedMonthlyIncome: "",
+      estimatedWealthAmount : "",
       isWealthInherited: "",
+      sourcesOfWealth: "",
       expectedNumberOfTransactions: "",
       expectedValueOfTransactions: "",
       frequency: "",
@@ -95,6 +105,12 @@ const initialState = {
       bankName: "",
       country: "",
       accountBalance: "",
+      bankName2: "",
+      country2: "",
+      accountBalance2: "",
+      bankName3: "",
+      country3: "",
+      accountBalance3: "",
       natureOfRelation: "",
       purposeOfRelation: ""
     }

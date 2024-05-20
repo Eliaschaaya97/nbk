@@ -1,0 +1,1710 @@
+@import "./style.css";
+#Main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+#Main .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#Main .container .intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#Main .container .intro p {
+  display: flex;
+  margin-bottom: 20px;
+  color: #034a8e;
+  max-width: 74%;
+  font-size: 17px;
+  font-weight: bold;
+}
+#Main .container .intro .buttons {
+  display: flex;
+  gap: 20px;
+}
+#Main .container .intro .buttons button {
+  padding: 10px 68px;
+  font-size: 16px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #034a8e;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 520px) {
+  #Main .container .intro p {
+    max-width: 78%;
+  }
+  #Main .container .intro .buttons button {
+    padding: 10% 70px;
+  }
+}
+@media (max-width: 496px) {
+  #Main .container .intro p {
+    max-width: 85%;
+  }
+  #Main .container .intro .buttons button {
+    padding: 10px 68px;
+  }
+}
+@media (max-width: 440px) {
+  #Main .container .intro p {
+    max-width: 90%;
+  }
+  #Main .container .intro .buttons button {
+    padding: 10px 68px;
+  }
+}
+@media (max-width: 338px) {
+  #Main .container .intro p {
+    max-width: 100%;
+    font-size: 16px;
+  }
+  #Main .container .intro .buttons button {
+    padding: 10px 48px;
+  }
+}
+#modal {
+  height: 325px;
+  max-width: 500px;
+  padding: 40px;
+  text-align: center;
+  border-radius: 24px !important;
+  top: 25% !important;
+}
+#modal .p-modal {
+  text-align: center;
+  font-size: 25px;
+  padding-bottom: 80px;
+  padding-top: 80px;
+}
+#modal .button-modal {
+  width: 80%;
+  background-color: #034a8e;
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+#IfYes .submit-btn {
+  margin-top: 260px;
+}
+#IfYes button.btn-Back {
+  width: 41px;
+  height: 41px;
+  color: #034a8e;
+  position: absolute;
+  top: 7%;
+  left: 5%;
+  background: none;
+  border: none;
+}
+#IfYes .intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#IfYes .intro p {
+  display: flex;
+  margin-bottom: 20px;
+  color: #034a8e;
+  max-width: 85%;
+  font-size: 17px;
+  font-weight: bold;
+}
+#IfYes .form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#IfYes .form div.error {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+}
+#IfYes .form .form-group {
+  position: relative;
+  width: 100%;
+}
+#IfYes .form .form-group input {
+  width: 100%;
+  padding: 10px 10px;
+  font-size: 16px;
+  border-radius: 4px;
+}
+#IfYes .form .form-group input:focus {
+  outline: none;
+  border-color: #034a8e;
+}
+#IfYes .form .form-group input::-moz-placeholder {
+  color: transparent;
+}
+#IfYes .form .form-group input::placeholder {
+  color: transparent;
+}
+#IfYes .form .form-group .floating-label {
+  position: absolute;
+  top: 35%;
+  left: 10px;
+  transform: translateY(-50%);
+  transition: all 0.3s ease;
+  color: #999;
+  font-size: 14px;
+  pointer-events: none;
+}
+#IfYes .form .form-group input:not(:-moz-placeholder-shown) + .floating-label {
+  font-size: 11px;
+  padding-bottom: 20px;
+}
+#IfYes .form .form-group input:focus + .floating-label,
+#IfYes .form .form-group input:not(:placeholder-shown) + .floating-label {
+  font-size: 11px;
+  padding-bottom: 20px;
+}
+#IfYes .form .form-control {
+  padding: 10px;
+}
+#IfYes .btn-proceed {
+  width: 100%;
+  background-color: #034a8e;
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+@media (min-width: 300px) {
+  #IfYes .intro p {
+    font-size: 17px;
+  }
+  #IfYes .form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+}
+#IfNo button.btn-Back {
+  width: 41px;
+  height: 41px;
+  color: #034a8e;
+  position: absolute;
+  top: 7%;
+  left: 5%;
+  background: none;
+  border: none;
+}
+#IfNo .intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#IfNo .intro p {
+  display: flex;
+  margin-bottom: 20px;
+  color: #034a8e;
+  font-size: 17px;
+  font-weight: bold;
+}
+#IfNo .form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#IfNo .form p.error {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  padding-bottom: 10px;
+  font-size: 15px;
+}
+#IfNo .form li {
+  color: #034a8e;
+}
+#IfNo .form .btn-proceed {
+  width: 100%;
+  background-color: #034a8e;
+  padding: 10px;
+  border: none;
+  color: white;
+  bottom: 0;
+}
+#IfNo .form .terms {
+  display: flex;
+  align-items: flex-start;
+  color: #949ba4;
+  margin-bottom: 10px;
+  font-size: 0.9em;
+  margin-top: 100px;
+}
+#IfNo .form .terms .custom-control-input {
+  width: 1.5em;
+  height: 1.5em;
+  margin-right: 5px;
+  font-size: 13px;
+  cursor: pointer;
+  align-self: start;
+}
+#IfNo .form .terms .custom-control-label {
+  display: block;
+  margin-bottom: 0;
+  width: 100%;
+}
+
+@media (max-width: 767px) {
+  #IfNo .intro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  #IfNo .intro p {
+    display: flex;
+    margin-bottom: 20px;
+    color: #034a8e;
+    font-size: 17px;
+    font-weight: bold;
+  }
+  #IfNo .form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  #IfNo .form li {
+    color: #034a8e;
+  }
+  #IfNo .form .btn-proceed {
+    width: 100%;
+    background-color: #034a8e;
+    padding: 10px;
+    border: none;
+    color: white;
+    bottom: 0;
+  }
+}
+@media (max-width: 340px) {
+  #IfNo .form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  #IfNo .form li {
+    color: #034a8e;
+  }
+  #IfNo .form .btn-proceed {
+    width: 100%;
+    background-color: #034a8e;
+    padding: 10px;
+    border: none;
+    color: white;
+    bottom: 0;
+  }
+}
+@media (max-width: 420px) {
+  #IfNo .form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  #IfNo .form li {
+    color: #034a8e;
+  }
+  #IfNo .form .btn-proceed {
+    width: 100%;
+    background-color: #034a8e;
+    padding: 10px;
+    border: none;
+    color: white;
+    bottom: 0;
+  }
+}
+#UserInfo button.btn-Back {
+  width: 41px;
+  height: 41px;
+  color: #034a8e;
+  position: absolute;
+  top: 7%;
+  left: 5%;
+  background: none;
+  border: none;
+}
+#UserInfo .submit-btn {
+  margin-top: 310px;
+}
+#UserInfo .intro {
+  display: flex;
+  flex-direction: column;
+}
+#UserInfo .intro p {
+  display: flex;
+  margin-bottom: 20px;
+  color: #034a8e;
+  width: 85%;
+  font-size: 17px;
+  font-weight: bold;
+}
+#UserInfo .form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+#UserInfo .form .select-wrapper {
+  height: 200px;
+  overflow-y: visible;
+}
+#UserInfo .form div.error {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+}
+#UserInfo .form .form-group {
+  position: relative;
+  width: 100%;
+}
+#UserInfo .form .form-group input {
+  width: 100%;
+  padding: 10px 10px;
+  font-size: 16px;
+  border-radius: 4px;
+}
+#UserInfo .form .form-group input:focus {
+  outline: none;
+  border-color: #034a8e;
+}
+#UserInfo .form .form-group input::-moz-placeholder {
+  color: transparent;
+}
+#UserInfo .form .form-group input::placeholder {
+  color: transparent;
+}
+#UserInfo .form .form-group .floating-label {
+  position: absolute;
+  top: 35%;
+  left: 10px;
+  transform: translateY(-50%);
+  transition: all 0.3s ease;
+  color: #999;
+  font-size: 14px;
+  pointer-events: none;
+  text-align: center;
+}
+#UserInfo .form .form-group input:not(:-moz-placeholder-shown) + .floating-label {
+  top: 10px;
+  font-size: 11px;
+}
+#UserInfo .form .form-group input:focus + .floating-label,
+#UserInfo .form .form-group input:not(:placeholder-shown) + .floating-label {
+  top: 10px;
+  font-size: 11px;
+}
+#UserInfo .form .form-control {
+  padding: 10px;
+}
+#UserInfo .btn-proceed {
+  width: 100%;
+  background-color: #034a8e;
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+@media (min-width: 340px) {
+  #UserInfo #IfYes .intro p {
+    font-size: 17px;
+    max-width: 85%;
+  }
+  #UserInfo #IfYes .form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+}
+
+.progress-container {
+  width: 100%;
+  background-color: #ddd;
+  height: 6px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: #d81832;
+  border-radius: 5px;
+}
+
+#UserIntroduce button.btn-Back {
+  width: 41px;
+  height: 41px;
+  color: #034a8e;
+  position: absolute;
+  top: 7%;
+  left: 5%;
+  background: none;
+  border: none;
+}
+#UserIntroduce .intro p {
+  display: none;
+}
+#UserIntroduce .form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#UserIntroduce .form div.error {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+}
+#UserIntroduce .form .form-group {
+  position: relative;
+  width: 100%;
+}
+#UserIntroduce .form .form-group input {
+  width: 100%;
+  padding: 10px 10px;
+  font-size: 16px;
+  border-radius: 4px;
+}
+#UserIntroduce .form .form-group input:focus {
+  outline: none;
+  border-color: #034a8e;
+}
+#UserIntroduce .form .form-group input::-moz-placeholder {
+  color: transparent;
+}
+#UserIntroduce .form .form-group input::placeholder {
+  color: transparent;
+}
+#UserIntroduce .form .form-group .floating-label {
+  position: absolute;
+  top: 35%;
+  left: 10px;
+  transform: translateY(-50%);
+  transition: all 0.3s ease;
+  color: #999;
+  font-size: 14px;
+  pointer-events: none;
+}
+#UserIntroduce .form .form-group input:not(:-moz-placeholder-shown) + .floating-label {
+  top: 10px;
+  font-size: 11px;
+}
+#UserIntroduce .form .form-group input:focus + .floating-label,
+#UserIntroduce .form .form-group input:not(:placeholder-shown) + .floating-label {
+  top: 10px;
+  font-size: 11px;
+}
+#UserIntroduce .form .form-control {
+  padding: 10px;
+}
+#UserIntroduce .form .gender-selector {
+  display: flex;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 15px;
+}
+#UserIntroduce .form .female-option, #UserIntroduce .form .male-option {
+  flex: 1;
+  text-align: center;
+  padding: 8px 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center; /* Aligns the label and radio button vertically */
+  justify-content: center; /* Centers the content horizontally */
+}
+#UserIntroduce .form input[type=radio] {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  margin-right: 8px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 5px;
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+}
+#UserIntroduce .form input[type=radio]:checked {
+  background-color: #4CAF50;
+  border-color: #4CAF50;
+}
+#UserIntroduce .form input[type=radio]:checked::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: white;
+  display: block;
+}
+#UserIntroduce .form .male-option {
+  border-left: 1px solid #ddd;
+}
+#UserIntroduce .btn-proceed {
+  width: 100%;
+  background-color: #034a8e;
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 550px) {
+  #UserIntroduce {
+    max-width: 100%;
+  }
+}
+@media (min-width: 340px) {
+  #UserIntroduce {
+    max-width: 100%;
+  }
+  #UserIntroduce .intro p {
+    font-size: 17px;
+    max-width: 85%;
+  }
+  #UserIntroduce .form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+}
+#AddressInfo button.btn-Back {
+  width: 41px;
+  height: 41px;
+  color: #034a8e;
+  position: absolute;
+  top: 7%;
+  left: 5%;
+  background: none;
+  border: none;
+}
+#AddressInfo .intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#AddressInfo .intro p {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 10px;
+  color: #034a8e;
+  max-width: 100%;
+  font-size: 17px;
+  font-weight: bold;
+}
+#AddressInfo .form {
+  display: flex;
+  flex-direction: column;
+}
+#AddressInfo .form div.error {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+}
+#AddressInfo .form .form-group {
+  position: relative;
+  width: 100%;
+}
+#AddressInfo .form .form-group input {
+  width: 100%;
+  padding: 10px 10px;
+  font-size: 16px;
+  border-radius: 4px;
+}
+#AddressInfo .form .form-group input:focus {
+  outline: none;
+  border-color: #034a8e;
+}
+#AddressInfo .form .form-group input::-moz-placeholder {
+  color: transparent;
+}
+#AddressInfo .form .form-group input::placeholder {
+  color: transparent;
+}
+#AddressInfo .form .form-group .floating-label {
+  position: absolute;
+  top: 35%;
+  left: 10px;
+  transform: translateY(-50%);
+  transition: all 0.3s ease;
+  color: #999;
+  font-size: 14px;
+  pointer-events: none;
+}
+#AddressInfo .form .form-group input:not(:-moz-placeholder-shown) + .floating-label {
+  top: 10px;
+  font-size: 11px;
+}
+#AddressInfo .form .form-group input:focus + .floating-label,
+#AddressInfo .form .form-group input:not(:placeholder-shown) + .floating-label {
+  top: 10px;
+  font-size: 11px;
+}
+#AddressInfo .form .form-control {
+  padding: 10px;
+}
+#AddressInfo .btn-proceed {
+  width: 100%;
+  background-color: #034a8e;
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+#AddressInfo .buttons {
+  display: flex;
+  gap: 20px;
+}
+#AddressInfo .buttons button {
+  padding: 10px 66px;
+  font-size: 16px;
+  font-weight: bold;
+  border: 1px solid rgba(117, 136, 160, 0.2039215686);
+  color: #034A8E;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #E5ECF3;
+}
+#AddressInfo .buttons button.active {
+  background-color: #034A8E; /* Darker blue for active state */
+  color: white; /* White text when active */
+}
+
+@media (min-width: 395px) {
+  #AddressInfo {
+    max-width: 100%;
+  }
+  #AddressInfo .form {
+    width: 100%;
+  }
+}
+@media (min-width: 345px) {
+  #AddressInfo {
+    width: 100%;
+  }
+  #AddressInfo .form {
+    width: 100%;
+  }
+}
+@media (max-width: 520px) {
+  #AddressInfo .buttons button {
+    padding: 0 20%;
+    font-size: 15px;
+  }
+}
+.form .error {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  margin-bottom: 4px;
+}
+
+:root {
+  --PhoneInput-color--focus: #03b2cb;
+  --PhoneInputInternationalIconPhone-opacity: 0.8;
+  --PhoneInputInternationalIconGlobe-opacity: 0.65;
+  --PhoneInputCountrySelect-marginRight: 0.35em;
+  --PhoneInputCountrySelectArrow-width: 0.3em;
+  --PhoneInputCountrySelectArrow-marginLeft: var(--PhoneInputCountrySelect-marginRight);
+  --PhoneInputCountrySelectArrow-borderWidth: 1px;
+  --PhoneInputCountrySelectArrow-opacity: 0.45;
+  --PhoneInputCountrySelectArrow-color: currentColor;
+  --PhoneInputCountrySelectArrow-color--focus: var(--PhoneInput-color--focus);
+  --PhoneInputCountrySelectArrow-transform: rotate(45deg);
+  --PhoneInputCountryFlag-aspectRatio: 1.5;
+  --PhoneInputCountryFlag-height: 1em;
+  --PhoneInputCountryFlag-borderWidth: 1px;
+  --PhoneInputCountryFlag-borderColor: rgba(0,0,0,0.5);
+  --PhoneInputCountryFlag-borderColor--focus: var(--PhoneInput-color--focus);
+  --PhoneInputCountryFlag-backgroundColor--loading: rgba(0,0,0,0.1);
+}
+
+.PhoneInput {
+  /* This is done to stretch the contents of this component. */
+  display: flex;
+  align-items: center;
+}
+
+.PhoneInputInput {
+  /* The phone number input stretches to fill all empty space */
+  flex: 1;
+  /* The phone number input should shrink
+     to make room for the extension input */
+  min-width: 0;
+  border: none;
+}
+
+.PhoneInputCountryIcon {
+  width: calc(var(--PhoneInputCountryFlag-height) * var(--PhoneInputCountryFlag-aspectRatio));
+  height: var(--PhoneInputCountryFlag-height);
+}
+
+.PhoneInputCountryIcon--square {
+  width: var(--PhoneInputCountryFlag-height);
+}
+
+.PhoneInputCountryIcon--border {
+  /* Removed `background-color` because when an `<img/>` was still loading
+     it would show a dark gray rectangle. */
+  /* For some reason the `<img/>` is not stretched to 100% width and height
+     and sometime there can be seen white pixels of the background at top and bottom. */
+  background-color: var(--PhoneInputCountryFlag-backgroundColor--loading);
+  /* Border is added via `box-shadow` because `border` interferes with `width`/`height`. */
+  /* For some reason the `<img/>` is not stretched to 100% width and height
+     and sometime there can be seen white pixels of the background at top and bottom,
+     so an additional "inset" border is added. */
+  box-shadow: 0 0 0 var(--PhoneInputCountryFlag-borderWidth) var(--PhoneInputCountryFlag-borderColor), inset 0 0 0 var(--PhoneInputCountryFlag-borderWidth) var(--PhoneInputCountryFlag-borderColor);
+}
+
+.PhoneInputCountryIconImg {
+  /* Fixes weird vertical space above the flag icon. */
+  /* https://gitlab.com/catamphetamine/react-phone-number-input/-/issues/7#note_348586559 */
+  display: block;
+  /* 3rd party <SVG/> flag icons won't stretch if they have `width` and `height`.
+     Also, if an <SVG/> icon's aspect ratio was different, it wouldn't fit too. */
+  width: 100%;
+  height: 100%;
+}
+
+.PhoneInputInternationalIconPhone {
+  opacity: var(--PhoneInputInternationalIconPhone-opacity);
+}
+
+.PhoneInputInternationalIconGlobe {
+  opacity: var(--PhoneInputInternationalIconGlobe-opacity);
+}
+
+/* Styling native country `<select/>`. */
+.PhoneInputCountry {
+  position: relative;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  margin-right: var(--PhoneInputCountrySelect-marginRight);
+}
+
+.PhoneInputCountrySelect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  border: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.PhoneInputCountrySelect[disabled],
+.PhoneInputCountrySelect[readonly] {
+  cursor: default;
+}
+
+.PhoneInputCountrySelectArrow {
+  display: block;
+  content: "";
+  width: var(--PhoneInputCountrySelectArrow-width);
+  height: var(--PhoneInputCountrySelectArrow-width);
+  margin-left: var(--PhoneInputCountrySelectArrow-marginLeft);
+  border-style: solid;
+  border-color: var(--PhoneInputCountrySelectArrow-color);
+  border-top-width: 0;
+  border-bottom-width: var(--PhoneInputCountrySelectArrow-borderWidth);
+  border-left-width: 0;
+  border-right-width: var(--PhoneInputCountrySelectArrow-borderWidth);
+  transform: var(--PhoneInputCountrySelectArrow-transform);
+  opacity: var(--PhoneInputCountrySelectArrow-opacity);
+}
+
+.PhoneInputCountrySelect:focus + .PhoneInputCountryIcon + .PhoneInputCountrySelectArrow {
+  opacity: 1;
+  color: var(--PhoneInputCountrySelectArrow-color--focus);
+}
+
+.PhoneInputCountrySelect:focus + .PhoneInputCountryIcon--border {
+  box-shadow: 0 0 0 var(--PhoneInputCountryFlag-borderWidth) var(--PhoneInputCountryFlag-borderColor--focus), inset 0 0 0 var(--PhoneInputCountryFlag-borderWidth) var(--PhoneInputCountryFlag-borderColor--focus);
+}
+
+.PhoneInputCountrySelect:focus + .PhoneInputCountryIcon .PhoneInputInternationalIconGlobe {
+  opacity: 1;
+  color: var(--PhoneInputCountrySelectArrow-color--focus);
+}
+
+#UserJob button.btn-Back {
+  width: 41px;
+  height: 41px;
+  color: #034a8e;
+  position: absolute;
+  top: 7%;
+  left: 5%;
+  background: none;
+  border: none;
+}
+#UserJob .intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#UserJob .intro p {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 10px;
+  color: #034a8e;
+  max-width: 100%;
+  font-size: 17px;
+  font-weight: bold;
+}
+#UserJob .form {
+  display: flex;
+  flex-direction: column;
+}
+#UserJob .form div.error {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+}
+#UserJob .form .form-group {
+  position: relative;
+  width: 100%;
+}
+#UserJob .form .form-group input {
+  width: 100%;
+  padding: 10px 10px;
+  font-size: 16px;
+  border-radius: 4px;
+}
+#UserJob .form .form-group input:focus {
+  outline: none;
+  border-color: #034a8e;
+}
+#UserJob .form .form-group input::-moz-placeholder {
+  color: transparent;
+}
+#UserJob .form .form-group input::placeholder {
+  color: transparent;
+}
+#UserJob .form .form-group .floating-label {
+  position: absolute;
+  top: 35%;
+  left: 10px;
+  transform: translateY(-50%);
+  transition: all 0.3s ease;
+  color: #999;
+  font-size: 14px;
+  pointer-events: none;
+}
+#UserJob .form .form-group input:not(:-moz-placeholder-shown) + .floating-label {
+  top: 10px;
+  font-size: 11px;
+}
+#UserJob .form .form-group input:focus + .floating-label,
+#UserJob .form .form-group input:not(:placeholder-shown) + .floating-label {
+  top: 10px;
+  font-size: 11px;
+}
+#UserJob .form .form-control {
+  padding: 10px;
+}
+#UserJob .custom-control-input {
+  width: 1.5em;
+  height: 1.5em;
+  margin-right: 5px;
+  font-size: 13px;
+  cursor: pointer;
+  align-self: start;
+}
+#UserJob .custom-control-label {
+  display: block;
+  margin-bottom: 5px;
+  width: 100%;
+  padding: 9px;
+  font-size: 11px;
+  color: #7588A0;
+}
+#UserJob .btn-proceed {
+  width: 100%;
+  background-color: #034a8e;
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+#UserJob .buttons {
+  display: flex;
+  gap: 20px;
+}
+#UserJob .buttons button {
+  padding: 10px 66px;
+  font-size: 16px;
+  font-weight: bold;
+  border: 1px solid rgba(117, 136, 160, 0.2039215686);
+  color: #034A8E;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #E5ECF3;
+}
+#UserJob .buttons button.active {
+  background-color: #034A8E; /* Darker blue for active state */
+  color: white; /* White text when active */
+}
+
+@media (max-width: 520px) {
+  #UserJob .buttons button {
+    padding: 0 20%;
+    font-size: 15px;
+  }
+}
+@media (min-width: 350px) {
+  #UserJob {
+    width: 100%;
+  }
+  #UserJob .form {
+    width: 100%;
+  }
+}
+#BRODetails button.btn-Back {
+  width: 41px;
+  height: 41px;
+  color: #034a8e;
+  position: absolute;
+  top: 7%;
+  left: 5%;
+  background: none;
+  border: none;
+}
+#BRODetails .intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#BRODetails .intro p {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 10px;
+  color: #034a8e;
+  max-width: 100%;
+  font-size: 17px;
+  font-weight: bold;
+}
+#BRODetails .form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+#BRODetails .form div.error {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+}
+#BRODetails .form .form-group {
+  position: relative;
+  width: 100%;
+}
+#BRODetails .form .form-group input {
+  width: 100%;
+  padding: 10px 10px;
+  font-size: 16px;
+  border-radius: 4px;
+}
+#BRODetails .form .form-group input:focus {
+  outline: none;
+  border-color: #034a8e;
+}
+#BRODetails .form .form-group input::-moz-placeholder {
+  color: transparent;
+}
+#BRODetails .form .form-group input::placeholder {
+  color: transparent;
+}
+#BRODetails .form .form-group .floating-label {
+  position: absolute;
+  top: 35%;
+  left: 10px;
+  transform: translateY(-50%);
+  transition: all 0.3s ease;
+  color: #999;
+  font-size: 14px;
+  pointer-events: none;
+}
+#BRODetails .form .form-group input:not(:-moz-placeholder-shown) + .floating-label {
+  top: 10px;
+  font-size: 11px;
+}
+#BRODetails .form .form-group input:focus + .floating-label,
+#BRODetails .form .form-group input:not(:placeholder-shown) + .floating-label {
+  top: 10px;
+  font-size: 11px;
+}
+#BRODetails .form .form-control {
+  padding: 10px;
+}
+#BRODetails .custom-control-input {
+  width: 1.5em;
+  height: 1.5em;
+  margin-right: 5px;
+  font-size: 13px;
+  cursor: pointer;
+  align-self: start;
+}
+#BRODetails .custom-control-label {
+  display: block;
+  margin-bottom: 5px;
+  width: 100%;
+  padding: 9px;
+  font-size: 11px;
+  color: #7588A0;
+}
+#BRODetails .btn-proceed {
+  width: 100%;
+  background-color: #034a8e;
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+#BRODetails .buttons {
+  display: flex;
+  gap: 20px;
+}
+#BRODetails .buttons button {
+  padding: 10px 66px;
+  font-size: 16px;
+  font-weight: bold;
+  border: 1px solid rgba(117, 136, 160, 0.2039215686);
+  color: #034A8E;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #E5ECF3;
+}
+#BRODetails .buttons button.active {
+  background-color: #034A8E; /* Darker blue for active state */
+  color: white; /* White text when active */
+}
+
+@media (max-width: 520px) {
+  #UserJob .buttons button {
+    padding: 0 20%;
+    font-size: 15px;
+  }
+}
+@media (min-width: 350px) {
+  #UserJob {
+    width: 100%;
+  }
+  #UserJob .form {
+    width: 100%;
+  }
+}
+#PoliticalPosition button.btn-Back {
+  width: 41px;
+  height: 41px;
+  color: #034a8e;
+  position: absolute;
+  top: 7%;
+  left: 5%;
+  background: none;
+  border: none;
+}
+#PoliticalPosition .intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#PoliticalPosition .intro p {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 10px;
+  color: #034a8e;
+  max-width: 100%;
+  font-size: 17px;
+  font-weight: bold;
+}
+#PoliticalPosition .form {
+  display: flex;
+  flex-direction: column;
+}
+#PoliticalPosition .form div.error {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+}
+#PoliticalPosition .form .add-input {
+  padding-bottom: 10px;
+}
+#PoliticalPosition .form .add-input .border-add {
+  border: 1px dashed rgb(139, 138, 138);
+  width: 100%;
+  padding: 10px 10px;
+  padding-bottom: 10px;
+}
+#PoliticalPosition .form .form-group {
+  position: relative;
+  width: 100%;
+}
+#PoliticalPosition .form .form-group input {
+  width: 100%;
+  padding: 10px 10px;
+  font-size: 16px;
+  border-radius: 4px;
+}
+#PoliticalPosition .form .form-group input:focus {
+  outline: none;
+  border-color: #034a8e;
+}
+#PoliticalPosition .form .form-group input::-moz-placeholder {
+  color: transparent;
+}
+#PoliticalPosition .form .form-group input::placeholder {
+  color: transparent;
+}
+#PoliticalPosition .form .form-group .floating-label {
+  position: absolute;
+  top: 35%;
+  left: 10px;
+  transform: translateY(-50%);
+  transition: all 0.3s ease;
+  color: #999;
+  font-size: 14px;
+  pointer-events: none;
+}
+#PoliticalPosition .form .form-group input:not(:-moz-placeholder-shown) + .floating-label {
+  top: 10px;
+  font-size: 11px;
+}
+#PoliticalPosition .form .form-group input:focus + .floating-label,
+#PoliticalPosition .form .form-group input:not(:placeholder-shown) + .floating-label {
+  top: 10px;
+  font-size: 11px;
+}
+#PoliticalPosition .form .form-control {
+  padding: 10px;
+}
+#PoliticalPosition .custom-control-input {
+  width: 1.5em;
+  height: 1.5em;
+  margin-right: 5px;
+  font-size: 13px;
+  cursor: pointer;
+  align-self: start;
+}
+#PoliticalPosition .custom-control-label {
+  display: block;
+  margin-bottom: 5px;
+  width: 100%;
+  padding: 9px;
+  font-size: 11px;
+  color: #7588A0;
+}
+#PoliticalPosition .btn-proceed {
+  width: 100%;
+  background-color: #034a8e;
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+#PoliticalPosition .buttons {
+  display: flex;
+  gap: 20px;
+}
+#PoliticalPosition .buttons button {
+  padding: 10px 66px;
+  font-size: 16px;
+  font-weight: bold;
+  border: 1px solid rgba(117, 136, 160, 0.2039215686);
+  color: #034A8E;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #E5ECF3;
+}
+#PoliticalPosition .buttons button.active {
+  background-color: #034A8E; /* Darker blue for active state */
+  color: white; /* White text when active */
+}
+
+@media (max-width: 520px) {
+  #PoliticalPosition .buttons button {
+    padding: 0 20%;
+    font-size: 15px;
+  }
+}
+@media (min-width: 350px) {
+  #PoliticalPosition {
+    width: 100%;
+  }
+  #PoliticalPosition .form {
+    width: 100%;
+  }
+}
+#Userinfosalary button.btn-Back {
+  width: 41px;
+  height: 41px;
+  color: #034a8e;
+  position: absolute;
+  top: 7%;
+  left: 5%;
+  background: none;
+  border: none;
+}
+#Userinfosalary .intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#Userinfosalary .intro p {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 10px;
+  color: #034a8e;
+  max-width: 100%;
+  font-size: 17px;
+  font-weight: bold;
+}
+#Userinfosalary .form {
+  display: flex;
+  flex-direction: column;
+}
+#Userinfosalary .form div.error {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+}
+#Userinfosalary .form .add-input {
+  padding-bottom: 10px;
+}
+#Userinfosalary .form .add-input .border-add {
+  border: 1px dashed rgb(139, 138, 138);
+  width: 100%;
+  padding: 10px 10px;
+  padding-bottom: 10px;
+}
+#Userinfosalary .form .form-group {
+  position: relative;
+  width: 100%;
+}
+#Userinfosalary .form .form-group input {
+  width: 100%;
+  padding: 10px 10px;
+  font-size: 16px;
+  border-radius: 4px;
+}
+#Userinfosalary .form .form-group input:focus {
+  outline: none;
+  border-color: #034a8e;
+}
+#Userinfosalary .form .form-group input::-moz-placeholder {
+  color: transparent;
+}
+#Userinfosalary .form .form-group input::placeholder {
+  color: transparent;
+}
+#Userinfosalary .form .form-group .floating-label {
+  position: absolute;
+  top: 35%;
+  left: 10px;
+  transform: translateY(-50%);
+  transition: all 0.3s ease;
+  color: #999;
+  font-size: 14px;
+  pointer-events: none;
+}
+#Userinfosalary .form .form-group input:not(:-moz-placeholder-shown) + .floating-label {
+  top: 10px;
+  font-size: 11px;
+}
+#Userinfosalary .form .form-group input:focus + .floating-label,
+#Userinfosalary .form .form-group input:not(:placeholder-shown) + .floating-label {
+  top: 10px;
+  font-size: 11px;
+}
+#Userinfosalary .form .form-control {
+  padding: 10px;
+}
+#Userinfosalary .custom-control-input {
+  width: 1.5em;
+  height: 1.5em;
+  margin-right: 5px;
+  font-size: 13px;
+  cursor: pointer;
+  align-self: start;
+}
+#Userinfosalary .custom-control-label {
+  display: block;
+  margin-bottom: 5px;
+  width: 100%;
+  padding: 9px;
+  font-size: 11px;
+  color: #7588A0;
+}
+#Userinfosalary .btn-proceed {
+  width: 100%;
+  background-color: #034a8e;
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+#Userinfosalary .buttons {
+  display: flex;
+  gap: 20px;
+}
+#Userinfosalary .buttons button {
+  padding: 10px 66px;
+  font-size: 16px;
+  font-weight: bold;
+  border: 1px solid rgba(117, 136, 160, 0.2039215686);
+  color: #034A8E;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #E5ECF3;
+}
+#Userinfosalary .buttons button.active {
+  background-color: #034A8E; /* Darker blue for active state */
+  color: white; /* White text when active */
+}
+
+@media (max-width: 520px) {
+  #Userinfosalary .buttons button {
+    padding: 0 20%;
+    font-size: 15px;
+  }
+}
+@media (min-width: 350px) {
+  #Userinfosalary {
+    width: 100%;
+  }
+  #Userinfosalary .form {
+    width: 100%;
+  }
+}
+#UserAcountBank .intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#UserAcountBank .intro p {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 10px;
+  color: #034a8e;
+  max-width: 100%;
+  font-size: 17px;
+  font-weight: bold;
+}
+#UserAcountBank .form {
+  display: flex;
+  flex-direction: column;
+}
+#UserAcountBank .form div.error {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+}
+#UserAcountBank .form .add-input {
+  padding-bottom: 10px;
+}
+#UserAcountBank .form .add-input .border-add {
+  border: 1px dashed rgb(139, 138, 138);
+  width: 100%;
+  padding: 10px 10px;
+  padding-bottom: 10px;
+}
+#UserAcountBank .form .form-group {
+  position: relative;
+  width: 100%;
+}
+#UserAcountBank .form .form-group input {
+  width: 100%;
+  padding: 10px 10px;
+  font-size: 16px;
+  border-radius: 4px;
+}
+#UserAcountBank .form .form-group input:focus {
+  outline: none;
+  border-color: #034a8e;
+}
+#UserAcountBank .form .form-group input::-moz-placeholder {
+  color: transparent;
+}
+#UserAcountBank .form .form-group input::placeholder {
+  color: transparent;
+}
+#UserAcountBank .form .form-group .floating-label {
+  position: absolute;
+  top: 35%;
+  left: 10px;
+  transform: translateY(-50%);
+  transition: all 0.3s ease;
+  color: #999;
+  font-size: 14px;
+  pointer-events: none;
+}
+#UserAcountBank .form .form-group input:not(:-moz-placeholder-shown) + .floating-label {
+  top: 10px;
+  font-size: 11px;
+}
+#UserAcountBank .form .form-group input:focus + .floating-label,
+#UserAcountBank .form .form-group input:not(:placeholder-shown) + .floating-label {
+  top: 10px;
+  font-size: 11px;
+}
+#UserAcountBank .form .form-control {
+  padding: 10px;
+}
+#UserAcountBank .custom-control-input {
+  width: 1.5em;
+  height: 1.5em;
+  margin-right: 5px;
+  font-size: 13px;
+  cursor: pointer;
+  align-self: start;
+}
+#UserAcountBank .custom-control-label {
+  display: block;
+  margin-bottom: 5px;
+  width: 100%;
+  padding: 9px;
+  font-size: 11px;
+  color: #7588A0;
+}
+#UserAcountBank .btn-proceed {
+  width: 100%;
+  background-color: #034a8e;
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+#UserAcountBank button.btn-Back {
+  width: 41px;
+  height: 41px;
+  color: #034a8e;
+  position: absolute;
+  top: 7%;
+  left: 5%;
+  background: none;
+  border: none;
+}
+#UserAcountBank .buttons {
+  display: flex;
+  gap: 20px;
+}
+#UserAcountBank .buttons button {
+  padding: 10px 66px;
+  font-size: 16px;
+  font-weight: bold;
+  border: 1px solid rgba(117, 136, 160, 0.2039215686);
+  color: #034A8E;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #E5ECF3;
+}
+#UserAcountBank .buttons button.active {
+  background-color: #034A8E; /* Darker blue for active state */
+  color: white; /* White text when active */
+}
+#UserAcountBank p.paragh {
+  color: #7588A0;
+  font-size: 11px;
+}
+
+@media (max-width: 520px) {
+  #UserAcountBank .buttons button {
+    padding: 0 20%;
+    font-size: 15px;
+  }
+}
+@media (min-width: 350px) {
+  #UserAcountBank {
+    width: 100%;
+  }
+  #UserAcountBank .form {
+    width: 100%;
+  }
+}
+#CustomerDeclaration button.btn-Back {
+  width: 41px;
+  height: 41px;
+  color: #034a8e;
+  position: absolute;
+  top: 7%;
+  left: 5%;
+  background: none;
+  border: none;
+}
+#CustomerDeclaration .intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#CustomerDeclaration .form {
+  display: flex;
+  flex-direction: column;
+}
+#CustomerDeclaration .form .form-group {
+  position: relative;
+  width: 100%;
+}
+#CustomerDeclaration .form .form-group input {
+  width: 100%;
+  padding: 10px 10px;
+  font-size: 16px;
+  border-radius: 4px;
+}
+#CustomerDeclaration .form .form-group input:focus {
+  outline: none;
+  border-color: #034a8e;
+}
+#CustomerDeclaration .form .form-group input::-moz-placeholder {
+  color: transparent;
+}
+#CustomerDeclaration .form .form-group input::placeholder {
+  color: transparent;
+}
+#CustomerDeclaration .form .form-group .floating-label {
+  position: absolute;
+  top: 35%;
+  left: 10px;
+  transform: translateY(-50%);
+  transition: all 0.3s ease;
+  color: #999;
+  font-size: 14px;
+  pointer-events: none;
+}
+#CustomerDeclaration .form .form-group input:not(:-moz-placeholder-shown) + .floating-label {
+  top: 10px;
+  font-size: 11px;
+}
+#CustomerDeclaration .form .form-group input:focus + .floating-label,
+#CustomerDeclaration .form .form-group input:not(:placeholder-shown) + .floating-label {
+  top: 10px;
+  font-size: 11px;
+}
+#CustomerDeclaration .form .form-control {
+  padding: 10px;
+}
+#CustomerDeclaration .custom-control-input {
+  width: 1.5em;
+  height: 1.5em;
+  margin-right: 5px;
+  font-size: 13px;
+  cursor: pointer;
+  align-self: start;
+}
+#CustomerDeclaration .custom-control-label {
+  display: block;
+  margin-bottom: 5px;
+  width: 100%;
+  padding: 9px;
+  font-size: 11px;
+  color: #7588A0;
+}
+#CustomerDeclaration .btn-proceed {
+  width: 100%;
+  background-color: #034a8e;
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+#CustomerDeclaration .buttons {
+  display: flex;
+  gap: 20px;
+}
+#CustomerDeclaration .buttons button {
+  padding: 10px 66px;
+  font-size: 16px;
+  font-weight: bold;
+  border: 1px solid rgba(117, 136, 160, 0.2039215686);
+  color: #034A8E;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #E5ECF3;
+}
+#CustomerDeclaration .buttons button.active {
+  background-color: #034A8E; /* Darker blue for active state */
+  color: white; /* White text when active */
+}
+#CustomerDeclaration p.paragh-final {
+  color: #7588A0;
+  font-size: 12px;
+  text-align: left;
+  font-weight: normal;
+}
+#CustomerDeclaration p.title-final {
+  color: #034A8E;
+  font-size: 16px;
+  text-align: left;
+  font-weight: bold;
+}
+/*# sourceMappingURL=NBK.css.map */

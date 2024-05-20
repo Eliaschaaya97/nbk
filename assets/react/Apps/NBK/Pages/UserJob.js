@@ -1,31 +1,50 @@
 import React, { useEffect, useState } from 'react';
 import ProgressBar from '../Component/ProgressBar';
-import { useDispatch } from "react-redux";
-import { settingObjectData } from '../Redux/Slices/AppSlice';
+import { useDispatch,useSelector } from "react-redux";
+import { settingObjectData,updateUserData} from '../Redux/Slices/AppSlice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 const UserJob = () => {
-    const [profession, setProfession] = useState('');
-    const [publicSector, setPublicSector] = useState('');
+    const userDataUser = useSelector((state) => state.appData.userData.user || {});
+    const userData = useSelector((state) => state.appData.userData.workDetails || {});
+
+    const [profession, setProfession] = useState( userData.profession || '');
+    const [publicSector, setPublicSector] = useState(userData.publicSector || '');
     const [progress, setProgress] = useState(25);
-    const [jobTitle, setJobTitle] = useState('');
-    const [grade, setGrade] = useState('');
-    const [activitySector, setActivitySector] = useState('');
-    const [entityName, setEntityName] = useState('');
-    const [educationLevel, setEducationLevel] = useState('');
-    const [workTelNo, setWorkTelNo] = useState('');
-    const [spouseName, setSpouseName] = useState('');
-    const [workAddress, setWorkAddress] = useState('');
-    const [spouseProfession, setSpouseProfession] = useState('');
-    const [noOfChildren, setNoOfChildren] = useState('');
-    const [activeButton, setActiveButton] = useState("No");
+    const [jobTitle, setJobTitle] = useState(userData.jobTitle || '');
+    const [grade, setGrade] = useState( userData.grade || '');
+    const [activitySector, setActivitySector] = useState(userData.activitySector || '');
+    const [entityName, setEntityName] = useState(userData.entityName || '');
+    const [educationLevel, setEducationLevel] = useState(userData.educationLevel || '');
+    const [workTelNo, setWorkTelNo] = useState(userData.workTelephoneNumber || '');
+    const [spouseName, setSpouseName] = useState( userDataUser.spouseName|| '');
+    const [workAddress, setWorkAddress] = useState(userData.workAddress || '');
+    const [spouseProfession, setSpouseProfession] = useState(  userDataUser.spouseProfession||'');
+    const [noOfChildren, setNoOfChildren] = useState( userDataUser.noOfChildren|| '');
+    const [activeButton, setActiveButton] = useState( userData.placeOfWorkListed || "No");
     const [errors, setErrors] = useState({});
     const [next,setNext]=useState(false);
 
     const dispatch = useDispatch();
   const [status ,setStatus]=useState(   localStorage.getItem("status"));
 
+    const updateUserFieldInUserData = (field, value) => {
+      dispatch(
+        updateUserData(
+         
+          { category: "workDetails", data: { [field]: value } }
+        )
+      );
+    };
+    const updateUserFieldInUserDataUser = (field, value) => {
+        dispatch(
+          updateUserData(
+           
+            { category: "user", data: { [field]: value } }
+          )
+        );
+      };
 
   
     const getHeaderTitle = () => {    
@@ -50,6 +69,21 @@ const UserJob = () => {
         } else {
             setErrors(validationErrors);
         }
+            updateUserFieldInUserData("profession", profession);
+            updateUserFieldInUserData("jobTitle", jobTitle);
+            updateUserFieldInUserData("publicSector", publicSector);
+            updateUserFieldInUserData("activitySector", activitySector);
+            updateUserFieldInUserData("entityName", entityName);
+            updateUserFieldInUserData("educationLevel", educationLevel);
+            updateUserFieldInUserData("workAddress", workAddress);
+            updateUserFieldInUserData("workTelephoneNumber", workTelNo);
+            updateUserFieldInUserData("grade", grade);
+            updateUserFieldInUserData("placeOfWorkListed", activeButton);
+
+            updateUserFieldInUserDataUser("spouseName", spouseName);
+            updateUserFieldInUserDataUser("spouseProfession", spouseProfession);
+            updateUserFieldInUserDataUser("noOfChildren", noOfChildren);
+
     };
 
     const validateForm = () => {

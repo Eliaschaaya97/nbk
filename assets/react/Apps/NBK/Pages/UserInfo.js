@@ -1,21 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import { settingObjectData,updateUserData } from "../Redux/Slices/AppSlice";
 import ProgressBar from "../Component/ProgressBar";
-import PhoneInput from "react-phone-number-input";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 
 const UserInfo = () => {
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [fullName, setFullName] = useState("");
-  const [email, setEmail] = useState("");
-  
-  const [branch, setBranch] = useState("");
+  const userData = useSelector((state) => state.appData.userData.user || {});
+
+  const [fullName, setFullName] = useState(userData.fullName || "");
+  const [phoneNumber, setPhoneNumber] = useState(userData.mobileNumb || "");
+  const [email, setEmail] = useState(userData.email || "");
+  const [branch, setBranch] = useState(userData.branchUnit || "");
   const [progress, setProgress] = useState(3);
   const [errors, setErrors] = useState({});
 
   const dispatch = useDispatch();
+
   const updateUserFieldInUserData = (field, value) => {
     dispatch(updateUserData({ category: "user", data: { [field]: value } }));
   };
@@ -119,7 +123,21 @@ const UserInfo = () => {
           </div>
           {errors.fullName && <div className="text-danger error">{errors.fullName}</div>}
 
-          <PhoneInput placeholder="Phone Number" value={phoneNumber} className="form-control mb-3" onChange={setPhoneNumber} defaultCountry="LB" />
+          <PhoneInput
+          className="mb-3"
+          country={"lb"}
+          // value={"phoneNumber"}
+          value={phoneNumber}
+          defaultValue={phoneNumber}
+          onChange={(phoneNumber, country) =>
+           setPhoneNumber( phoneNumber)
+          }
+          disableSearchIcon={true}
+          // enableAreaCodeStretch={true}
+          prefix="+"
+          inputStyle={{ width: "100%" , paddingLeft: "50px",height:"45px"}}
+       
+        />
           {errors.phoneNumber && <div className="text-danger error">{errors.phoneNumber}</div>}
 
           <div className="form-group">
