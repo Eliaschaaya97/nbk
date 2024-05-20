@@ -3,14 +3,17 @@ import ProgressBar from "../Component/ProgressBar";
 import { CountryDropdown } from "react-country-region-selector";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { settingObjectData } from "../Redux/Slices/AppSlice";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import Modal from 'react-modal';
-
+import AppAPI from "../Api/AppApi";
 const CustomerDeclaration = () => {
   const [progress, setProgress] = useState(98);
+  const {SendInformation} = AppAPI();
+  const formData = useSelector((state) => state.appData.userData);
+
 
   const dispatch = useDispatch();
   const getHeaderTitleBack = () => {
@@ -24,6 +27,11 @@ const CustomerDeclaration = () => {
   };
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
+
+  const handleSubmitInformation = () => {
+    SendInformation(formData);
+    console.log('successs inside the customer declaration')
+  }
 
   return (
     <div id="CustomerDeclaration" className="container align-items-center p-3">
@@ -61,7 +69,8 @@ const CustomerDeclaration = () => {
             type="button"
             className="btn-proceed"
             onClick={() => {
-             setModalIsOpen(true)
+             setModalIsOpen(true),
+             handleSubmitInformation()
             }}
           >
             Submit

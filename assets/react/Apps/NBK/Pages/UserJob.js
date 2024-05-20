@@ -302,7 +302,7 @@ const UserJob = () => {
                     {errors.spouseProfession && <div className="text-danger error">{errors.spouseProfession}</div>}
                     <div className="form-group">
                         <input
-                            type="text"
+                              type="number"
                             value={noOfChildren}
                             onChange={(e) => setNoOfChildren(e.target.value)}
                             placeholder=""

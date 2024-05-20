@@ -185,7 +185,7 @@ const [accountBalanceUsd3, setAccountBalanceUsd3] = useState(userData.accountBal
           </div>
           {errors.country1 && <div className="text-danger error">{errors.country1}</div>}
           <div className="form-group">
-            <input type="text" value={accountBalanceUsd} onChange={handleAccountBalanceUsdChange} placeholder="" className="form-control mb-3"  />
+            <input    type="number" value={accountBalanceUsd} onChange={handleAccountBalanceUsdChange} placeholder="" className="form-control mb-3"  />
             <label className="floating-label">Account 1 Balance $</label>
           </div>
           {errors.accountBalanceUsd && <div className="text-danger error">{errors.accountBalanceUsd}</div>}
@@ -214,7 +214,7 @@ const [accountBalanceUsd3, setAccountBalanceUsd3] = useState(userData.accountBal
       </div>
       <div className="form-group">
         <input
-          type="text"
+           type="number"
           value={accountBalanceUsd2}
           onChange={(e) => setAccountBalanceUsd2(e.target.value)}
           placeholder="Account 2 Balance $"
@@ -248,7 +248,7 @@ const [accountBalanceUsd3, setAccountBalanceUsd3] = useState(userData.accountBal
       </div>
       <div className="form-group">
         <input
-          type="text"
+          type="number"
           value={accountBalanceUsd3}
           onChange={(e) => setAccountBalanceUsd3(e.target.value)}
           placeholder="Account 3 Balance $"

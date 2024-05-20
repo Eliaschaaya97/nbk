@@ -48,6 +48,7 @@
     background: none;
     border: none;
 
+
 }
   .intro {
     display: flex;
@@ -60,7 +61,8 @@
       color: #034a8e;
       max-width: 85%;
       font-size: 17px;
-      font-weight: bold;
+      font-family: $AvenirHeavy;
+
     }
   }
 
@@ -84,6 +86,7 @@
         padding: 10px 10px;
         font-size: 16px;
         border-radius: 4px;
+        font-family: $LibreFranklinRegular;
         &:focus {
           outline: none;
           border-color: #034a8e;

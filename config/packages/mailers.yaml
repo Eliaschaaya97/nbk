@@ -1,4 +1,4 @@
-# config/packages/mailers.yaml
-framework:
-  mailer:
-    dsn: 'smtp://noreplyfresh@nbk.com.lb:Albarid@rayan123@mail.nbk.com.lb:587?encryption=tls&auth_mode=login'
+# # config/packages/mailers.yaml
+# framework:
+#   mailer:
+#     dsn: 'smtp://noreplyfresh@nbk.com.lb:Albarid@rayan123@mail.nbk.com.lb:587?encryption=tls&auth_mode=login'

@@ -242,12 +242,12 @@ const handleISOChange = (event) => {
           </div>
           {errors.sourceOfYourWealth && <div className="text-danger error">{errors.sourceOfYourWealth}</div>}
           <div className="form-group">
-            <input type="text" value={expectedNoTrans} onChange={(e) => setExpectedNoTrans(e.target.value)} placeholder="" className="form-control mb-3" />
+            <input   type="number" value={expectedNoTrans} onChange={(e) => setExpectedNoTrans(e.target.value)} placeholder="" className="form-control mb-3" />
             <label className="floating-label">Expected No. of Transactions</label>
           </div>
           {errors.expectedNoTrans && <div className="text-danger error">{errors.expectedNoTrans}</div>}
           <div className="form-group">
-            <input type="text" value={expectedValueTrans} onChange={(e) => setExpectedValueTrans(e.target.value)} placeholder="" className="form-control mb-3" />
+            <input    type="number" value={expectedValueTrans} onChange={(e) => setExpectedValueTrans(e.target.value)} placeholder="" className="form-control mb-3" />
             <label className="floating-label">Expected Value of Transactions</label>
           </div>
           {errors.expectedValueTrans && <div className="text-danger error">{errors.expectedValueTrans}</div>}
