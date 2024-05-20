@@ -1,0 +1,354 @@
+{# user_list.html.twig #}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Info</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container-fluid mt-4">
+    <h1 class="mb-4"><a>Users List</a></h1>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <tbody>
+            {% for user in pagination %}
+                <tr>
+                    <th>ID</th>
+                    <td>{{ user.id }}</td>
+                </tr>
+                <tr>
+                    <th>Full Name</th>
+                    <td>{{ user.fullName }}</td>
+                </tr>
+                <tr>
+                    <th>Mobile Number</th>
+                    <td>{{ user.mobileNumb }}</td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>{{ user.email }}</td>
+                </tr>
+                <tr>
+                    <th>Branch/Unit</th>
+                    <td>{{ user.branchUnit }}</td>
+                </tr>
+                <tr>
+                    <th>Mother's Name</th>
+                    <td>{{ user.mothersName }}</td>
+                </tr>
+                <tr>
+                    <th>Gender</th>
+                    <td>{{ user.gender }}</td>
+                </tr>
+                <tr>
+                    <th>Date of Birth</th>
+                    <td>{{ user.dob|date('Y-m-d') }}</td>
+                </tr>
+                <tr>
+                    <th>Place of Birth</th>
+                    <td>{{ user.placeOfBirth }}</td>
+                </tr>
+                <tr>
+                    <th>Country of Origin</th>
+                    <td>{{ user.countryOfOrigin }}</td>
+                </tr>
+                <tr>
+                    <th>National ID</th>
+                    <td>{{ user.nationalId }}</td>
+                </tr>
+                <tr>
+                    <th>Expiration Date (National ID)</th>
+                    <td>{{ user.expirationDateNationalId|date('Y-m-d') }}</td>
+                </tr>
+                <tr>
+                    <th>Register Place No</th>
+                    <td>{{ user.registerPlaceNo }}</td>
+                </tr>
+                <tr>
+                    <th>Marital Status</th>
+                    <td>{{ user.maritalStatus }}</td>
+                </tr>
+                <tr>
+                    <th>Passport Number</th>
+                    <td>{{ user.passportNumber }}</td>
+                </tr>
+                <tr>
+                    <th>Place of Issue (Passport)</th>
+                    <td>{{ user.placeOfIssuePassport }}</td>
+                </tr>
+                <tr>
+                    <th>Expiration Date (Passport)</th>
+                    <td>{{ user.expirationDatePassport|date('Y-m-d') }}</td>
+                </tr>
+                <tr>
+                    <th>Other Nationalities</th>
+                    <td>{{ user.otherNationalities }}</td>
+                </tr>
+                <tr>
+                    <th>Status in Lebanon</th>
+                    <td>{{ user.statusInLebanon }}</td>
+                </tr>
+                <tr>
+                    <th>Other Countries of Tax Residence</th>
+                    <td>{{ user.getOtherCountriesTaxResidence() }}</td>
+                </tr>
+                <tr>
+                    <th>Tax Residency ID Number</th>
+                    <td>{{ user.taxResidencyIdNumber }}</td>
+                </tr>
+
+                <tr>
+                    <th>Spouse Name</th>
+                    <td>{{ user.spouseName }}</td>
+                </tr>
+
+                <tr>
+                    <th>Spouse Profession</th>
+                    <td>{{ user.spouseProfession }}</td>
+                </tr>
+                <tr>
+                    <th>No. of Children</th>
+                    <td>{{ user.noOfChildren }}</td>
+                </tr>
+
+                {% for address in user.addresses %}
+                    <tr>
+                        <th>Address</th>
+                        <td>{{ address.street }}, {{ address.building }}, {{ address.floor }}, {{ address.apartment }}</td>
+                    </tr>
+                    <tr>
+                        <th>House Tel NO.</th>
+                        <td>{{ address.houseTelephoneNumber }}</td>
+                    </tr>
+                    <tr>
+                        <th>International Address</th>
+                        <td>{{ address.internationalAddress }}</td>
+                    </tr>
+                    <tr>
+                        <th>International Tel NO.</th>
+                        <td>{{ address.internationalHouseTelephoneNumber }}</td>
+                    </tr>
+                    <tr>
+                        <th>International Mob No.</th>
+                        <td>{{ address.internationalMobileNumber }}</td>
+                    </tr>
+                    <tr>
+                        <th>Alternate Contact Name</th>
+                        <td>{{ address.alternateContactName }}</td>
+                    </tr>
+                    <tr>
+                        <th>Alternate Phone NO.</th>
+                        <td>{{ address.alternateTelephoneNumber }}</td>
+                    </tr>
+                {% endfor %}
+                {% for work in user.workDetails %}
+                    <tr>
+                        <th>Work Info</th>
+                        <td>{{ work.profession }}, {{ work.jobTitle }}, {{ work.publicSector }}, {{ work.activitySector }}, {{ work.entityName }}</td>
+                    </tr>
+                    <tr>
+                        <th>Educational lvl</th>
+                        <td>{{ work.educationLevel }}</td>
+                    </tr>
+                    <tr>
+                        <th>Work Address</th>
+                        <td>{{ work.workAddress }}</td>
+                    </tr>
+                    <tr>
+                        <th>Work Tel No</th>
+                        <td>{{ work.workTelephoneNumber }}</td>
+                    </tr>
+                    {% if work.placeOfWorkListed %}
+                        <tr>
+                            <th>IS Listed</th>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <th>Grade</th>
+                            <td>{{ work.grade }}</td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <th>IS Listed</th>
+                            <td>No</td>
+                        </tr>
+                    {% endif %}
+                    {% for beneficiary in user.beneficiaryRightsOwners %}
+                        {% if beneficiary.customerSameAsBeneficiary == 0 %}
+                        <tr>
+                            <th>Customer Same As Beneficiary</th>
+                            <td>No</td>
+                        </tr>
+                        <tr>
+                            <th>Bro Nationality</th>
+                            <td>{{ beneficiary.broNationality }}</td>
+                        </tr>
+                        <tr>
+                            <th>Beneficiary Name</th>
+                            <td>{{ beneficiary.beneficiaryName }}</td>
+                        </tr>
+                        <tr>
+                            <th>Relationship</th>
+                            <td>{{ beneficiary.relationship }}</td>
+                        </tr>
+                        <tr>
+                            <th>Bro Civil Id Number</th>
+                            <td>{{ beneficiary.broCivilIdNumber }}</td>
+                        </tr>
+                        <tr>
+                            <th>Expiration Date</th>
+                            <td>{{ beneficiary.expirationDate|date('Y-m-d') }}</td>
+                        </tr>
+                        <tr>
+                            <th>Reason Of Bro</th>
+                            <td>{{ beneficiary.reasonOfBro }}</td>
+                        </tr>
+                        <tr>
+                            <th>Address</th>
+                            <td>{{ beneficiary.address }}</td>
+
+                        </tr>
+                        <tr>
+                            <th>Profession</th>
+                            <td>{{ beneficiary.profession }}</td>
+                        </tr>
+                        <tr>
+                            <th>Income Wealth Details</th>
+                            <td>{{ beneficiary.incomeWealthDetails }}</td>
+                        </tr>
+                        {% else %}
+                            <tr>
+                                <th>Customer Same As Beneficiary</th>
+                                <td>Yes</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                    {% for political in user.politicalPositionDetails %}
+                        {% if political.politicalPosition %}
+                        <tr>
+                            <th>Political Position</th>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <th>Current Previous</th>
+                            <td>{{ political.currentPrevious }}</td>
+                        </tr>
+                        <tr>
+                            <th>Year Of Retirement</th>
+                            <td>{{ political.yearOfRetirement }}</td>
+                        </tr>
+                        <tr>
+                            <th>Pep Name</th>
+                            <td>{{ political.pepName }}</td>
+                        </tr>
+                        <tr>
+                            <th>Relationship</th>
+                            <td>{{ political.relationship }}</td>
+                        </tr>
+                        <tr>
+                            <th>Pep Position</th>
+                            <td>{{ political.pepPosition }}</td>
+                        </tr>
+                        <tr>
+                            <th>AdditionalInfo</th>
+                            <td>{{ political.additionalInfo }}</td>
+                        </tr>
+                        {% else %}
+                            <tr>
+                                <th>Political Position</th>
+                                <td>No</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                    {% for financialDetail in user.financialDetails %}
+                        <tr>
+                            <th>Source Of Funds(currency)</th>
+                            <td>{{ financialDetail.sourceOfFunds }} in {{ financialDetail.currency }}</td>
+                        </tr>
+                        <tr>
+                            <th>Monthly Basic Salary</th>
+                            <td>{{ financialDetail.monthlyBasicSalary }}</td>
+                        </tr>
+                        <tr>
+                            <th>Monthly Allowances</th>
+                            <td>{{ financialDetail.monthlyAllowances }}</td>
+                        </tr>
+                        <tr>
+                            <th>Additional Income Sources</th>
+                            <td>{{ financialDetail.additionalIncomeSources }}</td>
+                        </tr>
+                        <tr>
+                            <th>Total Estimated Monthly Income</th>
+                            <td>{{ financialDetail.totalEstimatedMonthlyIncome }}</td>
+                        </tr>
+                        {% if financialDetail.isWealthInherited %}
+                        <tr>
+                            <th>Is Wealth Inherited</th>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <th>Expected No. Of Trans</th>
+                            <td>{{ financialDetail.expectedNumberOfTransactions }}</td>
+                        </tr>
+                        <tr>
+                            <th>Expected Value Of Trans</th>
+                            <td>{{ financialDetail.expectedValueOfTransactions }}</td>
+                        </tr>
+                        <tr>
+                            <th>Frequency</th>
+                            <td>{{ financialDetail.frequency }}</td>
+                        </tr>
+                        {% else %}
+                            <tr>
+                                <th>Is Wealth Inherited</th>
+                                <td>No</td>
+                            </tr>
+                        {% endif %}
+                        {% if financialDetail.hasOtherAccounts %}
+                        <tr>
+                            <th>Has Other Accounts</th>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <th>Bank Name</th>
+                            <td>{{ financialDetail.bankName }}</td>
+                        </tr>
+                        <tr>
+                            <th>Country</th>
+                            <td>{{ financialDetail.country }}</td>
+                        </tr>
+                        <tr>
+                            <th>Account Balance</th>
+                            <td>{{ financialDetail.accountBalance }}</td>
+                        </tr>
+                        <tr>
+                            <th>Nature Of Relation</th>
+                            <td>{{ financialDetail.natureOfRelation }}</td>
+                        </tr>
+                        <tr>
+                            <th>Purpose Of Relation</th>
+                            <td>{{ financialDetail.purposeOfRelation }}</td>
+                        </tr>
+                        {% else %}
+                            <tr>
+                                <th>Has Other Accounts</th>
+                                <td>No</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

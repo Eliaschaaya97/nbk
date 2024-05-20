@@ -67,7 +67,16 @@ class BeneficiaryRightsOwner
      */
     private $incomeWealthDetails;
 
+    /**
+     * @ORM\Column(name="created")
+     */
+    private \DateTime $created;
 
+    public function __construct()
+    {
+        $this->created = new \DateTime();
+
+    }
     /**
      * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="beneficiaryRightsOwners")
      * @ORM\JoinColumn(nullable=false)

@@ -71,7 +71,16 @@ class Address
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
+    /**
+     * @ORM\Column(name="created")
+     */
+    private \DateTime $created;
 
+    public function __construct()
+    {
+        $this->created = new \DateTime();
+
+    }
     public function getId(): ?int
     {
         return $this->id;

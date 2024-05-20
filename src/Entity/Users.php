@@ -20,7 +20,28 @@ class Users
     private $id;
 
     /**
-     * @ORM\Column(name="mothersName", type="string", length=255)
+     * @ORM\Column(name="fullName", type="string", length=100)
+     */
+    private $fullName;
+
+    /**
+     * @ORM\Column(name="mobileNumb", type="string", length=150)
+     */
+
+    private $mobileNumb;
+
+    /**
+     * @ORM\Column(name="email", type="string", length=200)
+     */
+    private $email;
+
+    /**
+     * @ORM\Column(name="branchUnit", type="string", length=100)
+     */
+    private $branchUnit;
+
+    /**
+     * @ORM\Column(name="mothersName", type="string", length=250)
      */
     private $mothersName;
 
@@ -140,10 +161,14 @@ class Users
      */
     private $financialDetails;
 
+    /**
+     * @ORM\Column(name="created")
+     */
+    private DateTime $created;
+
     public function __construct()
     {
-        $this->expirationDateNationalId = new DateTime();
-
+        $this->created = new DateTime();
         $this->addresses = new ArrayCollection();
         $this->workDetails = new ArrayCollection();
         $this->beneficiaryRightsOwners = new ArrayCollection();
@@ -151,6 +176,58 @@ class Users
         $this->financialDetails = new ArrayCollection();
     }
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getFullName(): ?string
+    {
+        return $this->fullName;
+    }
+
+    public function setFullName(string $fullName): self
+    {
+        $this->fullName = $fullName;
+
+        return $this;
+    }
+
+    public function getMobileNumb(): ?string
+    {
+        return $this->mobileNumb;
+    }
+
+    public function setMobileNumb(string $mobileNumb): self
+    {
+        $this->mobileNumb = $mobileNumb;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function getBranchUnit(): ?string
+    {
+        return $this->branchUnit;
+    }
+
+    public function setBranchUnit(string $branchUnit): self
+    {
+        $this->branchUnit = $branchUnit;
+
+        return $this;
+    }
     public function getMothersName(): ?string
     {
         return $this->mothersName;
