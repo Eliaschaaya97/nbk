@@ -197,7 +197,7 @@ const handleISOChange = (event) => {
           </div>
           {errors.monthlyBasicSal && <div className="text-danger error">{errors.monthlyBasicSal}</div>}
           <div className="form-group">
-            <input type="text" value={monthlyAllowances} onChange={(e) => setMonthlyAllowances(e.target.value)} placeholder="" className="form-control mb-3" />
+            <input type="number" value={monthlyAllowances} onChange={(e) => setMonthlyAllowances(e.target.value)} placeholder="" className="form-control mb-3" />
             <label className="floating-label">Monthly Allowances</label>
           </div>
           {errors.monthlyAllowances && <div className="text-danger error">{errors.monthlyAllowances}</div>}
@@ -216,12 +216,12 @@ const handleISOChange = (event) => {
             <label className="floating-label">If Others, Please specify</label>
           </div>
           <div className="form-group">
-            <input type="text" value={totalEstimatedMonthlyin} onChange={(e) => setTotalEstimatedMonthlyin(e.target.value)} placeholder="" className="form-control mb-3" />
+            <input type="number" value={totalEstimatedMonthlyin} onChange={(e) => setTotalEstimatedMonthlyin(e.target.value)} placeholder="" className="form-control mb-3" />
             <label className="floating-label">Total Estimated monthly income</label>
           </div>
           {errors.totalEstimatedMonthlyin && <div className="text-danger error">{errors.totalEstimatedMonthlyin}</div>}
           <div className="form-group">
-            <input type="text" value={estimatedWealthMonth} onChange={(e) => setEstimatedWealthMonth(e.target.value)} placeholder="" className="form-control mb-3" />
+            <input type="number" value={estimatedWealthMonth} onChange={(e) => setEstimatedWealthMonth(e.target.value)} placeholder="" className="form-control mb-3" />
             <label className="floating-label">Estimated Wealth Amount</label>
           </div>
           {errors.estimatedWealthMonth && <div className="text-danger error">{errors.estimatedWealthMonth}</div>}
