@@ -26,6 +26,7 @@
             max-width: 100%;
             font-size: 17px;
             font-weight: bold;
+            font-family: $AvenirHeavy;
         }
 
     }
@@ -33,6 +34,10 @@
     .form{
         display: flex;
         flex-direction: column;
+        label{
+          font-family: $Regular;
+        }
+
         div.error {
           display: flex;
           justify-content: flex-start;
@@ -58,6 +63,7 @@
                 padding: 10px 10px; 
                 font-size: 16px;
                 border-radius: 4px; 
+                font-family: $LibreFranklinRegular;
                 &:focus {
                   outline: none;
                   border-color: #034a8e; 

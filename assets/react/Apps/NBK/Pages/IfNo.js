@@ -41,7 +41,7 @@ const IfNo = () => {
             settingObjectData({
                 mainField: "headerData",
                 field: "currentPage",
-                value: "UserAountBank",
+                value: "",
             })
         );
     };

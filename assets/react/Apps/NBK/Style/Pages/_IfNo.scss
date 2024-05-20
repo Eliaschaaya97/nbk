@@ -15,7 +15,13 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+      li{
+        font-family: $AvenirHeavy;
+      }
+      label{
+        font-family: $AvenirBook;
 
+      }
         p {
             display: flex;
             margin-bottom: 20px;

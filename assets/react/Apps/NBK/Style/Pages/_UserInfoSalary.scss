@@ -17,7 +17,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-
+  
         p{
             display: flex;
             align-items: flex-start;
@@ -33,6 +33,11 @@
     .form{
         display: flex;
         flex-direction: column;
+        label{
+          font-family: $Regular;
+        }
+
+   
      
         div.error {
             display: flex;
@@ -54,6 +59,7 @@
 
 
             input {
+              font-family: $LibreFranklinRegular;
                 width: 100%;
                 padding: 10px 10px; 
                 font-size: 16px;
