@@ -66,7 +66,16 @@ class WorkDetails
      * @ORM\Column(name="grade", type="string", length=50, nullable=true)
      */
     private $grade;
+    /**
+     * @ORM\Column(name="created")
+     */
+    private \DateTime $created;
 
+    public function __construct()
+    {
+        $this->created = new \DateTime();
+
+    }
 
     /**
      * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="workDetails")

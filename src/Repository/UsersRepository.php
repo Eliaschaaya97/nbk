@@ -4,10 +4,15 @@
 namespace App\Repository;
 
 use App\Entity\Users;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository; // Correct import statement
 
 class UsersRepository
 {
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
     public function createUser(array $userData): ?Users
     {
         $expirationDateNationalIdString = $userData['expirationDateNationalId'] ?? '';
@@ -17,6 +22,10 @@ class UsersRepository
         $passportExpirationDate = new \DateTime($passportExpirationDateString);
 
         $user = new Users();
+        $user->setFullName($userData['fullName'] ?? '');
+        $user->setMobileNumb($userData['mobileNumb'] ?? '');
+        $user->setEmail($userData['email'] ?? '');
+        $user->setBranchUnit($userData['branchUnit'] ?? '');
         $user->setMothersName($userData['mothersName'] ?? '');
         $user->setGender($userData['gender'] ?? '');
         $user->setDob(\DateTime::createFromFormat('Y-m-d', $userData['dob'] ?? ''));
@@ -39,4 +48,15 @@ class UsersRepository
 
         return $user;
     }
+//    public function findAllWithDetails()
+//    {
+//        return $this->entityManager->createQueryBuilder('u')
+//            ->leftJoin('u.addresses', 'a')
+//            ->leftJoin('u.workDetails', 'w')
+//            ->leftJoin('u.financialDetails', 'f')
+//            ->leftJoin('u.politicalPositionDetails', 'p')
+//            ->leftJoin('u.beneficiaryRightsOwners', 'b')
+//            ->getQuery()
+//            ->getResult();
+//    }
 }
