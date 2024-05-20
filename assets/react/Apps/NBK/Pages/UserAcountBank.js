@@ -20,20 +20,25 @@ const UserAcountBank = () => {
   const [purposeOfRelation, setPurposeOfRelation] = useState(userData.purposeOfRelation || "");
   const [natureOfRelation, setNatureOfRelation] = useState(userData.natureOfRelation || "");
   const [bankName, setBankName] = useState( userData.bankName || "");
-  const [inputs, setInputs] = useState(['']);
+
   const [errors, setErrors] = useState({});
   const [next,setNext]=useState(false);
+  const [inputSets, setInputSets] = useState(0);
 
- const handleAddInput = (index) => {
-  if (index === inputs.length - 1) { 
-      setInputs([...inputs, '']); 
-  }
-};
-const handleChanges = (event, index) => {
-  const newInputs = [...inputs];
-  newInputs[index] = event.target.value; 
-  setInputs(newInputs);
-};
+  const [bankName2, setBankName2] = useState(userData.bankName2 || "");
+const [country2, setCountry2] = useState(userData.country2 || "");
+const [accountBalanceUsd2, setAccountBalanceUsd2] = useState(userData.accountBalance2 || "");
+
+const [bankName3, setBankName3] = useState(userData.bankName3 || "");
+const [country3, setCountry3] = useState(userData.country3|| "");
+const [accountBalanceUsd3, setAccountBalanceUsd3] = useState(userData.accountBalance3 || "");
+
+  const handleAddInput = () => {
+    if (inputSets < 2) {
+      setInputSets(inputSets + 1);
+    }
+  };
+  
 
   const dispatch = useDispatch();
   const updateUserFieldInUserData = (field, value) => {
@@ -77,6 +82,15 @@ const handleChanges = (event, index) => {
     updateUserFieldInUserData("accountBalance", accountBalanceUsd);
     updateUserFieldInUserData("natureOfRelation", natureOfRelation);
     updateUserFieldInUserData("purposeOfRelation", purposeOfRelation);
+    
+    updateUserFieldInUserData("bankName2", bankName2);
+    updateUserFieldInUserData("country2", country2);
+    updateUserFieldInUserData("accountBalance2", accountBalanceUsd2);
+    
+    updateUserFieldInUserData("bankName3", bankName3);
+    updateUserFieldInUserData("country3", country3);
+    updateUserFieldInUserData("accountBalance3", accountBalanceUsd3);
+
   
 };
 
@@ -176,18 +190,85 @@ const handleChanges = (event, index) => {
           </div>
           {errors.accountBalanceUsd && <div className="text-danger error">{errors.accountBalanceUsd}</div>}
           <div className='add-input'>
+  {inputSets >= 1 && (
+    <div key={1}>
+      <div className="form-group">
+        <input
+          type="text"
+          value={bankName2}
+          onChange={(e) => setBankName2(e.target.value)}
+          placeholder="Bank Name 2"
+          className="form-control mb-3"
+        />
+        <label className="floating-label">Bank Name 2</label>
+      </div>
+      <div className="form-group">
+        <input
+          type="text"
+          value={country2}
+          onChange={(e) => setCountry2(e.target.value)}
+          placeholder="Country 2"
+          className="form-control mb-3"
+        />
+        <label className="floating-label">Country 2</label>
+      </div>
+      <div className="form-group">
+        <input
+          type="text"
+          value={accountBalanceUsd2}
+          onChange={(e) => setAccountBalanceUsd2(e.target.value)}
+          placeholder="Account 2 Balance $"
+          className="form-control mb-3"
+        />
+        <label className="floating-label">Account 2 Balance $</label>
+      </div>
+    </div>
+  )}
+  {inputSets >= 2 && (
+    <div key={2}>
+      <div className="form-group">
+        <input
+          type="text"
+          value={bankName3}
+          onChange={(e) => setBankName3(e.target.value)}
+          placeholder="Bank Name 3"
+          className="form-control mb-3"
+        />
+        <label className="floating-label">Bank Name 3</label>
+      </div>
+      <div className="form-group">
+        <input
+          type="text"
+          value={country3}
+          onChange={(e) => setCountry3(e.target.value)}
+          placeholder="Country 3"
+          className="form-control mb-3"
+        />
+        <label className="floating-label">Country 3</label>
+      </div>
+      <div className="form-group">
+        <input
+          type="text"
+          value={accountBalanceUsd3}
+          onChange={(e) => setAccountBalanceUsd3(e.target.value)}
+          placeholder="Account 3 Balance $"
+          className="form-control mb-3"
+        />
+        <label className="floating-label">Account 3 Balance $</label>
+      </div>
+    </div>
+  )}
+  {inputSets < 2 && (
+    <input
+      className='border-add'
+      type="button"
+      value="Other Account"
+      onClick={handleAddInput}
+    />
+  )}
+</div>
 
-                <input
-                className='border-add'
-                    key={index}
-                    type="text"
-                    placeholder="Other Acccout"
-                    value={input}
-                    onChange={(e) => handleChanges(e, index)}
-                    onClick={() => handleAddInput(index)}
-                />
-    
-        </div>
+
           <div className="form-group">
             <input type="text" value={natureOfRelation} onChange={handleNatureOfRelationChange} placeholder="" className="form-control mb-3"  />
             <label className="floating-label">Nature of Relation: Personal</label>
