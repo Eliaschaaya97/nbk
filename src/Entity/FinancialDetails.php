@@ -67,47 +67,47 @@ class FinancialDetails
      */
     private $frequency;
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(name="secondBankName",type="string", length=255, nullable=true)
      */
     private $secondBankName;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(name="secondCountry",type="string", nullable=true)
      */
     private $secondCountry;
 
     /**
-     * @ORM\Column(type="decimal", nullable=true)
+     * @ORM\Column(name="secondBankBalance",type="decimal", nullable=true)
      */
     private $secondBankBalance;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(name="thirdBankName",type="string", nullable=true)
      */
     private $thirdBankName;
 
     /**
-     * @ORM\Column(type="string",  nullable=true)
+     * @ORM\Column(name="thirdAccountCountry",type="string",  nullable=true)
      */
     private $thirdAccountCountry;
 
     /**
-     * @ORM\Column(type="decimal",  nullable=true)
+     * @ORM\Column(name="thirdAccountBalance",type="decimal",  nullable=true)
      */
     private $thirdAccountBalance;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(name="othersSourceOfFound",type="text", nullable=true)
      */
     private $othersSourceOfFound;
 
     /**
-     * @ORM\Column(type="decimal",  nullable=true)
+     * @ORM\Column(name="estimatedWealthAmount",type="decimal",  nullable=true)
      */
     private $estimatedWealthAmount;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(name="sourcesOfWealth",type="text", nullable=true)
      */
     private $sourcesOfWealth;
 

@@ -83,8 +83,8 @@ const CustomerDeclaration = () => {
         onRequestClose={() => setModalIsOpen(false)}
         contentLabel="Example Modal"
       >
-        <p className='p-modal'>Successfully Done!</p>
-        <button  className='button-modal'  onClick={() => {setModalIsOpen(false), getHeaderTitle()}  }  type="submit"  >Close Modal</button>
+        <p className='p-modal'>Your application was submitted successfully!</p>
+        <button  className='button-modal'  onClick={() => {setModalIsOpen(false), getHeaderTitle()}  }  type="submit"  >Done</button>
       </Modal>
         </form>
         </div>

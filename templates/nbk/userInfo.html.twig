@@ -1,4 +1,4 @@
-{# user_list.html.twig #}
+# user_list.html.twig #}
 <!DOCTYPE html>
 <html>
 <head>
@@ -117,7 +117,8 @@
                 {% for address in user.addresses %}
                     <tr>
                         <th>Address</th>
-                        <td>{{ address.street }}, {{ address.building }}, {{ address.floor }}, {{ address.apartment }}</td>
+                        <td>{{ address.street }}, {{ address.building }}, {{ address.floor }}
+                            , {{ address.apartment }}</td>
                     </tr>
                     <tr>
                         <th>House Tel NO.</th>
@@ -143,11 +144,17 @@
                         <th>Alternate Phone NO.</th>
                         <td>{{ address.alternateTelephoneNumber }}</td>
                     </tr>
+                    <tr>
+                        <th>International Address</th>
+                        <td>{{ address.intStreet }}, {{ address.intBuilding }}, {{ address.intFloor }}
+                            , {{ address.intApartment }}</td>
+                    </tr>
                 {% endfor %}
                 {% for work in user.workDetails %}
                     <tr>
                         <th>Work Info</th>
-                        <td>{{ work.profession }}, {{ work.jobTitle }}, {{ work.publicSector }}, {{ work.activitySector }}, {{ work.entityName }}</td>
+                        <td>{{ work.profession }}, {{ work.jobTitle }}, {{ work.publicSector }}
+                            , {{ work.activitySector }}, {{ work.entityName }}</td>
                     </tr>
                     <tr>
                         <th>Educational lvl</th>
@@ -178,47 +185,47 @@
                     {% endif %}
                     {% for beneficiary in user.beneficiaryRightsOwners %}
                         {% if beneficiary.customerSameAsBeneficiary == 0 %}
-                        <tr>
-                            <th>Customer Same As Beneficiary</th>
-                            <td>No</td>
-                        </tr>
-                        <tr>
-                            <th>Bro Nationality</th>
-                            <td>{{ beneficiary.broNationality }}</td>
-                        </tr>
-                        <tr>
-                            <th>Beneficiary Name</th>
-                            <td>{{ beneficiary.beneficiaryName }}</td>
-                        </tr>
-                        <tr>
-                            <th>Relationship</th>
-                            <td>{{ beneficiary.relationship }}</td>
-                        </tr>
-                        <tr>
-                            <th>Bro Civil Id Number</th>
-                            <td>{{ beneficiary.broCivilIdNumber }}</td>
-                        </tr>
-                        <tr>
-                            <th>Expiration Date</th>
-                            <td>{{ beneficiary.expirationDate|date('Y-m-d') }}</td>
-                        </tr>
-                        <tr>
-                            <th>Reason Of Bro</th>
-                            <td>{{ beneficiary.reasonOfBro }}</td>
-                        </tr>
-                        <tr>
-                            <th>Address</th>
-                            <td>{{ beneficiary.address }}</td>
+                            <tr>
+                                <th>Customer Same As Beneficiary</th>
+                                <td>No</td>
+                            </tr>
+                            <tr>
+                                <th>Bro Nationality</th>
+                                <td>{{ beneficiary.broNationality }}</td>
+                            </tr>
+                            <tr>
+                                <th>Beneficiary Name</th>
+                                <td>{{ beneficiary.beneficiaryName }}</td>
+                            </tr>
+                            <tr>
+                                <th>Relationship</th>
+                                <td>{{ beneficiary.relationship }}</td>
+                            </tr>
+                            <tr>
+                                <th>Bro Civil Id Number</th>
+                                <td>{{ beneficiary.broCivilIdNumber }}</td>
+                            </tr>
+                            <tr>
+                                <th>Expiration Date</th>
+                                <td>{{ beneficiary.expirationDate|date('Y-m-d') }}</td>
+                            </tr>
+                            <tr>
+                                <th>Reason Of Bro</th>
+                                <td>{{ beneficiary.reasonOfBro }}</td>
+                            </tr>
+                            <tr>
+                                <th>Address</th>
+                                <td>{{ beneficiary.address }}</td>
 
-                        </tr>
-                        <tr>
-                            <th>Profession</th>
-                            <td>{{ beneficiary.profession }}</td>
-                        </tr>
-                        <tr>
-                            <th>Income Wealth Details</th>
-                            <td>{{ beneficiary.incomeWealthDetails }}</td>
-                        </tr>
+                            </tr>
+                            <tr>
+                                <th>Profession</th>
+                                <td>{{ beneficiary.profession }}</td>
+                            </tr>
+                            <tr>
+                                <th>Income Wealth Details</th>
+                                <td>{{ beneficiary.incomeWealthDetails }}</td>
+                            </tr>
                         {% else %}
                             <tr>
                                 <th>Customer Same As Beneficiary</th>
@@ -228,34 +235,34 @@
                     {% endfor %}
                     {% for political in user.politicalPositionDetails %}
                         {% if political.politicalPosition %}
-                        <tr>
-                            <th>Political Position</th>
-                            <td>Yes</td>
-                        </tr>
-                        <tr>
-                            <th>Current Previous</th>
-                            <td>{{ political.currentPrevious }}</td>
-                        </tr>
-                        <tr>
-                            <th>Year Of Retirement</th>
-                            <td>{{ political.yearOfRetirement }}</td>
-                        </tr>
-                        <tr>
-                            <th>Pep Name</th>
-                            <td>{{ political.pepName }}</td>
-                        </tr>
-                        <tr>
-                            <th>Relationship</th>
-                            <td>{{ political.relationship }}</td>
-                        </tr>
-                        <tr>
-                            <th>Pep Position</th>
-                            <td>{{ political.pepPosition }}</td>
-                        </tr>
-                        <tr>
-                            <th>AdditionalInfo</th>
-                            <td>{{ political.additionalInfo }}</td>
-                        </tr>
+                            <tr>
+                                <th>Political Position</th>
+                                <td>Yes</td>
+                            </tr>
+                            <tr>
+                                <th>Current Previous</th>
+                                <td>{{ political.currentPrevious }}</td>
+                            </tr>
+                            <tr>
+                                <th>Year Of Retirement</th>
+                                <td>{{ political.yearOfRetirement }}</td>
+                            </tr>
+                            <tr>
+                                <th>Pep Name</th>
+                                <td>{{ political.pepName }}</td>
+                            </tr>
+                            <tr>
+                                <th>Relationship</th>
+                                <td>{{ political.relationship }}</td>
+                            </tr>
+                            <tr>
+                                <th>Pep Position</th>
+                                <td>{{ political.pepPosition }}</td>
+                            </tr>
+                            <tr>
+                                <th>AdditionalInfo</th>
+                                <td>{{ political.additionalInfo }}</td>
+                            </tr>
                         {% else %}
                             <tr>
                                 <th>Political Position</th>
@@ -281,57 +288,98 @@
                             <td>{{ financialDetail.additionalIncomeSources }}</td>
                         </tr>
                         <tr>
+                            <th>Others Source Of Found</th>
+                            <td>{{ financialDetail.othersSourceOfFound }}</td>
+                        </tr>
+                        <tr>
                             <th>Total Estimated Monthly Income</th>
                             <td>{{ financialDetail.totalEstimatedMonthlyIncome }}</td>
                         </tr>
+                        <tr>
+                            <th>Estimated Wealth Amount</th>
+                            <td>{{ financialDetail.estimatedWealthAmount }}</td>
+                        </tr>
                         {% if financialDetail.isWealthInherited %}
-                        <tr>
-                            <th>Is Wealth Inherited</th>
-                            <td>Yes</td>
-                        </tr>
-                        <tr>
-                            <th>Expected No. Of Trans</th>
-                            <td>{{ financialDetail.expectedNumberOfTransactions }}</td>
-                        </tr>
-                        <tr>
-                            <th>Expected Value Of Trans</th>
-                            <td>{{ financialDetail.expectedValueOfTransactions }}</td>
-                        </tr>
-                        <tr>
-                            <th>Frequency</th>
-                            <td>{{ financialDetail.frequency }}</td>
-                        </tr>
+                            <tr>
+                                <th>Is Wealth Inherited</th>
+                                <td>Yes</td>
+                            </tr>
+                            <tr>
+                                <th>Expected No. Of Trans</th>
+                                <td>{{ financialDetail.expectedNumberOfTransactions }}</td>
+                            </tr>
+                            <tr>
+                                <th>Expected Value Of Trans</th>
+                                <td>{{ financialDetail.expectedValueOfTransactions }}</td>
+                            </tr>
+                            <tr>
+                                <th>Frequency</th>
+                                <td>{{ financialDetail.frequency }}</td>
+                            </tr>
                         {% else %}
                             <tr>
                                 <th>Is Wealth Inherited</th>
                                 <td>No</td>
                             </tr>
+                            <tr>
+                                <th>Sources Of Wealth</th>
+                                <td>{{ financialDetail.sourcesOfWealth }}</td>
+                            </tr>
                         {% endif %}
                         {% if financialDetail.hasOtherAccounts %}
-                        <tr>
-                            <th>Has Other Accounts</th>
-                            <td>Yes</td>
-                        </tr>
-                        <tr>
-                            <th>Bank Name</th>
-                            <td>{{ financialDetail.bankName }}</td>
-                        </tr>
-                        <tr>
-                            <th>Country</th>
-                            <td>{{ financialDetail.country }}</td>
-                        </tr>
-                        <tr>
-                            <th>Account Balance</th>
-                            <td>{{ financialDetail.accountBalance }}</td>
-                        </tr>
-                        <tr>
-                            <th>Nature Of Relation</th>
-                            <td>{{ financialDetail.natureOfRelation }}</td>
-                        </tr>
-                        <tr>
-                            <th>Purpose Of Relation</th>
-                            <td>{{ financialDetail.purposeOfRelation }}</td>
-                        </tr>
+                            <tr>
+                                <th>Has Other Accounts</th>
+                                <td>Yes</td>
+                            </tr>
+                            <tr>
+                                <th>Bank Name</th>
+                                <td>{{ financialDetail.bankName }}</td>
+                            </tr>
+                            <tr>
+                                <th>Country</th>
+                                <td>{{ financialDetail.country }}</td>
+                            </tr>
+                            <tr>
+                                <th>Account Balance</th>
+                                <td>{{ financialDetail.accountBalance }}</td>
+                            </tr>
+                            {% if financialDetail.hasOtherAccounts %}
+                                <tr>
+                                    <th>Bank Name 2</th>
+                                    <td>{{ financialDetail.secondBankName }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Country 2</th>
+                                    <td>{{ financialDetail.secondCountry }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Account Balance 2</th>
+                                    <td>{{ financialDetail.secondBankBalance }}</td>
+                                </tr>
+                            {% endif %}
+                            {% if financialDetail.thirdBankName %}
+
+                                <tr>
+                                    <th>Bank Name 3</th>
+                                    <td>{{ financialDetail.thirdBankName }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Country 3</th>
+                                    <td>{{ financialDetail.thirdAccountCountry }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Account Balance 3</th>
+                                    <td>{{ financialDetail.thirdAccountBalance }}</td>
+                                </tr>
+                            {% endif %}
+                            <tr>
+                                <th>Nature Of Relation</th>
+                                <td>{{ financialDetail.natureOfRelation }}</td>
+                            </tr>
+                            <tr>
+                                <th>Purpose Of Relation</th>
+                                <td>{{ financialDetail.purposeOfRelation }}</td>
+                            </tr>
                         {% else %}
                             <tr>
                                 <th>Has Other Accounts</th>

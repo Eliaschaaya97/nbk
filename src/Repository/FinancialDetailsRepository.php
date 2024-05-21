@@ -17,15 +17,15 @@ class FinancialDetailsRepository
         $financialDetails->setMonthlyBasicSalary($userData['monthlyBasicSalary'] ?? 0.0);
         $financialDetails->setMonthlyAllowances($userData['monthlyAllowances'] ?? 0.0);
         $financialDetails->setAdditionalIncomeSources($userData['additionalIncomeSources'] ?? '');
-        $financialDetails->setTotalEstimatedMonthlyIncome($userData['totalEstimatedMonthlyIncome'] ?? 0.0);
+        $financialDetails->setTotalEstimatedMonthlyIncome((float)($userData['totalEstimatedMonthlyIncome'] ?? 0.0));
         $financialDetails->setIsWealthInherited($userData['isWealthInherited'] ?? false);
-        $financialDetails->setExpectedNumberOfTransactions($userData['expectedNumberOfTransactions'] ?? 0);
-        $financialDetails->setExpectedValueOfTransactions($userData['expectedValueOfTransactions'] ?? 0.0);
+        $financialDetails->setExpectedNumberOfTransactions((int)($userData['expectedNumberOfTransactions'] ?? 0));
+        $financialDetails->setExpectedValueOfTransactions((float)($userData['expectedValueOfTransactions'] ?? 0.0));
         $financialDetails->setFrequency($userData['frequency'] ?? '');
         $financialDetails->setHasOtherAccounts($userData['hasOtherAccounts'] ?? false);
         $financialDetails->setBankName($userData['bankName'] ?? '');
         $financialDetails->setCountry($userData['country'] ?? '');
-        $financialDetails->setAccountBalance($userData['accountBalance'] ?? 0.0);
+        $financialDetails->setAccountBalance((float)($userData['accountBalance'] ?? 0.0));
         $financialDetails->setNatureOfRelation($userData['natureOfRelation'] ?? '');
         $financialDetails->setPurposeOfRelation($userData['purposeOfRelation'] ?? '');
         $financialDetails->setOthersSourceOfFound($userData['othersSourceOfFound'] ?? '');
@@ -33,10 +33,11 @@ class FinancialDetailsRepository
         $financialDetails->setSourcesOfWealth($userData['sourcesOfWealth'] ?? '');
         $financialDetails->setSecondBankName($userData['bankName2'] ?? '');
         $financialDetails->setSecondCountry($userData['country2'] ?? '');
-        $financialDetails->setSecondBankBalance($userData['accountBalance2'] ?? '');
+        $financialDetails->setAccountBalance((float)($userData['accountBalance2'] ?? 0.0));
         $financialDetails->setThirdBankName($userData['bankName3'] ?? '');
         $financialDetails->setThirdAccountCountry($userData['country3'] ?? '');
-        $financialDetails->setThirdAccountBalance($userData['accountBalance3'] ?? '');
+        $financialDetails->setAccountBalance((float)($userData['accountBalance3'] ?? 0.0));
+
 
 
         return $financialDetails;

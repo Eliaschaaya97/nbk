@@ -28,7 +28,10 @@ class UsersRepository
         $user->setBranchUnit($userData['branchUnit'] ?? '');
         $user->setMothersName($userData['mothersName'] ?? '');
         $user->setGender($userData['gender'] ?? '');
-        $user->setDob(\DateTime::createFromFormat('Y-m-d', $userData['dob'] ?? ''));
+        $dob = !empty($userData['dob']) ? \DateTime::createFromFormat('Y-m-d', $userData['dob']) : false;
+        if ($dob) {
+            $user->setDob($dob);
+        }
         $user->setPlaceOfBirth($userData['placeOfBirth'] ?? '');
         $user->setCountryOfOrigin($userData['countryOfOrigin'] ?? '');
         $user->setNationalId($userData['nationalId'] ?? '');
@@ -44,7 +47,7 @@ class UsersRepository
         $user->setTaxResidencyIdNumber($userData['taxResidencyIdNumber'] ?? '');
         $user->setSpouseName($userData['spouseName'] ?? '');
         $user->setSpouseProfession($userData['spouseProfession'] ?? '');
-        $user->setNoOfChildren($userData['noOfChildren'] ?? 0);
+        $user->setNoOfChildren((int)($userData['noOfChildren'] ?? 0));
 
         return $user;
     }
