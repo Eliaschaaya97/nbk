@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import Modal from 'react-modal';
 import AppAPI from "../Api/AppApi";
+
 const CustomerDeclaration = () => {
   const [progress, setProgress] = useState(98);
   const {SendInformation} = AppAPI();

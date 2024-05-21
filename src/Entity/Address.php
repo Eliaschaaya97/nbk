@@ -47,6 +47,33 @@ class Address
      */
     private $internationalAddress;
 
+       /**
+     * @ORM\Column(name="intArea", type="string")
+     */
+    private $intArea;
+
+          /**
+     * @ORM\Column(name="intStreet", type="string")
+     */
+    private $intStreet;
+          /**
+     * @ORM\Column(name="intBuilding", type="string")
+     */
+    private $intBuilding;
+
+              /**
+     * @ORM\Column(name="intFloor", type="string")
+     */
+    private $intFloor;
+        
+              /**
+     * @ORM\Column(name="intApartment", type="string")
+     */
+    private $intApartment;
+
+
+
+
     /**
      * @ORM\Column(name="internationalHouseTelephoneNumber", type="string", length=50)
      */
@@ -140,7 +167,59 @@ class Address
     {
         return $this->alternateTelephoneNumber;
     }
+    public function getIntArea(): ?string
+    {
+        return $this->intArea;
+    }
+    public function getIntStreet(): ?string
+    {
+        return $this->intStreet;
+    }
+    public function getIntBuilding(): ?string
+    {
+        return $this->intBuilding;
+    }
+    public function getIntFloor(): ?string
+    {
+        return $this->intFloor;
+    }
+    public function getIntApartment(): ?string
+    {
+        return $this->intApartment;
+    }
 
+    public function setIntApartment(string $intApartment): self
+    {
+        $this->intApartment = $intApartment;
+
+        return $this;
+    }
+    public function setIntFloor(string $intFloor): self
+    {
+        $this->intFloor = $intFloor;
+
+        return $this;
+    }
+
+    public function setIntBuilding(string $intBuilding): self
+    {
+        $this->intBuilding = $intBuilding;
+
+        return $this;
+    }
+    public function setIntStreet(string $intStreet): self
+    {
+        $this->intStreet = $intStreet;
+
+        return $this;
+    }
+
+    public function setIntArea(string $intArea): self
+    {
+        $this->intArea = $intArea;
+
+        return $this;
+    }
     public function setStreet(string $street): self
     {
         $this->street = $street;

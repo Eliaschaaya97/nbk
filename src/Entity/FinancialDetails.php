@@ -66,6 +66,50 @@ class FinancialDetails
      * @ORM\Column(name="frequency", type="string", length=50)
      */
     private $frequency;
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $secondBankName;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $secondCountry;
+
+    /**
+     * @ORM\Column(type="decimal", nullable=true)
+     */
+    private $secondBankBalance;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $thirdBankName;
+
+    /**
+     * @ORM\Column(type="string",  nullable=true)
+     */
+    private $thirdAccountCountry;
+
+    /**
+     * @ORM\Column(type="decimal",  nullable=true)
+     */
+    private $thirdAccountBalance;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $othersSourceOfFound;
+
+    /**
+     * @ORM\Column(type="decimal",  nullable=true)
+     */
+    private $estimatedWealthAmount;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $sourcesOfWealth;
 
     /**
      * @ORM\Column(name="otherAccountsAtBanks", type="boolean")
@@ -157,6 +201,89 @@ class FinancialDetails
     public function getMonthlyAllowances(): ?float
     {
         return $this->monthlyAllowances;
+    }
+    public function getOthersSourceOfFound(): ?string
+    {
+        return $this->othersSourceOfFound;
+    }
+
+    public function setOthersSourceOfFound(?string $othersSourceOfFound): self
+    {
+        $this->othersSourceOfFound = $othersSourceOfFound;
+
+        return $this;
+    }
+
+    public function getEstimatedWealthAmount(): ?string
+    {
+        return $this->estimatedWealthAmount;
+    }
+
+    public function setEstimatedWealthAmount(?string $estimatedWealthAmount): self
+    {
+        $this->estimatedWealthAmount = $estimatedWealthAmount;
+
+        return $this;
+    }
+
+    public function getSourcesOfWealth(): ?string
+    {
+        return $this->sourcesOfWealth;
+    }
+
+    public function setSourcesOfWealth(?string $sourcesOfWealth): self
+    {
+        $this->sourcesOfWealth = $sourcesOfWealth;
+
+        return $this;
+    }
+
+public function getSecondBankName(): ?string
+    {
+        return $this->secondBankName;
+    }
+
+    public function setSecondBankName(?string $secondBankName): self
+    {
+        $this->secondBankName = $secondBankName;
+
+        return $this;
+    }
+
+    public function getSecondCountry(): ?string
+    {
+        return $this->secondCountry;
+    }
+
+    public function setSecondCountry(?string $secondCountry): self
+    {
+        $this->secondCountry = $secondCountry;
+
+        return $this;
+    }
+
+ public function getThirdBankName(): ?string
+    {
+        return $this->thirdBankName;
+    }
+
+    public function setThirdBankName(?string $thirdBankName): self
+    {
+        $this->thirdBankName = $thirdBankName;
+
+        return $this;
+    }
+
+    public function getThirdAccountCountry(): ?string
+    {
+        return $this->thirdAccountCountry;
+    }
+
+    public function setThirdAccountCountry(?string $thirdAccountCountry): self
+    {
+        $this->thirdAccountCountry = $thirdAccountCountry;
+
+        return $this;
     }
 
     public function setMonthlyAllowances(float $monthlyAllowances): self

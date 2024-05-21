@@ -4,9 +4,9 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import { useDispatch } from "react-redux";
+import { useDispatch ,useSelector } from "react-redux";
 import { settingObjectData,updateUserData  } from '../Redux/Slices/AppSlice';
-
+import AppAPI from "../Api/AppApi";
 
 
 
@@ -17,6 +17,15 @@ const IfYes = () => {
   const [email, setEmail] = useState('');
   const [branch, setBranch] = useState('');
   const [errors, setErrors] = useState({});
+
+  const {SendInformation} = AppAPI();
+  const formData = useSelector((state) => state.appData.userData);
+
+  
+  const handleSubmitInformation = () => {
+    SendInformation(formData);
+    console.log('successs inside the customer declaration')
+  }
 
   const dispatch = useDispatch();
   const updateUserFieldInUserData = (field, value) => {
@@ -163,7 +172,9 @@ const IfYes = () => {
             <option value="private bank">Private Bank</option>
           </select>
           {errors.branch && <div className="error text-danger error-status">{errors.branch}</div>}
-          <button type="submit" className="btn-proceed submit-btn" >
+          <button type="submit" className="btn-proceed submit-btn"     onClick={() => {
+             handleSubmitInformation()
+            }} >
             Proceed
           </button>
         </form>
