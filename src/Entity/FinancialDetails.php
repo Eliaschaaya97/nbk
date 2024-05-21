@@ -214,12 +214,12 @@ class FinancialDetails
         return $this;
     }
 
-    public function getEstimatedWealthAmount(): ?string
+    public function getEstimatedWealthAmount(): ?float
     {
         return $this->estimatedWealthAmount;
     }
 
-    public function setEstimatedWealthAmount(?string $estimatedWealthAmount): self
+    public function setEstimatedWealthAmount(?float $estimatedWealthAmount): self
     {
         $this->estimatedWealthAmount = $estimatedWealthAmount;
 
@@ -437,6 +437,30 @@ public function getSecondBankName(): ?string
         return $this;
     }
 
+    public function getSecondBankBalance(): ?float
+    {
+        return $this->secondBankBalance;
+    }
+
+    public function setSecondBankBalance(?float $secondBankBalance): self
+    {
+        $this->secondBankBalance = $secondBankBalance;
+
+        return $this;
+    }
+
+
+    public function getThirdAccountBalance(): ?float
+    {
+        return $this->thirdAccountBalance;
+    }
+
+    public function setThirdAccountBalance(?float $thirdAccountBalance): self
+    {
+        $this->thirdAccountBalance = $thirdAccountBalance;
+
+        return $this;
+    }
 
     public function getUser(): ?Users
     {

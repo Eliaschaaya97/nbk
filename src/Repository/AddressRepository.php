@@ -22,6 +22,11 @@ class AddressRepository
         $address->setInternationalMobileNumber($userData['internationalMobileNumber'] ?? '');
         $address->setAlternateContactName($userData['alternateContactName'] ?? '');
         $address->setAlternateTelephoneNumber($userData['alternateTelephoneNumber'] ?? '');
+        $address->setIntArea($userData['intArea'] ?? '');
+        $address->setIntStreet($userData['intStreet'] ?? '');
+        $address->setIntBuilding($userData['intBuilding'] ?? '');
+        $address->setIntFloor($userData['intFloor'] ?? '');
+        $address->setIntApartment($userData['intApartment'] ?? '');
 
         return $address;
     }

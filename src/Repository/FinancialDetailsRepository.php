@@ -28,6 +28,15 @@ class FinancialDetailsRepository
         $financialDetails->setAccountBalance($userData['accountBalance'] ?? 0.0);
         $financialDetails->setNatureOfRelation($userData['natureOfRelation'] ?? '');
         $financialDetails->setPurposeOfRelation($userData['purposeOfRelation'] ?? '');
+        $financialDetails->setOthersSourceOfFound($userData['othersSourceOfFound'] ?? '');
+        $financialDetails->setEstimatedWealthAmount($userData['estimatedWealthAmount'] ?? '');
+        $financialDetails->setSourcesOfWealth($userData['sourcesOfWealth'] ?? '');
+        $financialDetails->setSecondBankName($userData['bankName2'] ?? '');
+        $financialDetails->setSecondCountry($userData['country2'] ?? '');
+        $financialDetails->setSecondBankBalance($userData['accountBalance2'] ?? '');
+        $financialDetails->setThirdBankName($userData['bankName3'] ?? '');
+        $financialDetails->setThirdAccountCountry($userData['country3'] ?? '');
+        $financialDetails->setThirdAccountBalance($userData['accountBalance3'] ?? '');
 
 
         return $financialDetails;
