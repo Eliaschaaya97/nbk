@@ -45,9 +45,7 @@ const IfYes = () => {
     }
     if (!email.trim()) {
       errors.email = 'Email is required';
-    } else if (!isValidEmail(email)) {
-      errors.email = 'Invalid email address';
-    }
+    } 
     if (!phoneNumber.trim()) {
       errors.phoneNumber = 'Phone number is required';
     }
@@ -181,7 +179,4 @@ const IfYes = () => {
 
 export default IfYes;
 
-function isValidEmail(email) {
-  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return re.test(String(email).toLowerCase());
-}
+

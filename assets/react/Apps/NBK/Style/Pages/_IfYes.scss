@@ -155,3 +155,12 @@
     }
   }
 }
+
+
+
+input:focus + .floating-label,
+input:not(:placeholder-shown) + .floating-label {
+  margin-top: -4px  !important;
+
+ 
+}
