@@ -161,7 +161,7 @@ class NBKController extends AbstractController
         $pagination = $paginator->paginate(
             $users, // Query to paginate
             $request->query->getInt('page', 1), // Current page number, default to 1
-            3 // Items per page
+            15 // Items per page
         );
         // Render a template with the user data
         return $this->render('nbk/user_list.html.twig', [
