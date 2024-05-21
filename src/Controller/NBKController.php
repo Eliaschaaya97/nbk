@@ -53,6 +53,9 @@ class NBKController extends AbstractController
                     'parameters' => $parameters
                 ]);
             }
+          
+        }  else {
+            return $this->render('ExceptionHandling.html.twig');
         }
 
     }

@@ -119,3 +119,26 @@
         }
     }
 }
+.logoTryagain {
+    text-align: center;
+    position: relative;
+    top: 100px;
+  }
+  
+  .tryagain {
+    padding-top: 32vh;
+    text-align: center;
+  
+    h2 {
+      color: #014c8b;
+    }
+  
+    .close {
+      border: none;
+      padding: 13px 57px;
+      margin-top: 32px;
+      background-color: #014c8b;
+      color: #ffffff;
+      border-radius: 10px;
+    }
+  }
