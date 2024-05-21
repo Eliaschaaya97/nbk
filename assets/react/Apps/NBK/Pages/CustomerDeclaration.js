@@ -14,6 +14,7 @@ const CustomerDeclaration = () => {
   const [progress, setProgress] = useState(98);
   const {SendInformation} = AppAPI();
   const formData = useSelector((state) => state.appData.userData);
+  const parameters = useSelector((state) => state.appData.parameters);
 
 
   const dispatch = useDispatch();
@@ -27,7 +28,21 @@ const CustomerDeclaration = () => {
     );
   };
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const handleButtonClick = () => {
+    if (parameters?.deviceType === "Android") {
+      window.AndroidInterface.callbackHandler("GoToApp");
+    } else if (parameters?.deviceType === "Iphone") {
+      window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
+    }
 
+  if (isBottomSlider) {
+    dispatch(settingData({ field: "bottomSlider", value: { isShow: false } }));
+  } else if (isModalData) {
+    dispatch(settingData({ field: "modalData", value: { isShow: false } }));
+  } else {
+    dispatch(settingObjectData({ mainField: "headerData", field: "currentPage", value: headerData.backLink }));
+  }
+};
 
   const handleSubmitInformation = () => {
     SendInformation(formData);
@@ -84,7 +99,7 @@ const CustomerDeclaration = () => {
         contentLabel="Example Modal"
       >
         <p className='p-modal'>Your application was submitted successfully!</p>
-        <button  className='button-modal'  onClick={() => {setModalIsOpen(false), getHeaderTitle()}  }  type="submit"  >Done</button>
+        <button  className='button-modal'  onClick={() => {setModalIsOpen(false), handleButtonClick()}  }  type="submit"  >Done</button>
       </Modal>
         </form>
         </div>

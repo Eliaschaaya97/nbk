@@ -109,7 +109,30 @@ class NBKController extends AbstractController
         $this->entityManager->persist($financialDetails);
         $this->entityManager->flush();
 
-        $this->submitForm();
+        //$this->submitForm();
+        return new JsonResponse(['message' => 'Data saved successfully'], Response::HTTP_OK);
+    }
+
+    #[Route('/submit-existing-user', name: 'submitExistingUser', methods: ['POST'])]
+    public function submitExistingUser(Request $request, UsersRepository $usersRepository): JsonResponse {
+        $data = json_decode($request->getContent(), true);
+
+        if ($data === null) {
+            return new JsonResponse(['error' => 'Invalid JSON data'], Response::HTTP_BAD_REQUEST);
+        }
+
+        // Create and save User entity using UserRepository
+        $user = $usersRepository->createExistingUser($data);
+
+        if (!$user) {
+            return new JsonResponse(['error' => 'Failed to create user'], Response::HTTP_BAD_REQUEST);
+        }
+
+        // Persist and flush all entities
+        $this->entityManager->persist($user);
+        $this->entityManager->flush();
+
+        // $this->submitForm();
         return new JsonResponse(['message' => 'Data saved successfully'], Response::HTTP_OK);
     }
 

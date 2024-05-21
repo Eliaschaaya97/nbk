@@ -62,4 +62,17 @@ class UsersRepository
 //            ->getQuery()
 //            ->getResult();
 //    }
+
+public function createExistingUser(array $userData): ?Users
+{
+    
+    $user = new Users();
+    $user->setFullName($userData['fullName'] ?? '');
+    $user->setMobileNumb($userData['mobileNumb'] ?? '');
+    $user->setEmail($userData['email'] ?? '');
+    $user->setBranchUnit($userData['branchUnit'] ?? '');
+
+
+    return $user;
+}
 }
