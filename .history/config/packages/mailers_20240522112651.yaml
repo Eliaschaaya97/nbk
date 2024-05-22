@@ -1,4 +1,0 @@
-# config/packages/mailers.yaml
-framework:
-  mailer:
-    dsn: 'smtp://monitoring@suyool.com:3Dg^T146I=c(@smtp.office365.com:587?encryption=tls&auth_mode=login'
