@@ -207,11 +207,10 @@ class NBKController extends AbstractController
     }
 
 /**
- * @Route("/user/checkMobile", name="user_check_mobile")
+ * @Route("/user/checkMobile/{mobileNumber}", name="user_check_mobile")
  */
-public function getUserByMobile(Request $request): Response
+public function getUserByMobile($mobileNumber): Response
 {
-    $mobileNumber = $request->query->get('mobileNumber');
 
     if (!$mobileNumber) {
         return new Response('Mobile number not provided', 400);

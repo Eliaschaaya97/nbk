@@ -1,4 +1,4 @@
-import React from "react";
+import React  from "react";
 import { useDispatch } from "react-redux";
 import useAxiosClient from "../Utils/axios";
 import { settingData, settingObjectData } from "../Redux/Slices/AppSlice";
@@ -7,6 +7,7 @@ const AppAPI = () => {
   const dispatch = useDispatch();
   const axiosClient = useAxiosClient();
 
+  
 
   const SendInformation = (formData) => {
     // dispatch(settingData({ field: "isloading", value: true }));
@@ -44,9 +45,24 @@ const AppAPI = () => {
     }
   };
 
+  const fetUsers = (phoneNumber) => {
+    try {
+        return axiosClient
+            .get(`/user/checkMobile/${phoneNumber}`)
+            .then((response) => {
+             localStorage.setItem("statusCode",response?.data?.statusCode);
+               return response?.data?.statusCode
+            })
+    } catch (e) {
+        console.log(e);
+    }
+};
+
   return {
      SendExistingUser,
     SendInformation,
+    fetUsers,
+
   };
 };
 

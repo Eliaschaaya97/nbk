@@ -7,16 +7,21 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
+import Modal from 'react-modal';
+import AppAPI from '../Api/AppApi';
 
 const UserInfo = () => {
   const userData = useSelector((state) => state.appData.userData.user || {});
-
+  const { fetUsers} = AppAPI();
   const [fullName, setFullName] = useState(userData.fullName || "");
   const [phoneNumber, setPhoneNumber] = useState(userData.mobileNumb || "");
   const [email, setEmail] = useState(userData.email || "");
   const [branch, setBranch] = useState(userData.branchUnit || "");
   const [progress, setProgress] = useState(3);
   const [errors, setErrors] = useState({});
+  const [modalIsOpenNum, setModalIsOpenNum] = useState(false);
+  const parameters = useSelector((state) => state.appData.parameters);
+
 
   const dispatch = useDispatch();
 
@@ -43,8 +48,24 @@ const UserInfo = () => {
       if (progress >= 100) {
         setProgress(100);
       }
-      getHeaderTitle();
+      
+    fetUsers(phoneNumber);
+    console.log('stat555us',localStorage.getItem("statusCode"));
+    const statusCode = localStorage.getItem('statusCode');
+    if (statusCode === '1') {
+      setModalIsOpenNum(true);
+ 
+        setTimeout(() => {
+          if (parameters?.deviceType === "Android") {
+            window.AndroidInterface.callbackHandler("GoToApp");
+          } else if (parameters?.deviceType === "Iphone") {
+            window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
+          }
+        }, 2000);
+   
     } else {
+      getHeaderTitle();
+    }} else {
       setErrors(validationErrors);
     }
     updateUserFieldInUserData("fullName", fullName);
@@ -157,6 +178,15 @@ const UserInfo = () => {
           <button type="submit" className="btn-proceed submit-btn" >
             Proceed
           </button>
+          <Modal
+       id='modalNum'
+        isOpen={modalIsOpenNum}
+        onRequestClose={() => modalIsOpenNum(false)}
+        contentLabel="Example Modal"
+      >
+        <p className='p-modal'>Phone number already exist !</p>
+      
+      </Modal>
         </form>
       </div>
     </div>

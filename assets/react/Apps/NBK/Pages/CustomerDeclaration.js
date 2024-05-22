@@ -108,6 +108,7 @@ const CustomerDeclaration = () => {
         <p className='p-modal'>Your application was submitted successfully!</p>
         <button  className='button-modal'  onClick={() => {setModalIsOpen(false), handleButtonClick()}  }  type="submit"  >Done</button>
       </Modal>
+      
         </form>
         </div>
       </div>
