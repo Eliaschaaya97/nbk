@@ -86,6 +86,13 @@ const IfYes = () => {
 
       console.log('Success inside the customer declaration');
       setModalIsOpen(true);
+      setTimeout(() => {
+        if (parameters?.deviceType === "Android") {
+          window.AndroidInterface.callbackHandler("GoToApp");
+        } else if (parameters?.deviceType === "Iphone") {
+          window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
+        }
+      }, 3000);
     } else {
       setErrors(validationErrors);
     }
@@ -125,6 +132,7 @@ const IfYes = () => {
           {errors.fullName && <div className="error text-danger">{errors.fullName}</div>}
           
           <PhoneInput
+    
             className="mb-3"
             country="lb"
             value={phoneNumber}

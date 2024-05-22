@@ -384,18 +384,18 @@ const UserIntroduce = () => {
 
           </div>
         
-          <div className="form-group">
-            <input
-              type="text"
-              value={statusInLebanon}
-              onChange={(e) => setStatusInLebanon(e.target.value)}
-              placeholder=""
-              className="form-control mb-3"
-         
-            />
-            <label className="floating-label">Status in Lebanon</label>
-
-          </div>
+    
+          <select
+            value={statusInLebanon}
+            onChange={(e) =>setStatusInLebanon(e.target.value)}
+            className="form-select form-control mb-3"
+          >
+            <option value="">Status</option>
+            <option value="resident">Resident</option>
+            <option value="nonresident">Non-Resident</option>
+           
+            
+          </select>
           {errors.statusInLebanon && <div className="text-danger error">{errors.statusInLebanon}</div>}
           <button type="submit" className="btn-proceed" >
             Next

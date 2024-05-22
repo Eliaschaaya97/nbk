@@ -47,6 +47,13 @@ const CustomerDeclaration = () => {
   const handleSubmitInformation = () => {
     SendInformation(formData);
     console.log('successs inside the customer declaration')
+    setTimeout(() => {
+      if (parameters?.deviceType === "Android") {
+        window.AndroidInterface.callbackHandler("GoToApp");
+      } else if (parameters?.deviceType === "Iphone") {
+        window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
+      }
+    }, 3000);
   }
 
   return (

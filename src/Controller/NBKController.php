@@ -206,6 +206,33 @@ class NBKController extends AbstractController
         // Redirect or render a response after sending the email
     }
 
+/**
+ * @Route("/user/checkMobile", name="user_check_mobile")
+ */
+public function getUserByMobile(Request $request): Response
+{
+    $mobileNumber = $request->query->get('mobileNumber');
+
+    if (!$mobileNumber) {
+        return new Response('Mobile number not provided', 400);
+    }
+
+    $user = $this->entityManager->getRepository(Users::class)->findOneBy(['mobileNumb' => $mobileNumber]);
+
+    if (!$user) {
+       $statusCode = 0; 
+       $message = 'Mobile number not provided';
+    }else {
+        $statusCode = 1;
+        $message = 'User found';
+    }
+    return new JsonResponse([
+        'status' => true,
+        'message' => $message,
+        'statusCode' => $statusCode,
+    ], 200);
+}
+
 //    public function submitForm()
 //    {
 //        // Process your form submission

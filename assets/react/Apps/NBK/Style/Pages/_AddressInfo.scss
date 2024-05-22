@@ -32,6 +32,18 @@
     .form{
         display: flex;
         flex-direction: column;
+        .label-div{padding-top: 16px;
+
+          position: relative;
+          .label-tel{
+            font-size: 15px;
+            position: absolute;
+            top: -3px;
+            font-family: LibreFranklinRegular;
+            color: #999;
+            
+            
+          }}
         label{
           font-family: $Regular;
         }
@@ -150,6 +162,7 @@
 }
 }
 .form{
+  
   .error {
     display: flex;
     justify-content: flex-start;
