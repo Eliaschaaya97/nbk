@@ -41,6 +41,11 @@ class Users
     private $branchUnit;
 
     /**
+     * @ORM\Column(name="branchId", type="integer")
+     */
+    private $branchId;
+
+    /**
      * @ORM\Column(name="mothersName", type="string", length=250)
      */
     private $mothersName;
@@ -323,6 +328,11 @@ class Users
         return $this->noOfChildren;
     }
 
+    public function getBranchId(): ?int
+    {
+        return $this->branchId;
+    }
+
     public function setMothersName(string $mothersName): self
     {
         $this->mothersName = $mothersName;
@@ -452,6 +462,13 @@ class Users
     public function setNoOfChildren(int $noOfChildren): self
     {
         $this->noOfChildren = $noOfChildren;
+
+        return $this;
+    }
+
+    public function setBranchId(int $branchId): self
+    {
+        $this->branchId = $branchId;
 
         return $this;
     }

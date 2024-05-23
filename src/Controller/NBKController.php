@@ -102,7 +102,7 @@ class NBKController extends AbstractController
         $this->entityManager->persist($financialDetails);
 
         $this->entityManager->flush();
-        $this->submitForm($user->getId(),$branchEmail);
+        $this->submitForm($user->getId());
 
         return new JsonResponse(['message' => 'Data saved successfully'], Response::HTTP_OK);
     }
@@ -121,12 +121,11 @@ class NBKController extends AbstractController
         if (!$user) {
             return new JsonResponse(['error' => 'Failed to create user'], Response::HTTP_BAD_REQUEST);
         }
-        $branchEmail = $this->getBranchEmail($data['branchId']);
         // Persist and flush all entities
         $this->entityManager->persist($user);
         $this->entityManager->flush();
 
-         $this->submitForm($user->getId(),$branchEmail);
+         $this->submitForm($user->getId());
         return new JsonResponse(['message' => 'Data saved successfully'], Response::HTTP_OK);
     }
 
@@ -149,7 +148,6 @@ public function usersList(Request $request, PaginatorInterface $paginator): Resp
         ->orderBy($sortField, $sortDirection);
 
     $query = $queryBuilder->getQuery();
-
     // Paginate the results
     $pagination = $paginator->paginate(
         $query, // Query to paginate
@@ -214,8 +212,14 @@ public function getUserByMobile($mobileNumber): Response
             'pagination' => $user,
         ]);
     }
-    public function submitForm($id,$recipientEmail)
+    
+    #[Route('/submit-form/{id}', name: 'submit_form', methods: ['GET'])]
+    public function submitForm($id)
     {
+        $user = $this->entityManager->getRepository(Users::class)->findOneBy(['id' => $id]);
+        $branchId = $user->getBranchId();
+        $branchEmail = $this->getBranchEmail($branchId);
+
         // Process your form submission
 
         // Assuming you have extracted form data, including email recipient and content
@@ -224,15 +228,13 @@ public function getUserByMobile($mobileNumber): Response
         // Create and send the email
         $email = (new Email())
             ->from('monitoring@suyool.com')
-            ->to($recipientEmail)
+            ->to($branchEmail)
             ->subject('Test NBK')
             ->text($emailContent);
 
         $this->mailer->send($email);
 
         return new Response('Email sent successfully.');
-
-        // Redirect or render a response after sending the email
     }
 
     public function getBranchEmail($branchId) {

@@ -26,6 +26,7 @@ class UsersRepository
         $user->setMobileNumb($userData['mobileNumb'] ?? '');
         $user->setEmail($userData['email'] ?? '');
         $user->setBranchUnit($userData['branchUnit'] ?? '');
+        $user->setBranchId((int)($userData['branchId'] ?? 0));
         $user->setMothersName($userData['mothersName'] ?? '');
         $user->setGender($userData['gender'] ?? '');
         $dob = !empty($userData['dob']) ? \DateTime::createFromFormat('Y-m-d', $userData['dob']) : false;
@@ -71,7 +72,7 @@ public function createExistingUser(array $userData): ?Users
     $user->setMobileNumb($userData['mobileNumb'] ?? '');
     $user->setEmail($userData['email'] ?? '');
     $user->setBranchUnit($userData['branchUnit'] ?? '');
-
+    $user->setBranchId((int)($userData['branchId'] ?? 0));
 
     return $user;
 }
