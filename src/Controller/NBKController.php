@@ -51,7 +51,7 @@ class NBKController extends AbstractController
     #[Route('/submit-data', name: 'submitData', methods: ['POST'])]
     public function submit(Request $request, UsersRepository $usersRepository, AddressRepository $addressRepository, WorkDetailsRepository $workDetailsRepository, BeneficiaryRightsOwnerRepository $beneficiaryRepository, PoliticalPositionDetailsRepository $politicalPositionRepository, FinancialDetailsRepository $financialRepository): JsonResponse {
         $data = json_decode($request->getContent(), true);
-
+        
         if ($data === null) {
             return new JsonResponse(['error' => 'Invalid JSON data'], Response::HTTP_BAD_REQUEST);
         }
@@ -91,6 +91,7 @@ class NBKController extends AbstractController
         if ($financialDetails) {
             $financialDetails->setUser($user);
         }
+        $branchEmail = $this->getBranchEmail($data['user']['branchId']);
 
         // Persist and flush all entities
         $this->entityManager->persist($user);
@@ -99,9 +100,9 @@ class NBKController extends AbstractController
         $this->entityManager->persist($beneficiary);
         $this->entityManager->persist($politicalPosition);
         $this->entityManager->persist($financialDetails);
-        $this->submitForm($user->getId());
 
         $this->entityManager->flush();
+        $this->submitForm($user->getId(),$branchEmail);
 
         return new JsonResponse(['message' => 'Data saved successfully'], Response::HTTP_OK);
     }
@@ -120,18 +121,18 @@ class NBKController extends AbstractController
         if (!$user) {
             return new JsonResponse(['error' => 'Failed to create user'], Response::HTTP_BAD_REQUEST);
         }
-
+        $branchEmail = $this->getBranchEmail($data['branchId']);
         // Persist and flush all entities
         $this->entityManager->persist($user);
         $this->entityManager->flush();
 
-         $this->submitForm($user->getId());
+         $this->submitForm($user->getId(),$branchEmail);
         return new JsonResponse(['message' => 'Data saved successfully'], Response::HTTP_OK);
     }
 
     #[Route('/users', name: 'users_list', methods: ['GET'])]
     public function usersList(Request $request,PaginatorInterface $paginator): Response
-    {
+    {   
         // Fetch all users from the database
         $userRepository = $this->entityManager->getRepository(Users::class);
         $users = $userRepository->createQueryBuilder('u')
@@ -145,9 +146,10 @@ class NBKController extends AbstractController
             ->addSelect('f')
             ->addSelect('p')
             ->addSelect('b')
-            ->getQuery();
-        //->getResult();
-
+            ->orderBy('u.id', 'DESC')
+            ->getQuery()
+        ->getResult();
+        
         $pagination = $paginator->paginate(
             $users, // Query to paginate
             $request->query->getInt('page', 1), // Current page number, default to 1
@@ -210,12 +212,11 @@ public function getUserByMobile($mobileNumber): Response
             'pagination' => $user,
         ]);
     }
-    public function submitForm($id)
+    public function submitForm($id,$recipientEmail)
     {
         // Process your form submission
 
         // Assuming you have extracted form data, including email recipient and content
-        $recipientEmail = 'elionajem51@gmail.com';
         $emailContent = 'To check the user please follow this link http://10.20.80.83/userInfo/'.$id;
 
         // Create and send the email
@@ -230,6 +231,15 @@ public function getUserByMobile($mobileNumber): Response
         return new Response('Email sent successfully.');
 
         // Redirect or render a response after sending the email
+    }
+
+    public function getBranchEmail($branchId) {
+        $branchEmails = [1=>"elionajem51@gmail.com", 2=>"eliaschaaya97@gmail.com",3=>"habchipatrick@gmail.com"];
+        if (array_key_exists($branchId, $branchEmails)) {
+            return $branchEmails[$branchId];
+        } else {
+            return null;
+        }
     }
 
 //    public function submitForm()

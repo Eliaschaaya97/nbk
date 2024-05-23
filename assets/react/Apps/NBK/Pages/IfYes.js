@@ -23,6 +23,7 @@ const IfYes = () => {
   const dispatch = useDispatch();
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalIsOpenNum, setModalIsOpenNum] = useState(false);
+  const [branchId, setBranchId] = useState(null);
 
   const handleButtonClick = () => {
       if (parameters?.deviceType === "Android") {
@@ -40,6 +41,21 @@ const IfYes = () => {
     }
   };
 
+  useEffect(() => {
+    switch (branch) {
+      case 'sanayeh':
+        setBranchId(1);
+        break;
+      case 'bhamdoun':
+        setBranchId(2);
+        break;
+      case 'privatebank':
+        setBranchId(3);
+        break;
+      default:
+        setBranchId(null);
+    }
+  }, [branch]);
   
   const validateForm = () => {
     const errors = {};
@@ -85,7 +101,6 @@ const IfYes = () => {
       }
 
     fetUsers(phoneNumber);
-    console.log('stat555us',localStorage.getItem("statusCode"));
     const statusCode = localStorage.getItem('statusCode');
     if (statusCode === '1') {
       setModalIsOpenNum(true);
@@ -105,6 +120,7 @@ const IfYes = () => {
         mobileNumb: phoneNumber,
         email,
         branchUnit: branch,
+        branchId:branchId,
       });
       setTimeout(() => {
         if (parameters?.deviceType === "Android") {
@@ -186,7 +202,7 @@ const IfYes = () => {
             <option value="">Branch/Unit</option>
             <option value="sanayeh">Sanayeh</option>
             <option value="bhamdoun">Bhamdoun</option>
-            <option value="private bank">Private Bank</option>
+            <option value="privatebank">Private Bank</option>
           </select>
           {errors.branch && <div className="error text-danger error-status">{errors.branch}</div>}
           

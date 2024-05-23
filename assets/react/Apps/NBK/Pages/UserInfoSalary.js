@@ -206,7 +206,7 @@ const handleISOChange = (event) => {
           <select value={additionalIncomeSource} onChange={(e) => setAdditionalIncomeSource(e.target.value)} className="form-select form-control mb-3">
             <option value="">Additional Income Sources</option>
             <option value="none">None</option>
-            <option value="realestatelandsrentincome)">Real Estate/Lands (Rent Income)</option>
+            <option value="realestatelandsrentincome">Real Estate/Lands (Rent Income)</option>
             <option value="trading">Trading</option>
             <option value="investments">Investments</option>
             <option value="others">Others</option>

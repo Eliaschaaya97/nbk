@@ -20,8 +20,23 @@ const UserInfo = () => {
   const [progress, setProgress] = useState(3);
   const [errors, setErrors] = useState({});
   const [modalIsOpenNum, setModalIsOpenNum] = useState(false);
+  const [branchId, setBranchId] = useState(null);
   const parameters = useSelector((state) => state.appData.parameters);
-
+  useEffect(() => {
+    switch (branch) {
+      case 'sanayeh':
+        setBranchId(1);
+        break;
+      case 'bhamdoun':
+        setBranchId(2);
+        break;
+      case 'privatebank':
+        setBranchId(3);
+        break;
+      default:
+        setBranchId(null);
+    }
+  }, [branch]);
 
   const dispatch = useDispatch();
 
@@ -50,7 +65,6 @@ const UserInfo = () => {
       }
       
     fetUsers(phoneNumber);
-    console.log('stat555us',localStorage.getItem("statusCode"));
     const statusCode = localStorage.getItem('statusCode');
     if (statusCode === '1') {
       setModalIsOpenNum(true);
@@ -72,6 +86,7 @@ const UserInfo = () => {
     updateUserFieldInUserData("mobileNumb", phoneNumber);
     updateUserFieldInUserData("email", email);
     updateUserFieldInUserData("branchUnit", branch);
+    updateUserFieldInUserData("branchId", branchId);
 
   };
 
@@ -171,7 +186,7 @@ const UserInfo = () => {
             <option value="">Branch/Unit</option>
             <option value="sanayeh">Sanayeh</option>
             <option value="bhamdoun">Bhamdoun</option>
-            <option value="private bank"> Private Bank</option>
+            <option value="privatebank"> Private Bank</option>
           </select>
           {errors.branch && <div className="text-danger error error-branch">{errors.branch}</div>}
 

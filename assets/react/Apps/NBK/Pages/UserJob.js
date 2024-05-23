@@ -176,18 +176,17 @@ const UserJob = () => {
                 
                     </div>
                     {errors.jobTitle && <div className="text-danger error">{errors.jobTitle}</div>}
-                    <div className="form-group">
-                        <input
-                            type="text"
-                            value={publicSector}
-                            onChange={(e) => setPublicSector(e.target.value)}
-                            placeholder=""
-                            className="form-control mb-3"
-                      
-                        />
-                        <label className="floating-label">Public Sector</label>
-                 
-                    </div>
+              
+                    <select
+            value={publicSector}
+            onChange={(e) => setPublicSector(e.target.value)}
+            className="form-select form-control mb-3"
+          >
+            <option value="">Public Sector</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+         
+          </select>
                     <div className="form-group">
                         <input
                             type="text"
@@ -238,7 +237,7 @@ const UserJob = () => {
                     </div>
                     <div className="form-group">
                         <input
-                            type="text"
+                            type="number"
                             value={workTelNo}
                             onChange={(e) => setWorkTelNo(e.target.value)}
                             placeholder=""
