@@ -21,7 +21,7 @@ const UserInfoSalary = () => {
   const [totalEstimatedMonthlyin, setTotalEstimatedMonthlyin] = useState(userData.totalEstimatedMonthlyIncome || "");
   const [estimatedWealthMonth, setEstimatedWealthMonth] = useState(userData.estimatedWealthAmount || "");
   const [otherSpecify, setotherSpecify] = useState(userData.othersSourceOfFound || "");
-  const [activeButton, setActiveButton] = useState(userData.isWealthInherited || "No");
+  const [activeButton, setActiveButton] = useState(userData.isWealthInherited || "Yes");
   const [sourceOfYourWealth, setSourceOfYourWealth] = useState(userData.sourcesOfWealth || "");
   const [expectedNoTrans, setExpectedNoTrans] = useState(userData.expectedNumberOfTransactions || "");
   const [expectedValueTrans, setExpectedValueTrans] = useState(userData.expectedValueOfTransactions || "");
@@ -114,7 +114,7 @@ const handleISOChange = (event) => {
     if (!estimatedWealthMonth.trim()) {
       errors.estimatedWealthMonth = "Estimated Wealth Amount is required";
     }
-    if (!sourceOfYourWealth.trim() && activeButton === "Yes" && next) {
+    if (!sourceOfYourWealth.trim() && activeButton === "No" && next) {
       errors.sourceOfYourWealth = "Source of Your Wealth is required";
 
       if (!sourceOfFunds.trim()) {
@@ -136,7 +136,7 @@ const handleISOChange = (event) => {
   const handleButtonClick = (event) => {
     event.preventDefault();
     setActiveButton(event.target.innerText);
-    if (event.target.innerText === "No") {
+    if (event.target.innerText === "Yes") {
       setNext(false);
       delete errors.sourceOfYourWealth;
       delete errors.sourceOfFunds;

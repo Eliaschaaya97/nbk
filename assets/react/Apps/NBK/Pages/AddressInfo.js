@@ -143,7 +143,7 @@ const AddressInfo = () => {
             <label className="floating-label">Tax Residency ID Number</label>
           </div>
 
-          <p className="mb-3">Address in Lebanon</p>
+          <p className="mb-3">Address of Residence</p>
           <div className="form-group">
             <input type="text" value={street} onChange={(e) => setStreet(e.target.value)} placeholder="" className="form-control mb-3" />
             <label className="floating-label">Street</label>
@@ -193,7 +193,7 @@ const AddressInfo = () => {
             <input type="text" value={internationalApartment} onChange={(e) => setInternationalApartment(e.target.value)} placeholder="" className="form-control mb-3" />
             <label className="floating-label">Apartment</label>
           </div>
-         
+          <div className="label-div"> <label className="floating-label label-tel" >House Tel No.</label>
           <PhoneInput
           className="mb-3"
           country={"lb"}
@@ -209,7 +209,8 @@ const AddressInfo = () => {
           inputStyle={{ width: "100%" , paddingLeft: "50px",height:"45px"}}
        
         />
-         
+     </div> 
+        <div className="label-div"><label className="floating-label label-tel" >Mobile No.</label> 
           <PhoneInput
           className="mb-3"
           country={"lb"}
@@ -225,11 +226,13 @@ const AddressInfo = () => {
           inputStyle={{ width: "100%" , paddingLeft: "50px",height:"45px"}}
        
         />
+        </div> 
+           
           <div className="form-group">
             <input type="text" value={alternateContactName} onChange={(e) => setAlternateContactName(e.target.value)} placeholder="" className="form-control mb-3" />
-            <label className="floating-label">Alternate Contact Name</label>
+            <label className="floating-label">Alternate Telephone Name</label>
           </div>
-      
+          <div className="label-div">  <label className="floating-label label-tel" >Alternate Telephone No.</label>
           <PhoneInput
           className="mb-3"
           country={"lb"}
@@ -243,8 +246,9 @@ const AddressInfo = () => {
           // enableAreaCodeStretch={true}
           prefix="+"
           inputStyle={{ width: "100%" , paddingLeft: "50px",height:"45px"}}
+          
        
-        />
+        /></div>  
           {/* <button type="submit" className="btn-proceed">
             Next
           </button> */}

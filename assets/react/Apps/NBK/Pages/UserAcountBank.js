@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo,useEffect } from "react";
 import ProgressBar from "../Component/ProgressBar";
 import { CountryDropdown } from "react-country-region-selector";
 import "react-phone-number-input/style.css";
@@ -39,6 +39,13 @@ const [accountBalanceUsd3, setAccountBalanceUsd3] = useState(userData.accountBal
       setInputSets(inputSets + 1);
     }
   };
+  useEffect(() => {
+    let sets = 0;
+    if (bankName2 || country2 || accountBalanceUsd2) sets = 1;
+    if (bankName3 || country3 || accountBalanceUsd3) sets = 2;
+    setInputSets(sets);
+  }, [bankName2, country2, accountBalanceUsd2, bankName3, country3, accountBalanceUsd3]);
+
   
 
   const dispatch = useDispatch();
@@ -142,7 +149,7 @@ const [accountBalanceUsd3, setAccountBalanceUsd3] = useState(userData.accountBal
               errors.accountBalanceUsd = "Account 1 Balance $";
           }
           if (!natureOfRelation.trim()) {
-              errors.natureOfRelation = "Nature of Relation: Personalis required";
+              errors.natureOfRelation = "Nature of Relation: Personal is required";
           }
           if (!purposeOfRelation.trim()) {
               errors.purposeOfRelation = "Purpose of Relation is required";

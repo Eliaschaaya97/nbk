@@ -158,6 +158,31 @@ class NBKController extends AbstractController
             'pagination' => $pagination,
         ]);
     }
+    /**
+ * @Route("/user/checkMobile/{mobileNumber}", name="user_check_mobile")
+ */
+public function getUserByMobile($mobileNumber): Response
+{
+
+    if (!$mobileNumber) {
+        return new Response('Mobile number not provided', 400);
+    }
+
+    $user = $this->entityManager->getRepository(Users::class)->findOneBy(['mobileNumb' => $mobileNumber]);
+
+    if (!$user) {
+       $statusCode = 0; 
+       $message = 'Mobile number not provided';
+    }else {
+        $statusCode = 1;
+        $message = 'User found';
+    }
+    return new JsonResponse([
+        'status' => true,
+        'message' => $message,
+        'statusCode' => $statusCode,
+    ], 200);
+}
 
     #[Route('/userInfo/{id}', name: 'user_info', methods: ['GET'])]
     public function userInfo(int $id): Response

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { settingObjectData, updateUserData } from '../Redux/Slices/AppSlice';
 import AppAPI from '../Api/AppApi';
@@ -17,11 +17,12 @@ const IfYes = () => {
   const [errors, setErrors] = useState({});
   const [progress, setProgress] = useState(0);
 
-  const { SendExistingUser } = AppAPI();
+  const { SendExistingUser ,fetUsers} = AppAPI();
   const parameters = useSelector((state) => state.appData.parameters);
 
   const dispatch = useDispatch();
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalIsOpenNum, setModalIsOpenNum] = useState(false);
 
   const handleButtonClick = () => {
       if (parameters?.deviceType === "Android") {
@@ -38,6 +39,8 @@ const IfYes = () => {
       dispatch(settingObjectData({ mainField: "headerData", field: "currentPage", value: headerData.backLink }));
     }
   };
+
+  
   const validateForm = () => {
     const errors = {};
     if (!fullName.trim()) {
@@ -68,24 +71,51 @@ const IfYes = () => {
   };
 
   const handleFormSubmit = (e) => {
+    
     e.preventDefault();
+    
 
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length === 0) {
-      SendExistingUser({
-        fullName,
-        mobileNumb: phoneNumber,
-        email,
-        branchUnit: branch,
-      });
+   
 
       setProgress(progress + 20);
       if (progress >= 100) {
         setProgress(100);
       }
 
-      console.log('Success inside the customer declaration');
+    fetUsers(phoneNumber);
+    console.log('stat555us',localStorage.getItem("statusCode"));
+    const statusCode = localStorage.getItem('statusCode');
+    if (statusCode === '1') {
+      setModalIsOpenNum(true);
+ 
+        setTimeout(() => {
+          if (parameters?.deviceType === "Android") {
+            window.AndroidInterface.callbackHandler("GoToApp");
+          } else if (parameters?.deviceType === "Iphone") {
+            window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
+          }
+        }, 2000);
+   
+    } else {
       setModalIsOpen(true);
+      SendExistingUser({
+        fullName,
+        mobileNumb: phoneNumber,
+        email,
+        branchUnit: branch,
+      });
+      setTimeout(() => {
+        if (parameters?.deviceType === "Android") {
+          window.AndroidInterface.callbackHandler("GoToApp");
+        } else if (parameters?.deviceType === "Iphone") {
+          window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
+        }
+      }, 3000);
+  
+    }
+  
     } else {
       setErrors(validationErrors);
     }
@@ -125,6 +155,7 @@ const IfYes = () => {
           {errors.fullName && <div className="error text-danger">{errors.fullName}</div>}
           
           <PhoneInput
+    
             className="mb-3"
             country="lb"
             value={phoneNumber}
@@ -171,6 +202,15 @@ const IfYes = () => {
         <p className='p-modal'>Your application was submitted successfully!</p>
         <button  className='button-modal'  onClick={() => {setModalIsOpen(false) ,handleButtonClick() }  }  type="submit"  >Done</button>
       </Modal>
+      <Modal
+       id='modalNum'
+        isOpen={modalIsOpenNum}
+        onRequestClose={() => setModalIsOpenNum(false)}
+        contentLabel="Example Modal"
+      >
+        <p className='p-modal'>Phone number already exist !</p>
+      
+      </Modal>
         </form>
       </div>
     </div>
@@ -178,5 +218,3 @@ const IfYes = () => {
 };
 
 export default IfYes;
-
-
