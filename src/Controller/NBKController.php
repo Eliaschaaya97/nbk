@@ -131,35 +131,37 @@ class NBKController extends AbstractController
     }
 
     #[Route('/users', name: 'users_list', methods: ['GET'])]
-    public function usersList(Request $request,PaginatorInterface $paginator): Response
-    {   
-        // Fetch all users from the database
-        $userRepository = $this->entityManager->getRepository(Users::class);
-        $users = $userRepository->createQueryBuilder('u')
-            ->leftJoin('u.addresses', 'a')
-            ->leftJoin('u.workDetails', 'w')
-            ->leftJoin('u.financialDetails', 'f')
-            ->leftJoin('u.politicalPositionDetails', 'p')
-            ->leftJoin('u.beneficiaryRightsOwners', 'b')
-            ->addSelect('a') // Ensure the associated collections are selected
-            ->addSelect('w')
-            ->addSelect('f')
-            ->addSelect('p')
-            ->addSelect('b')
-            ->orderBy('u.id', 'DESC')
-            ->getQuery()
-        ->getResult();
-        
-        $pagination = $paginator->paginate(
-            $users, // Query to paginate
-            $request->query->getInt('page', 1), // Current page number, default to 1
-            15 // Items per page
-        );
-        // Render a template with the user data
-        return $this->render('nbk/user_list.html.twig', [
-            'pagination' => $pagination,
-        ]);
-    }
+public function usersList(Request $request, PaginatorInterface $paginator): Response
+{
+    // Fetch the sorting parameters from the request
+    $sortField = $request->query->get('sort', 'u.id');
+    $sortDirection = $request->query->get('direction', 'DESC');
+
+    // Fetch all users from the database
+    $userRepository = $this->entityManager->getRepository(Users::class);
+    $queryBuilder = $userRepository->createQueryBuilder('u')
+        ->leftJoin('u.addresses', 'a')
+        ->leftJoin('u.workDetails', 'w')
+        ->leftJoin('u.financialDetails', 'f')
+        ->leftJoin('u.politicalPositionDetails', 'p')
+        ->leftJoin('u.beneficiaryRightsOwners', 'b')
+        ->addSelect('a', 'w', 'f', 'p', 'b')
+        ->orderBy($sortField, $sortDirection);
+
+    $query = $queryBuilder->getQuery();
+
+    // Paginate the results
+    $pagination = $paginator->paginate(
+        $query, // Query to paginate
+        $request->query->getInt('page', 1), // Current page number, default to 1
+        15 // Items per page
+    );
+
+    // Render a template with the user data
+    return $this->render('nbk/user_list.html.twig', [
+        'pagination' => $pagination,
+    ]);
+}
     /**
  * @Route("/user/checkMobile/{mobileNumber}", name="user_check_mobile")
  */
