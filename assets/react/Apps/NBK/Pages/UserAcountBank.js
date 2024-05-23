@@ -65,6 +65,7 @@ const [accountBalanceUsd3, setAccountBalanceUsd3] = useState(userData.accountBal
       })
     );
   };
+
   const handleNext = (e) => {
     e.preventDefault();
     const validationErrors = validateForm();
@@ -115,18 +116,17 @@ const [accountBalanceUsd3, setAccountBalanceUsd3] = useState(userData.accountBal
   const handleCountry1Change = (e) => {
     setCountry1(e.target.value);
   };
-  const handleButtonClick = (event) => {
-    event.preventDefault(); 
-    setActiveButton(event.target.innerText);
-    if (event.target.innerText === "No") {
-     
-      delete errors.bankName ;
-      delete errors.country1;
-      delete  errors.accountBalanceUsd;
-      delete errors.natureOfRelation;
-      delete errors.purposeOfRelation;
-  }
-  }
+  const handleButtonClick = (event, buttonValue) => {
+    event.preventDefault();
+    setActiveButton(buttonValue);
+    if (buttonValue === "No") {
+        delete errors.bankName;
+        delete errors.country1;
+        delete errors.accountBalanceUsd;
+        delete errors.natureOfRelation;
+        delete errors.purposeOfRelation;
+    }
+};
 
 
     const validateForm = () => {
@@ -150,7 +150,6 @@ const [accountBalanceUsd3, setAccountBalanceUsd3] = useState(userData.accountBal
       }
       return errors;
   };
-
   return (
     <div id="UserAcountBank" className="container align-items-center p-3">
       <button
@@ -167,134 +166,167 @@ const [accountBalanceUsd3, setAccountBalanceUsd3] = useState(userData.accountBal
         <form className="form"  onSubmit={handleNext}>
     
           <label className="custom-control-label" htmlFor="customCheck1">
-          Do you have other accounts at Local/International banks?
-                    </label>
-                    <div className="buttons d-flex gap-3 "> 
-                        <button className={`btn px-8 py-2 ${activeButton === "Yes" ? "active" : ""}`} onClick={handleButtonClick}>Yes</button>
-                        <button className={`btn px-8 py-2 ${activeButton === "No" ? "active" : ""}`} onClick={handleButtonClick}>No</button>
+            Do you have other accounts at Local/International banks?
+          </label>
+          <div className="buttons d-flex gap-3 ">
+          <button
+    type="button"
+    className={`btn px-8 py-2 ${activeButton === "Yes" ? "active" : ""}`}
+    onClick={(e) => handleButtonClick(e, "Yes")}
+>
+    Yes
+</button>
+<button
+    type="button"
+    className={`btn px-8 py-2 ${activeButton === "No" ? "active" : ""}`}
+    onClick={(e) => handleButtonClick(e, "No")}
+>
+    No
+</button>
+          </div>
+          {activeButton === "Yes" && (
+            <>
+              <div className="form-group">
+                <input
+                  type="text"
+                  value={bankName}
+                  onChange={handleBankNameChange}
+                  placeholder=""
+                  className="form-control mb-3"
+                />
+                <label className="floating-label">Bank Name 1</label>
+                {errors.bankName && <div className="text-danger error">{errors.bankName}</div>}
+              </div>
+              <div className="form-group">
+                <input
+                  type="text"
+                  value={country1}
+                  onChange={handleCountry1Change}
+                  placeholder=""
+                  className="form-control mb-3"
+                />
+                <label className="floating-label">Country 1</label>
+                {errors.country1 && <div className="text-danger error">{errors.country1}</div>}
+              </div>
+              <div className="form-group">
+                <input
+                  type="number"
+                  value={accountBalanceUsd}
+                  onChange={handleAccountBalanceUsdChange}
+                  placeholder=""
+                  className="form-control mb-3"
+                />
+                <label className="floating-label">Account 1 Balance $</label>
+                {errors.accountBalanceUsd && <div className="text-danger error">{errors.accountBalanceUsd}</div>}
+              </div>
+              <div className="add-input">
+                {inputSets >= 1 && (
+                  <div key={1}>
+                    <div className="form-group">
+                      <input
+                        type="text"
+                        value={bankName2}
+                        onChange={(e) => setBankName2(e.target.value)}
+                        placeholder="Bank Name 2"
+                        className="form-control mb-3"
+                      />
+                      <label className="floating-label">Bank Name 2</label>
                     </div>
-                    {activeButton==="Yes" &&(
-                      <>
-          <div className="form-group">
-            <input type="text" value={bankName} onChange={handleBankNameChange} placeholder="" className="form-control mb-3" />
-            <label className="floating-label">Bank Name 1</label>
-          </div>
-          {errors.bankName && <div className="text-danger error">{errors.bankName}</div>}
-          <div className="form-group">
-            <input type="text" value={country1} onChange={handleCountry1Change} placeholder="" className="form-control mb-3"  />
-            <label className="floating-label">Country 1</label>
-          </div>
-          {errors.country1 && <div className="text-danger error">{errors.country1}</div>}
-          <div className="form-group">
-            <input    type="number" value={accountBalanceUsd} onChange={handleAccountBalanceUsdChange} placeholder="" className="form-control mb-3"  />
-            <label className="floating-label">Account 1 Balance $</label>
-          </div>
-          {errors.accountBalanceUsd && <div className="text-danger error">{errors.accountBalanceUsd}</div>}
-          <div className='add-input'>
-  {inputSets >= 1 && (
-    <div key={1}>
-      <div className="form-group">
-        <input
-          type="text"
-          value={bankName2}
-          onChange={(e) => setBankName2(e.target.value)}
-          placeholder="Bank Name 2"
-          className="form-control mb-3"
-        />
-        <label className="floating-label">Bank Name 2</label>
-      </div>
-      <div className="form-group">
-        <input
-          type="text"
-          value={country2}
-          onChange={(e) => setCountry2(e.target.value)}
-          placeholder="Country 2"
-          className="form-control mb-3"
-        />
-        <label className="floating-label">Country 2</label>
-      </div>
-      <div className="form-group">
-        <input
-           type="number"
-          value={accountBalanceUsd2}
-          onChange={(e) => setAccountBalanceUsd2(e.target.value)}
-          placeholder="Account 2 Balance $"
-          className="form-control mb-3"
-        />
-        <label className="floating-label">Account 2 Balance $</label>
-      </div>
-    </div>
-  )}
-  {inputSets >= 2 && (
-    <div key={2}>
-      <div className="form-group">
-        <input
-          type="text"
-          value={bankName3}
-          onChange={(e) => setBankName3(e.target.value)}
-          placeholder="Bank Name 3"
-          className="form-control mb-3"
-        />
-        <label className="floating-label">Bank Name 3</label>
-      </div>
-      <div className="form-group">
-        <input
-          type="text"
-          value={country3}
-          onChange={(e) => setCountry3(e.target.value)}
-          placeholder="Country 3"
-          className="form-control mb-3"
-        />
-        <label className="floating-label">Country 3</label>
-      </div>
-      <div className="form-group">
-        <input
-          type="number"
-          value={accountBalanceUsd3}
-          onChange={(e) => setAccountBalanceUsd3(e.target.value)}
-          placeholder="Account 3 Balance $"
-          className="form-control mb-3"
-        />
-        <label className="floating-label">Account 3 Balance $</label>
-      </div>
-    </div>
-  )}
-  {inputSets < 2 && (
-    <input
-      className='border-add'
-      type="button"
-      value="Other Account"
-      onClick={handleAddInput}
-    />
-  )}
-</div>
-
-
-          <div className="form-group">
-            <input type="text" value={natureOfRelation} onChange={handleNatureOfRelationChange} placeholder="" className="form-control mb-3"  />
-            <label className="floating-label">Nature of Relation: Personal</label>
-          </div>
-          {errors.natureOfRelation && <div className="text-danger error">{errors.natureOfRelation}</div>}
-          <div className="form-group">
-            <input type="text" value={purposeOfRelation} onChange={handleTotalPurposeOfRelationChange} placeholder="" className="form-control mb-3" />
-            <label className="floating-label">Purpose of Relation</label>
-          </div>
-          {errors.purposeOfRelation && <div className="text-danger error">{errors.purposeOfRelation}</div>}
-          <div>
-            <p className="paragh">if no further changes to your submitted data are required, please press “Next”.</p>
-          </div>
-          </>   )}
-          {/* <button
-            type="submit"
-            className="btn-proceed"
-            onClick={() => 
-             setNext(true)
-            }
-          >
-            Next
-          </button> */}
-          <ButtonModile buttonName={"Next"} setNext={setNext}/>
-
+                    <div className="form-group">
+                      <input
+                        type="text"
+                        value={country2}
+                        onChange={(e) => setCountry2(e.target.value)}
+                        placeholder="Country 2"
+                        className="form-control mb-3"
+                      />
+                      <label className="floating-label">Country 2</label>
+                    </div>
+                    <div className="form-group">
+                      <input
+                        type="number"
+                        value={accountBalanceUsd2}
+                        onChange={(e) => setAccountBalanceUsd2(e.target.value)}
+                        placeholder="Account 2 Balance $"
+                        className="form-control mb-3"
+                      />
+                      <label className="floating-label">Account 2 Balance $</label>
+                    </div>
+                  </div>
+                )}
+                {inputSets >= 2 && (
+                  <div key={2}>
+                    <div className="form-group">
+                      <input
+                        type="text"
+                        value={bankName3}
+                        onChange={(e) => setBankName3(e.target.value)}
+                        placeholder="Bank Name 3"
+                        className="form-control mb-3"
+                      />
+                      <label className="floating-label">Bank Name 3</label>
+                    </div>
+                    <div className="form-group">
+                      <input
+                        type="text"
+                        value={country3}
+                        onChange={(e) => setCountry3(e.target.value)}
+                        placeholder="Country 3"
+                        className="form-control mb-3"
+                      />
+                      <label className="floating-label">Country 3</label>
+                    </div>
+                    <div className="form-group">
+                      <input
+                        type="number"
+                        value={accountBalanceUsd3}
+                        onChange={(e) => setAccountBalanceUsd3(e.target.value)}
+                        placeholder="Account 3 Balance $"
+                        className="form-control mb-3"
+                      />
+                      <label className="floating-label">Account 3 Balance $</label>
+                    </div>
+                  </div>
+                )}
+                {inputSets < 2 && (
+                  <input
+                    className="border-add"
+                    type="button"
+                    value="Other Account"
+                    onClick={handleAddInput}
+                  />
+                )}
+              </div>
+              <div className="form-group">
+                <input
+                  type="text"
+                  value={natureOfRelation}
+                  onChange={handleNatureOfRelationChange}
+                  placeholder=""
+                  className="form-control mb-3"
+                />
+                <label className="floating-label">Nature of Relation: Personal</label>
+                {errors.natureOfRelation && <div className="text-danger error">{errors.natureOfRelation}</div>}
+              </div>
+              <div className="form-group">
+                <input
+                  type="text"
+                  value={purposeOfRelation}
+                  onChange={handleTotalPurposeOfRelationChange}
+                  placeholder=""
+                  className="form-control mb-3"
+                />
+                <label className="floating-label">Purpose of Relation</label>
+                {errors.purposeOfRelation && <div className="text-danger error">{errors.purposeOfRelation}</div>}
+              </div>
+              <div>
+                <p className="paragh">
+                  If no further changes to your submitted data are required, please press “Next”.
+                </p>
+              </div>
+            </>
+          )}
+          <ButtonModile buttonName={"Next"} setNext={setNext} />
         </form>
       </div>
     </div>

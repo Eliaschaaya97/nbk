@@ -156,15 +156,16 @@ const PoliticalPosition = () => {
                   </div>
                   {errors.yearOfRetirement && <div className="text-danger error">{errors.yearOfRetirement}</div>}
                 </div>
+                <label className="custom-control-label" htmlFor="customCheck1">
+                If you or any of your first or second-degree relatives or close associate (partner/consultant/legal representative) are holding political position, please specify your/their position:
+              </label>
               
               <div className="form-group">
                 <input type="text" value={PEPName} onChange={(e) => setPEPName(e.target.value)} placeholder="" className="form-control mb-3" />
                 <label className="floating-label">PEP Name</label>
               </div>
               {errors.PEPName && <div className="text-danger error">{errors.PEPName}</div>}
-              <label className="custom-control-label" htmlFor="customCheck1">
-                If you or any of your first or second-degree relatives or close associate (partner/consultant/legal representative) are holding political position, please specify your/their position:
-              </label>
+          
               <div className="form-group">
                 <input type="text" value={relationship} onChange={(e) => setRelationship(e.target.value)} placeholder="" className="form-control mb-3" />
                 <label className="floating-label">Relationship</label>

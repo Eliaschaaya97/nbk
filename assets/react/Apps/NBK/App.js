@@ -63,14 +63,14 @@ const App = ({parameters}) => {
             <div className="container d-flex flex-column align-items-center p-3">
                 <Logo />
             </div>
-            {headerData.currentPage === "" && <BRODetails />}
+            {headerData.currentPage === "" && <Main />}
             {headerData.currentPage === "IfNo" && <IfNo />}
             {headerData.currentPage === "IfYes" && <IfYes />}
             {headerData.currentPage === "UserInfo" && <UserInfo />}
             {headerData.currentPage === "UserIntroduce" && <UserIntroduce />}
             {headerData.currentPage === "AddressInfo" && <AddressInfo />}
             {headerData.currentPage === "UserJob" && <UserJob />}
-            {/* {headerData.currentPage === "BRODetails" && <BRODetails />} */}
+            {headerData.currentPage === "BRODetails" && <BRODetails />}
             {headerData.currentPage === "PoliticalPosition" && <PoliticalPosition />}
             {headerData.currentPage === "UserInfoSalary" && <UserInfoSalary />}
             {headerData.currentPage === "UserAcountBank" && <UserAcountBank />}
