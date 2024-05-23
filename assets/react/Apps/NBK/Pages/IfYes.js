@@ -85,7 +85,7 @@ const IfYes = () => {
       }
 
     fetUsers(phoneNumber);
-    console.log('stat555us',localStorage.getItem("statusCode"));
+  
     const statusCode = localStorage.getItem('statusCode');
     if (statusCode === '1') {
       setModalIsOpenNum(true);
