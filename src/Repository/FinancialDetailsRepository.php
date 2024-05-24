@@ -33,10 +33,10 @@ class FinancialDetailsRepository
         $financialDetails->setSourcesOfWealth($userData['sourcesOfWealth'] ?? '');
         $financialDetails->setSecondBankName($userData['bankName2'] ?? '');
         $financialDetails->setSecondCountry($userData['country2'] ?? '');
-        $financialDetails->setAccountBalance((float)($userData['accountBalance2'] ?? 0.0));
+        $financialDetails->setSecondBankBalance((float)($userData['accountBalance2'] ?? 0.0));
         $financialDetails->setThirdBankName($userData['bankName3'] ?? '');
         $financialDetails->setThirdAccountCountry($userData['country3'] ?? '');
-        $financialDetails->setAccountBalance((float)($userData['accountBalance3'] ?? 0.0));
+        $financialDetails->setThirdAccountBalance((float)($userData['accountBalance3'] ?? 0.0));
 
 
 
