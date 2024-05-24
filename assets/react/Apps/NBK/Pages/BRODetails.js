@@ -5,6 +5,7 @@ import { settingObjectData, updateUserData } from "../Redux/Slices/AppSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import ButtonMobile from "./ButtonMobile";
+import { CountryDropdown } from "react-country-region-selector";
 
 const BRODetails = () => {
   const userData = useSelector((state) => state.appData.userData.beneficiaryRightsOwner || {});
@@ -129,17 +130,17 @@ const BRODetails = () => {
       };
 
       // Add event listeners to all input elements
-      const inputs = document.querySelectorAll('input, textarea');
-      inputs.forEach(input => {
-        input.addEventListener('focus', handleFocus);
-        input.addEventListener('blur', handleBlur);
+      const inputs = document.querySelectorAll("input, textarea");
+      inputs.forEach((input) => {
+        input.addEventListener("focus", handleFocus);
+        input.addEventListener("blur", handleBlur);
       });
 
       // Cleanup event listeners on component unmount
       return () => {
-        inputs.forEach(input => {
-          input.removeEventListener('focus', handleFocus);
-          input.removeEventListener('blur', handleBlur);
+        inputs.forEach((input) => {
+          input.removeEventListener("focus", handleFocus);
+          input.removeEventListener("blur", handleBlur);
         });
       };
     };
@@ -159,11 +160,7 @@ const BRODetails = () => {
 
   return (
     <div id="BRODetails" className="container align-items-center p-3">
-      <button
-        type="submit"
-        className="btn-Back"
-        onClick={getHeaderTitleBack}
-      >
+      <button type="submit" className="btn-Back" onClick={getHeaderTitleBack}>
         <FontAwesomeIcon icon={faArrowLeft} size="2xl" />
       </button>
       <div className="intro d-flex flex-column align-items-center">
@@ -184,9 +181,15 @@ const BRODetails = () => {
           {activeButton === "No" && (
             <>
               <div className="form-group">
-                <input type="text" value={BRONationality} onChange={(e) => setBRONationality(e.target.value)} placeholder="" className="form-control mb-3" />
-                <label className="floating-label">Please specify BRO Nationality</label>
+                <CountryDropdown
+                  value={BRONationality}
+                  onChange={(value) => setBRONationality(value)} // Update this line
+                  className="form-select form-control mb-3"
+                  defaultOptionLabel="Please specify BRO Nationality"
+                  priorityOptions={["LB", "KW"]}
+                />
               </div>
+
               {errors.BRONationality && <div className="text-danger error">{errors.BRONationality}</div>}
               <div className="form-group">
                 <input type="text" value={beneficiaryName} onChange={(e) => setBeneficiaryName(e.target.value)} placeholder="" className="form-control mb-3" />

@@ -1,0 +1,87 @@
+.dropdown-checkbox {
+    position: relative;
+    display: inline-block;
+    font-family: "Poppins Regular";
+    color: #576271;
+    z-index: 1;
+    width: 100%;
+
+  }
+  
+  .dropdown-button {
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    color: #999;
+    padding: 5px 7px;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    height: 48px;
+    font-size: 14px;
+    font-family: LibreFranklinRegular;
+  }
+  
+  .dropdown-list {
+    position: absolute;
+    top: 99%;
+    left: 0;
+    font-size: 14px;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-top: none;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top: none;
+    list-style: none;
+    padding: 5px 0;
+    margin: 0;
+    max-height: 200px;
+    overflow-y: auto;
+    display: none;
+    width: 100%;
+  }
+  
+   .reports-template-dropdown {
+    
+    .dropdown-list{
+      margin-left: 10px;
+      margin-top: -9px;
+      
+    }
+  
+   }
+  
+  .dropdown-list.open {
+    display: block;
+  }
+  
+  .dropdown-item {
+    padding: 5px 15px !important;
+  }
+  
+  .dropdown-checkbox-input {
+    margin-right: 5px;
+  }
+  
+  .dropdown-label {
+    cursor: pointer;
+  }
+  
+  .day-select {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 3px;
+  
+    .day-item {
+      padding: 3px;
+      text-align: center;
+      cursor: pointer;
+      background-color: #eceff6;
+  
+      &.selected {
+        background-color: #e8b3b0;
+      }
+    }
+  }
+  

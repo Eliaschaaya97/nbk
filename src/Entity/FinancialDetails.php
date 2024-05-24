@@ -293,15 +293,15 @@ public function getSecondBankName(): ?string
         return $this;
     }
 
-    public function getAdditionalIncomeSources(): ?string
+    public function getAdditionalIncomeSourcesArray(): array
     {
-        return $this->additionalIncomeSources;
+        return $this->additionalIncomeSources ? explode(',', $this->additionalIncomeSources) : [];
     }
 
-    public function setAdditionalIncomeSources(string $additionalIncomeSources): self
+    public function setAdditionalIncomeSourcesArray(array $additionalIncomeSourcesArray): self
     {
-        $this->additionalIncomeSources = $additionalIncomeSources;
-
+        $this->additionalIncomeSources = implode(',', $additionalIncomeSourcesArray);
+    
         return $this;
     }
 

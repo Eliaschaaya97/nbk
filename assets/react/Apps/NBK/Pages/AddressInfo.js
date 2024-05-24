@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import ButtonModile from "./ButtonMobile";
 
+
 const AddressInfo = () => {
  const userDataUser = useSelector((state) => state.appData.userData.user || {});
  const userData = useSelector((state) => state.appData.userData.address || {});
@@ -133,10 +134,19 @@ const AddressInfo = () => {
       <div className="intro d-flex flex-column align-items-center">
         <ProgressBar progress={progress} />
         <form className="form" onSubmit={handleNext}>
+        
           <div className="form-group">
-            <input type="text" value={otherCountriesOfTaxResidence} onChange={(e) => setOtherCountriesOfTaxResidence(e.target.value)} placeholder="" className="form-control mb-3" />
-            <label className="floating-label">Other Countries of Tax Residence</label>
+          <CountryDropdown
+    value={otherCountriesOfTaxResidence}
+    onChange={(value) => setOtherCountriesOfTaxResidence(value)} // Update this line
+    className="form-select form-control mb-3"
+    defaultOptionLabel="Other Countries of Tax Residence"
+    priorityOptions={['LB', 'KW']}
+/>
+
+     
           </div>
+          {errors.selectedCountry && <div className="text-danger error">{errors.selectedCountry}</div>}
 
           <div className="form-group">
             <input type="text" value={taxResidencyIDNumber} onChange={(e) => setTaxResidencyIDNumber(e.target.value)} placeholder="" className="form-control mb-3" />

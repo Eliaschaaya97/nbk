@@ -21,6 +21,7 @@ const UserInfo = () => {
   const [errors, setErrors] = useState({});
   const [modalIsOpenNum, setModalIsOpenNum] = useState(false);
   const [branchId, setBranchId] = useState(null);
+
   const parameters = useSelector((state) => state.appData.parameters);
   useEffect(() => {
     switch (branch) {
@@ -53,7 +54,7 @@ const UserInfo = () => {
       }),
     );
   };
-
+ 
   const handleNext = (e) => {
     e.preventDefault();
 
@@ -87,6 +88,7 @@ const UserInfo = () => {
     updateUserFieldInUserData("email", email);
     updateUserFieldInUserData("branchUnit", branch);
     updateUserFieldInUserData("branchId", branchId);
+
 
   };
 
@@ -153,6 +155,7 @@ const UserInfo = () => {
       <div className="intro d-flex flex-column align-items-center">
         <ProgressBar progress={progress} />
         <form className="form" onSubmit={handleNext}>
+
           <div className="form-group">
             <input type="text" value={fullName} onChange={handleFullNameChange} placeholder="" className="form-control mb-3" />
             <label className="floating-label">Full Name</label>

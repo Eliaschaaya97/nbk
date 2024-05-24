@@ -206,7 +206,7 @@ public function getUserByMobile($mobileNumber): Response
             ->setParameter('id', $id)
             ->getQuery()
             ->getResult();
-
+        //dd($user);
         // Render a template with the user data
         return $this->render('nbk/userInfo.html.twig', [
             'pagination' => $user,

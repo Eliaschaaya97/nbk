@@ -7,6 +7,7 @@ import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import "react-phone-number-input/style.css";
 import { list } from 'iso-currencies';
 import ButtonModile from "./ButtonMobile";
+import DropdownCheckbox from '../Component/DropdownCheckbox';
 
 const UserInfoSalary = () => {
   const userData = useSelector((state) => state.appData.userData.financialDetails || {});
@@ -15,7 +16,7 @@ const UserInfoSalary = () => {
   const [currency, setCurrency] = useState(userData.currency || "");
   const [progress, setProgress] = useState(80);
   const [sourceOfFunds, setSourceOfFunds] = useState(userData.sourceOfFunds || "");
-  const [additionalIncomeSource, setAdditionalIncomeSource] = useState(userData.additionalIncomeSources || "");
+  const [additionalIncomeSource, setAdditionalIncomeSource] = useState(userData.additionalIncomeSources || []);
   const [monthlyBasicSal, setMonthlyBasicSal] = useState(userData.monthlyBasicSalary || "");
   const [monthlyAllowances, setMonthlyAllowances] = useState(userData.monthlyAllowances || "");
   const [totalEstimatedMonthlyin, setTotalEstimatedMonthlyin] = useState(userData.totalEstimatedMonthlyIncome || "");
@@ -28,6 +29,7 @@ const UserInfoSalary = () => {
   const [frequency, setFrequency] = useState(userData.frequency || "");
   const [errors, setErrors] = useState({});
   const [next, setNext] = useState(false);
+
 
   const isoCode = list.apply()
   const [countryISO, setCountryISO] = useState([]);
@@ -45,6 +47,16 @@ const updateUserFieldInUserData = (field, value) => {
 const handleISOChange = (event) => {
   setCurrency(event.target.value);
 };
+const IncomeSources=[
+
+
+  { id: "1", value: "none", label: "None" },
+  { id: "2", value: "realestatelandsrentincome", label: "Real Estate/Lands (Rent Income)" },
+  { id: "3", value: "trading", label: "Trading" },
+  { id: "4", value: "investments", label: "Investments" },
+  { id: "5", value: "others", label: "Others" },
+
+];
 
 
 
@@ -105,7 +117,7 @@ const handleISOChange = (event) => {
     if (!monthlyAllowances.trim()) {
       errors.monthlyAllowances = "Monthly Allowances is required";
     }
-    if (!additionalIncomeSource.trim()) {
+    if (!additionalIncomeSource) {
       errors.additionalIncomeSource = "Additional Income Sources is required";
     }
     if (!totalEstimatedMonthlyin.trim()) {
@@ -114,8 +126,11 @@ const handleISOChange = (event) => {
     if (!estimatedWealthMonth.trim()) {
       errors.estimatedWealthMonth = "Estimated Wealth Amount is required";
     }
+    if (!otherSpecify.trim()   && additionalIncomeSource.includes("others")) {
+      errors.otherSpecify = "Other Please Specify is required";
+    }
     if (!sourceOfYourWealth.trim() && activeButton === "No" && next) {
-      errors.sourceOfYourWealth = "Source of Your Wealth is required";
+      errors.sourceOfYourWealth = "Source of Your Wealth is required";}
 
       if (!sourceOfFunds.trim()) {
         errors.sourceOfFunds = "Source of Funds is required";
@@ -129,7 +144,7 @@ const handleISOChange = (event) => {
       if (!frequency.trim()) {
         errors.frequency = "Frequency is required";
       }
-    }
+    
     return errors;
   };
 
@@ -170,6 +185,7 @@ const handleISOChange = (event) => {
       <div className="intro d-flex flex-column align-items-center">
         <ProgressBar progress={progress} />
         <form className="form" onSubmit={handleNext}>
+  
           <div className="form-group">
             <input type="text" value={sourceOfFunds} onChange={(e) => setSourceOfFunds(e.target.value)} placeholder="" className="form-control mb-3" />
             <label className="floating-label">Source of Funds</label>
@@ -203,19 +219,21 @@ const handleISOChange = (event) => {
           </div>
           {errors.monthlyAllowances && <div className="text-danger error">{errors.monthlyAllowances}</div>}
 
-          <select value={additionalIncomeSource} onChange={(e) => setAdditionalIncomeSource(e.target.value)} className="form-select form-control mb-3">
-            <option value="">Additional Income Sources</option>
-            <option value="none">None</option>
-            <option value="realestatelandsrentincome">Real Estate/Lands (Rent Income)</option>
-            <option value="trading">Trading</option>
-            <option value="investments">Investments</option>
-            <option value="others">Others</option>
-          </select>
-          {errors.additionalIncomeSource && <div className="text-danger error">{errors.additionalIncomeSource}</div>}
-          <div className="form-group">
+
+          <div className="form-group-dropdown">
+  
+  <DropdownCheckbox idPrefix={'trtype'} options={IncomeSources} onChange={setAdditionalIncomeSource} valueObj="value" labelObj="label" selectedData={additionalIncomeSource} label={"Additional Income Sources"}    />
+  {errors.additionalIncomeSource && <div className="text-danger error">{errors.additionalIncomeSource}</div>}
+</div>
+       
+
+        
+      {additionalIncomeSource.includes("others") &&  <> <div className="form-group">
             <input type="text" value={otherSpecify} onChange={(e) => setotherSpecify(e.target.value)} placeholder="" className="form-control mb-3" />
             <label className="floating-label">If Others, Please specify</label>
           </div>
+              {errors.otherSpecify && <div className="text-danger error">{errors.otherSpecify}</div>}
+              </>}
           <div className="form-group">
             <input type="number" value={totalEstimatedMonthlyin} onChange={(e) => setTotalEstimatedMonthlyin(e.target.value)} placeholder="" className="form-control mb-3" />
             <label className="floating-label">Total Estimated monthly income</label>
@@ -237,11 +255,13 @@ const handleISOChange = (event) => {
               No
             </button>
           </div>
-          <div className="form-group">
+         {activeButton === "No"&&  <><div className="form-group">
             <input type="text" value={sourceOfYourWealth} onChange={(e) => setSourceOfYourWealth(e.target.value)} placeholder="" className="form-control mb-3" />
             <label className="floating-label">If no, please specify sources of your wealth</label>
           </div>
           {errors.sourceOfYourWealth && <div className="text-danger error">{errors.sourceOfYourWealth}</div>}
+          </>
+          }
           <div className="form-group">
             <input   type="number" value={expectedNoTrans} onChange={(e) => setExpectedNoTrans(e.target.value)} placeholder="" className="form-control mb-3" />
             <label className="floating-label">Expected No. of Transactions</label>

@@ -372,18 +372,20 @@ const UserIntroduce = () => {
     </div>
     {errors.secondExpirationDate && <div className="text-danger error">{errors.secondExpirationDate}</div>}
 
+    
           <div className="form-group">
-            <input
-              type="text"
-              value={otherNationalities}
-              onChange={(e) => setOtherNationalities(e.target.value)}
-              placeholder=""
-              className="form-control mb-3"
-            
-            />
-            <label className="floating-label">Other Nationalities</label>
+          <CountryDropdown
+    value={otherNationalities}
+    onChange={(value) =>setOtherNationalities(value)} // Update this line
+    className="form-select form-control mb-3"
+    defaultOptionLabel="Other Nationalities"
+    priorityOptions={['LB', 'KW']}
+/>
 
+     
           </div>
+      
+          
           <select
   value={statusInLebanon}
   onChange={(e) =>setStatusInLebanon(e.target.value)}

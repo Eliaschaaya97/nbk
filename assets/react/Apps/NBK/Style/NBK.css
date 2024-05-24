@@ -1,4 +1,48 @@
 @import "./style.css";
+@font-face {
+  font-family: PoppinsBold;
+  src: url("../../../../../fonts/Poppins-Bold.ttf");
+}
+@font-face {
+  font-family: PoppinsMedium;
+  src: url("../../../../../fonts/Poppins-Medium.ttf");
+}
+@font-face {
+  font-family: PoppinsRegular;
+  src: url("../../../../../fonts/Poppins-Regular.ttf");
+}
+@font-face {
+  font-family: PoppinsSemiBold;
+  src: url("../../../../../fonts/Poppins-SemiBold.ttf");
+}
+@font-face {
+  font-family: OpenSansRegular;
+  src: url("../../../../../fonts/OpenSans-Regular.ttf");
+}
+@font-face {
+  font-family: PoppinsItalic;
+  src: url("../../../../../fonts/Poppins-Italic.ttf");
+}
+@font-face {
+  font-family: InterRegular;
+  src: url("../../../../../fonts/Inter-Regular.ttf");
+}
+@font-face {
+  font-family: InterBold;
+  src: url("../../../../../fonts/Inter-Bold.ttf");
+}
+@font-face {
+  font-family: AvenirBook;
+  src: url("../../../../../fonts/Avenir_Book.ttf");
+}
+@font-face {
+  font-family: AvenirHeavy;
+  src: url("../../../../../fonts/Avenir_Heavy.ttf");
+}
+@font-face {
+  font-family: LibreFranklinRegular;
+  src: url("../../../../../fonts/LibreFranklin-Regular.ttf");
+}
 #Main {
   display: flex;
   flex-direction: column;
@@ -22,6 +66,7 @@
   max-width: 74%;
   font-size: 17px;
   font-weight: bold;
+  font-family: AvenirHeavy;
 }
 #Main .container .intro .buttons {
   display: flex;
@@ -71,8 +116,29 @@
     padding: 10px 48px;
   }
 }
+.logoTryagain {
+  text-align: center;
+  position: relative;
+  top: 100px;
+}
+
+.tryagain {
+  padding-top: 32vh;
+  text-align: center;
+}
+.tryagain h2 {
+  color: #014c8b;
+}
+.tryagain .close {
+  border: none;
+  padding: 13px 57px;
+  margin-top: 32px;
+  background-color: #014c8b;
+  color: #ffffff;
+  border-radius: 10px;
+}
 #modal {
-  height: 325px;
+  height: 350px;
   max-width: 500px;
   padding: 40px;
   text-align: center;
@@ -82,10 +148,38 @@
 #modal .p-modal {
   text-align: center;
   font-size: 25px;
-  padding-bottom: 80px;
-  padding-top: 80px;
+  padding-bottom: 55px;
+  padding-top: 55px;
 }
 #modal .button-modal {
+  width: 80%;
+  background-color: #034a8e;
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+#modalNum {
+  height: 350px;
+  max-width: 500px;
+  padding: 40px;
+  text-align: center;
+  border-radius: 24px !important;
+  top: 25% !important;
+}
+#modalNum .p-modal {
+  text-align: center;
+  font-size: 25px;
+  padding-bottom: 55px;
+  padding-top: 36%;
+}
+#modalNum .button-modal {
   width: 80%;
   background-color: #034a8e;
   padding: 8px;
@@ -123,7 +217,7 @@
   color: #034a8e;
   max-width: 85%;
   font-size: 17px;
-  font-weight: bold;
+  font-family: AvenirHeavy;
 }
 #IfYes .form {
   display: flex;
@@ -144,6 +238,7 @@
   padding: 10px 10px;
   font-size: 16px;
   border-radius: 4px;
+  font-family: LibreFranklinRegular;
 }
 #IfYes .form .form-group input:focus {
   outline: none;
@@ -201,6 +296,14 @@
     width: 100%;
   }
 }
+input:not(:-moz-placeholder-shown) + .floating-label {
+  margin-top: -4px !important;
+}
+input:focus + .floating-label,
+input:not(:placeholder-shown) + .floating-label {
+  margin-top: -4px !important;
+}
+
 #IfNo button.btn-Back {
   width: 41px;
   height: 41px;
@@ -216,12 +319,19 @@
   flex-direction: column;
   align-items: center;
 }
+#IfNo .intro li {
+  font-family: AvenirHeavy;
+}
+#IfNo .intro label {
+  font-family: AvenirBook;
+}
 #IfNo .intro p {
   display: flex;
   margin-bottom: 20px;
   color: #034a8e;
   font-size: 17px;
   font-weight: bold;
+  font-family: AvenirHeavy;
 }
 #IfNo .form {
   display: flex;
@@ -359,12 +469,16 @@
   width: 85%;
   font-size: 17px;
   font-weight: bold;
+  font-family: AvenirHeavy;
 }
 #UserInfo .form {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
+}
+#UserInfo .form label {
+  font-family: PoppinsRegular;
 }
 #UserInfo .form .select-wrapper {
   height: 200px;
@@ -384,6 +498,7 @@
   padding: 10px 10px;
   font-size: 16px;
   border-radius: 4px;
+  font-family: LibreFranklinRegular;
 }
 #UserInfo .form .form-group input:focus {
   outline: none;
@@ -475,6 +590,44 @@
   flex-direction: column;
   align-items: center;
 }
+#UserIntroduce .form label {
+  font-family: PoppinsRegular;
+}
+#UserIntroduce .form .formborders {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 8px;
+  width: 100%;
+}
+#UserIntroduce .form .formborders::-moz-placeholder {
+  color: #999;
+}
+#UserIntroduce .form .formborders::placeholder {
+  color: #999;
+}
+#UserIntroduce .form .radioOptionsFlex {
+  display: flex;
+  width: 100%;
+}
+#UserIntroduce .form .radioOptionsFlex .radio-options {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 8px;
+  margin-bottom: 17px;
+  width: 50%;
+  height: 45px;
+}
+#UserIntroduce .form .radioOptionsFlex .radio-options input[type=radio] {
+  margin-right: 12px;
+  width: 20px;
+  height: 20px;
+}
+#UserIntroduce .form .radioOptionsFlex .radio-options input[type=radio]:checked:after {
+  width: 10px;
+  height: 10px;
+  top: 4px;
+  left: 4px;
+}
 #UserIntroduce .form div.error {
   display: flex;
   justify-content: flex-start;
@@ -485,6 +638,7 @@
   width: 100%;
 }
 #UserIntroduce .form .form-group input {
+  font-family: LibreFranklinRegular;
   width: 100%;
   padding: 10px 10px;
   font-size: 16px;
@@ -603,6 +757,10 @@
     width: 100%;
   }
 }
+.form-select {
+  font-family: LibreFranklinRegular;
+}
+
 #AddressInfo button.btn-Back {
   width: 41px;
   height: 41px;
@@ -626,10 +784,25 @@
   max-width: 100%;
   font-size: 17px;
   font-weight: bold;
+  font-family: AvenirHeavy;
 }
 #AddressInfo .form {
   display: flex;
   flex-direction: column;
+}
+#AddressInfo .form .label-div {
+  padding-top: 16px;
+  position: relative;
+}
+#AddressInfo .form .label-div .label-tel {
+  font-size: 15px;
+  position: absolute;
+  top: -3px;
+  font-family: LibreFranklinRegular;
+  color: #999;
+}
+#AddressInfo .form label {
+  font-family: PoppinsRegular;
 }
 #AddressInfo .form div.error {
   display: flex;
@@ -645,6 +818,7 @@
   padding: 10px 10px;
   font-size: 16px;
   border-radius: 4px;
+  font-family: LibreFranklinRegular;
 }
 #AddressInfo .form .form-group input:focus {
   outline: none;
@@ -737,6 +911,14 @@
   justify-content: flex-start;
   width: 100%;
   margin-bottom: 4px;
+}
+
+.form-control {
+  font-family: LibreFranklinRegular;
+}
+
+button {
+  font-family: AvenirHeavy;
 }
 
 :root {
@@ -885,6 +1067,9 @@
   flex-direction: column;
   align-items: center;
 }
+#UserJob .intro label {
+  font-family: PoppinsRegular;
+}
 #UserJob .intro p {
   display: flex;
   align-items: flex-start;
@@ -898,6 +1083,17 @@
   display: flex;
   flex-direction: column;
 }
+#UserJob .form .label-div {
+  padding-top: 16px;
+  position: relative;
+}
+#UserJob .form .label-div .label-tel {
+  font-size: 15px;
+  position: absolute;
+  top: -3px;
+  font-family: LibreFranklinRegular;
+  color: #999;
+}
 #UserJob .form div.error {
   display: flex;
   justify-content: flex-start;
@@ -907,11 +1103,15 @@
   position: relative;
   width: 100%;
 }
+#UserJob .form .form-group button {
+  font-family: AvenirHeavy;
+}
 #UserJob .form .form-group input {
   width: 100%;
   padding: 10px 10px;
   font-size: 16px;
   border-radius: 4px;
+  font-family: LibreFranklinRegular;
 }
 #UserJob .form .form-group input:focus {
   outline: none;
@@ -1030,11 +1230,15 @@
   max-width: 100%;
   font-size: 17px;
   font-weight: bold;
+  font-family: AvenirHeavy;
 }
 #BRODetails .form {
   display: flex;
   flex-direction: column;
   width: 100%;
+}
+#BRODetails .form label {
+  font-family: PoppinsRegular;
 }
 #BRODetails .form div.error {
   display: flex;
@@ -1050,6 +1254,7 @@
   padding: 10px 10px;
   font-size: 16px;
   border-radius: 4px;
+  font-family: LibreFranklinRegular;
 }
 #BRODetails .form .form-group input:focus {
   outline: none;
@@ -1168,10 +1373,14 @@
   max-width: 100%;
   font-size: 17px;
   font-weight: bold;
+  font-family: AvenirHeavy;
 }
 #PoliticalPosition .form {
   display: flex;
   flex-direction: column;
+}
+#PoliticalPosition .form label {
+  font-family: PoppinsRegular;
 }
 #PoliticalPosition .form div.error {
   display: flex;
@@ -1196,6 +1405,7 @@
   padding: 10px 10px;
   font-size: 16px;
   border-radius: 4px;
+  font-family: LibreFranklinRegular;
 }
 #PoliticalPosition .form .form-group input:focus {
   outline: none;
@@ -1319,6 +1529,9 @@
   display: flex;
   flex-direction: column;
 }
+#Userinfosalary .form label {
+  font-family: PoppinsRegular;
+}
 #Userinfosalary .form div.error {
   display: flex;
   justify-content: flex-start;
@@ -1338,6 +1551,7 @@
   width: 100%;
 }
 #Userinfosalary .form .form-group input {
+  font-family: LibreFranklinRegular;
   width: 100%;
   padding: 10px 10px;
   font-size: 16px;
@@ -1450,10 +1664,14 @@
   max-width: 100%;
   font-size: 17px;
   font-weight: bold;
+  font-family: AvenirHeavy;
 }
 #UserAcountBank .form {
   display: flex;
   flex-direction: column;
+}
+#UserAcountBank .form label {
+  font-family: PoppinsRegular;
 }
 #UserAcountBank .form div.error {
   display: flex;
@@ -1478,6 +1696,7 @@
   padding: 10px 10px;
   font-size: 16px;
   border-radius: 4px;
+  font-family: LibreFranklinRegular;
 }
 #UserAcountBank .form .form-group input:focus {
   outline: none;
@@ -1700,11 +1919,86 @@
   font-size: 12px;
   text-align: left;
   font-weight: normal;
+  font-family: AvenirHeavy;
 }
 #CustomerDeclaration p.title-final {
   color: #034A8E;
   font-size: 16px;
   text-align: left;
   font-weight: bold;
+  font-family: AvenirBook;
+}
+
+.dropdown-checkbox {
+  position: relative;
+  display: inline-block;
+  font-family: "Poppins Regular";
+  color: #576271;
+}
+
+.dropdown-button {
+  background-color: #fff;
+  border: 1px solid #226D96;
+  padding: 5px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 235px;
+  text-align: left;
+}
+
+.dropdown-list {
+  position: absolute;
+  top: 99%;
+  left: 0;
+  font-size: 13px;
+  background-color: #fff;
+  border: 1px solid #226D96;
+  border-top: none;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-top: none;
+  list-style: none;
+  padding: 5px 0;
+  margin: 0;
+  max-height: 200px;
+  overflow-y: auto;
+  display: none;
+  width: 235px;
+}
+
+.reports-template-dropdown .dropdown-list {
+  margin-left: 10px;
+  margin-top: -9px;
+}
+
+.dropdown-list.open {
+  display: block;
+}
+
+.dropdown-item {
+  padding: 5px 15px !important;
+}
+
+.dropdown-checkbox-input {
+  margin-right: 5px;
+}
+
+.dropdown-label {
+  cursor: pointer;
+}
+
+.day-select {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 3px;
+}
+.day-select .day-item {
+  padding: 3px;
+  text-align: center;
+  cursor: pointer;
+  background-color: #eceff6;
+}
+.day-select .day-item.selected {
+  background-color: #e8b3b0;
 }
 /*# sourceMappingURL=NBK.css.map */

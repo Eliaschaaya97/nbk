@@ -10,6 +10,7 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import ButtonModile from "./ButtonMobile";
 
 
+
 const UserAcountBank = () => {
   const userData = useSelector((state) => state.appData.userData.financialDetails || {});
 
@@ -120,8 +121,8 @@ const [accountBalanceUsd3, setAccountBalanceUsd3] = useState(userData.accountBal
   const handleNatureOfRelationChange = (e) => {
     setNatureOfRelation(e.target.value);
   };
-  const handleCountry1Change = (e) => {
-    setCountry1(e.target.value);
+  const handleCountry1Change = (value) => {
+    setCountry1(value);
   };
   const handleButtonClick = (event, buttonValue) => {
     event.preventDefault();
@@ -204,17 +205,20 @@ const [accountBalanceUsd3, setAccountBalanceUsd3] = useState(userData.accountBal
                 <label className="floating-label">Bank Name 1</label>
                 {errors.bankName && <div className="text-danger error">{errors.bankName}</div>}
               </div>
+           
+
               <div className="form-group">
-                <input
-                  type="text"
-                  value={country1}
-                  onChange={handleCountry1Change}
-                  placeholder=""
-                  className="form-control mb-3"
-                />
-                <label className="floating-label">Country 1</label>
-                {errors.country1 && <div className="text-danger error">{errors.country1}</div>}
-              </div>
+          <CountryDropdown
+    value={country1}
+    onChange={(value) => handleCountry1Change(value)} // Update this line
+    className="form-select form-control mb-3"
+    defaultOptionLabel="Country 1"
+    priorityOptions={['LB', 'KW']}
+/>
+{errors.country1 && <div className="text-danger error">{errors.country1}</div>}
+
+     
+          </div>
               <div className="form-group">
                 <input
                   type="number"
@@ -239,16 +243,18 @@ const [accountBalanceUsd3, setAccountBalanceUsd3] = useState(userData.accountBal
                       />
                       <label className="floating-label">Bank Name 2</label>
                     </div>
+                 
                     <div className="form-group">
-                      <input
-                        type="text"
-                        value={country2}
-                        onChange={(e) => setCountry2(e.target.value)}
-                        placeholder="Country 2"
-                        className="form-control mb-3"
-                      />
-                      <label className="floating-label">Country 2</label>
-                    </div>
+          <CountryDropdown
+    value={country2}
+    onChange={(value) => setCountry2(value)} // Update this line
+    className="form-select form-control mb-3"
+    defaultOptionLabel="Country 2"
+    priorityOptions={['LB', 'KW']}
+/>
+
+     
+          </div>
                     <div className="form-group">
                       <input
                         type="number"
@@ -273,16 +279,18 @@ const [accountBalanceUsd3, setAccountBalanceUsd3] = useState(userData.accountBal
                       />
                       <label className="floating-label">Bank Name 3</label>
                     </div>
+              
                     <div className="form-group">
-                      <input
-                        type="text"
-                        value={country3}
-                        onChange={(e) => setCountry3(e.target.value)}
-                        placeholder="Country 3"
-                        className="form-control mb-3"
-                      />
-                      <label className="floating-label">Country 3</label>
-                    </div>
+          <CountryDropdown
+    value={country3}
+    onChange={(value) => setCountry3(value)} // Update this line
+    className="form-select form-control mb-3"
+    defaultOptionLabel="Country 3"
+    priorityOptions={['LB', 'KW']}
+/>
+
+     
+          </div>
                     <div className="form-group">
                       <input
                         type="number"

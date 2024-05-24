@@ -194,3 +194,44 @@ input:not(:placeholder-shown) + .floating-label {
 
  
 }
+
+.form-group-dropdown {
+  position: relative;
+  padding-bottom: 10px;
+  padding-top: 10px;
+width: 100%;
+
+  input {
+
+    padding: 10px 10px;
+    font-size: 16px;
+    border-radius: 4px;
+    font-family: $LibreFranklinRegular;
+    &:focus {
+      outline: none;
+      border-color: #034a8e;
+    }
+    &::placeholder {
+      color: transparent;
+    }
+  }
+
+
+  .floating-label {
+    position: absolute;
+    top: 35%;
+    left: 10px;
+    transform: translateY(-50%);
+    transition: all 0.3s ease;
+    color: #999;
+    font-size: 14px;
+    pointer-events: none;
+  }
+
+  input:focus + .floating-label,
+  input:not(:placeholder-shown) + .floating-label {
+
+    font-size: 11px;
+    padding-bottom: 20px;
+  }
+}

@@ -5,6 +5,8 @@ import { settingObjectData,updateUserData} from '../Redux/Slices/AppSlice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import ButtonModile from './ButtonMobile';
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css';
 
 const UserJob = () => {
     const userDataUser = useSelector((state) => state.appData.userData.user || {});
@@ -95,19 +97,22 @@ const UserJob = () => {
         if (!jobTitle.trim()) {
             errors.jobTitle = "Job Title is required";
         }
+        if (!publicSector.trim()) {
+            errors.publicSector = "Public Sector is required";
+        }
 
-        if (!grade.trim() && activeButton === "Yes" && next ) {
-            errors.grade = "Grade is required for Stock Exchange listed workplaces";
+        if (!grade.trim() && publicSector === "yes"  ) {
+            errors.grade = "Grade is required for Stock Exchange listed workplaces";}
         
-        if (!spouseName.trim()) {
+        if (!spouseName.trim() && (status === "widow" || status === "married"))  {
             errors.spouseName = "Spouse Name is required";
         }
-        if (!spouseProfession.trim()) {
+        if (!spouseProfession.trim()  && (status === "widow" || status === "married")) {
             errors.spouseProfession = "Spouse Profession is required";
         }
-        if (!noOfChildren.trim()) {
+        if (!noOfChildren.trim()  && (status === "widow" || status === "married" || status ==="divorced")) {
             errors.noOfChildren = "Number of Children is required";
-                }}
+                }
       
         return errors;
     };
@@ -187,6 +192,26 @@ const UserJob = () => {
             <option value="no">No</option>
          
           </select>
+          {errors.publicSector && <div className="text-danger error">{errors.publicSector}</div>}
+          
+          {publicSector === "yes" && (
+                       <div> <div className="form-group">
+                            <label className="custom-control-label" htmlFor="customCheck1">
+                                If Yes, Grade
+                            </label>
+                            <input
+                                type="text"
+                                value={grade}
+                                onChange={(e) => setGrade(e.target.value)}
+                                placeholder="??"
+                                className="form-control mb-3"
+                               
+                            />
+                        
+                        </div>
+                            {errors.grade && <div className="text-danger error">{errors.grade}</div>}
+                            </div>
+                    )}
                     <div className="form-group">
                         <input
                             type="text"
@@ -235,18 +260,24 @@ const UserJob = () => {
                         <label className="floating-label">Work Address</label>
              
                     </div>
-                    <div className="form-group">
-                        <input
-                            type="number"
-                            value={workTelNo}
-                            onChange={(e) => setWorkTelNo(e.target.value)}
-                            placeholder=""
-                            className="form-control mb-3"
-                       
-                        />
-                        <label className="floating-label">Work Tel No.</label>
-                 
-                    </div>
+                
+                    <div className="label-div"> <label className="floating-label label-tel" >Work Tel No.</label>
+          <PhoneInput
+          className="mb-3"
+          country={"lb"}
+
+          value={workTelNo}
+          defaultValue={workTelNo}
+          onChange={(value, country) =>
+            setWorkTelNo( value)
+          }
+          disableSearchIcon={true}
+          // enableAreaCodeStretch={true}
+          prefix="+"
+          inputStyle={{ width: "100%" , paddingLeft: "50px",height:"45px"}}
+       
+        />
+     </div> 
                     <div className="custom-control">
                         <label className="custom-control-label" htmlFor="customCheck1">
                             Is your place of work listed in Kuwait/Lebanon Stock Exchange?
@@ -256,24 +287,6 @@ const UserJob = () => {
                             <button className={`btn px-8 py-2 ${activeButton === "No" ? "active" : ""}`}  onClick={(e) => { handleButtonClick(e); setNext(false); }}>No</button>
                         </div>
                     </div>
-                    {activeButton === "Yes" && (
-                       <div> <div className="form-group">
-                            <label className="custom-control-label" htmlFor="customCheck1">
-                                If Yes, Grade
-                            </label>
-                            <input
-                                type="text"
-                                value={grade}
-                                onChange={(e) => setGrade(e.target.value)}
-                                placeholder="??"
-                                className="form-control mb-3"
-                               
-                            />
-                        
-                        </div>
-                            {errors.grade && <div className="text-danger error">{errors.grade}</div>}
-                            </div>
-                    )}
                    {status=== "married" && <> <div className="form-group">
                         <input
                             type="text"

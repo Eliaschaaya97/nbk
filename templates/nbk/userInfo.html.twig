@@ -283,10 +283,19 @@
                             <th>Monthly Allowances</th>
                             <td>{{ financialDetail.monthlyAllowances }}</td>
                         </tr>
-                        <tr>
-                            <th>Additional Income Sources</th>
-                            <td>{{ financialDetail.additionalIncomeSources }}</td>
-                        </tr>
+                 <tr>
+    <th>Additional Income Sources</th>
+    <td>
+    {% if financialDetail.getAdditionalIncomeSourcesArray() is not empty %}
+         {% for source in financialDetail.getAdditionalIncomeSourcesArray() %}
+                {{ source }},
+            {% endfor %}
+    {% else %}
+        No additional income sources.
+    {% endif %}
+</td>
+</tr>
+<tr>
                         <tr>
                             <th>Others Source Of Found</th>
                             <td>{{ financialDetail.othersSourceOfFound }}</td>

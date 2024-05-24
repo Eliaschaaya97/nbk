@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import Modal from 'react-modal';
 
+
 const IfYes = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [fullName, setFullName] = useState('');
@@ -24,6 +25,7 @@ const IfYes = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalIsOpenNum, setModalIsOpenNum] = useState(false);
   const [branchId, setBranchId] = useState(null);
+  
 
   const handleButtonClick = () => {
       if (parameters?.deviceType === "Android") {
@@ -40,6 +42,9 @@ const IfYes = () => {
       dispatch(settingObjectData({ mainField: "headerData", field: "currentPage", value: headerData.backLink }));
     }
   };
+
+  
+
 
   useEffect(() => {
     switch (branch) {
@@ -152,12 +157,16 @@ const IfYes = () => {
       <button type="button" className="btn-Back" onClick={getHeaderTitleBack}>
         <FontAwesomeIcon icon={faArrowLeft} size="2xl" />
       </button>
+      
+
 
       <div className="intro d-flex flex-column align-items-center">
         <p className="mb-3">
           Please refer to your branch. We will contact you within 3 working days.
         </p>
         <form className="form" onSubmit={handleFormSubmit}>
+          
+
           <div className="form-group">
             <input
               type="text"
