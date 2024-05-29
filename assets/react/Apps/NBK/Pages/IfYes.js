@@ -175,7 +175,7 @@ const IfYes = () => {
               placeholder=""
               className="form-control mb-3"
             />
-            <label className="floating-label">Full Name of Branch</label>
+            <label className="floating-label">Full Name</label>
           </div>
           {errors.fullName && <div className="error text-danger">{errors.fullName}</div>}
           
