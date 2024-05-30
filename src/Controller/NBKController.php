@@ -223,7 +223,7 @@ public function getUserByMobile($mobileNumber): Response
         // Process your form submission
 
         // Assuming you have extracted form data, including email recipient and content
-        $emailContent = 'To check the user please follow this link http://10.20.80.83/userInfo/'.$id;
+        $emailContent = 'To check the user please follow this link https://ubuntunbk.suyool.com/userInfo/'.$id;
 
         // Create and send the email
         $email = (new Email())
@@ -239,8 +239,8 @@ public function getUserByMobile($mobileNumber): Response
 
     public function getBranchEmail($branchId) {
         // $branchEmails = [1=>"Sanayehbr@nbk.com.lb", 2=>"Bhamdounbr@nbk.com.lb",3=>"privatebr@nbk.com.lb"];
-        $branchEmails = [1=>"bilal.alkhodor@nbk.com.lb", 2=>"bilal.alkhodor@nbk.com.lb",3=>"bilal.alkhodor@nbk.com.lb"];
-
+        //$branchEmails = [1=>"bilal.alkhodor@nbk.com.lb", 2=>"bilal.alkhodor@nbk.com.lb",3=>"bilal.alkhodor@nbk.com.lb"];
+        $branchEmails = [1=>"elionajem51@gmail.com", 2=>"eliaschaaya97@gmail.com",3=>"habchipatrick@gmail.com"];
         if (array_key_exists($branchId, $branchEmails)) {
             return $branchEmails[$branchId];
         } else {
