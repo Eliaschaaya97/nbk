@@ -1,7 +1,7 @@
 
 
 #modal{
-  height: 350px;
+  height: fit-content;
   max-width: 500px;
   padding: 40px;
   text-align: center;
@@ -11,10 +11,8 @@
   .p-modal {
     text-align: center ;
     font-size: 25px;
-
-    padding-bottom: 55px;
-    padding-top: 55px;
-  
+    padding-bottom: 35px;
+    padding-top: 35px;
   }
   .button-modal{
     width: 80%;
