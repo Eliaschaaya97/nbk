@@ -59,8 +59,6 @@ class NBKController extends AbstractController
         }
 
         $branchEmail = $this->getBranchEmail($data['user']['branchId']);
-        $branchEmail = 'rabih.marounn@hotmail.com';
-
         // Create and save User entity using UserRepository
         $user = $usersRepository->createUser($data['user']);
 
