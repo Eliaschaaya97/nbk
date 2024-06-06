@@ -224,7 +224,7 @@ const IfYes = () => {
         onRequestClose={() => setModalIsOpen(false)}
         contentLabel="Example Modal"
       >
-        <p className='p-modal'>Your application was submitted successfully!</p>
+        <p className='p-modal'>Thank you for choosing NBK Lebanon. <br/> We will contact you within 5-7 days. </p>
         <button  className='button-modal'  onClick={() => {setModalIsOpen(false) ,handleButtonClick() }  }  type="submit"  >Done</button>
       </Modal>
       <Modal

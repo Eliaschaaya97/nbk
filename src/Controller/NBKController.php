@@ -19,6 +19,8 @@ use App\Service\GenerallServices;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -56,12 +58,40 @@ class NBKController extends AbstractController
             return new JsonResponse(['error' => 'Invalid JSON data'], Response::HTTP_BAD_REQUEST);
         }
 
+        $branchEmail = $this->getBranchEmail($data['user']['branchId']);
+        $branchEmail = 'rabih.marounn@hotmail.com';
+
         // Create and save User entity using UserRepository
         $user = $usersRepository->createUser($data['user']);
 
         if (!$user) {
             return new JsonResponse(['error' => 'Failed to create user'], Response::HTTP_BAD_REQUEST);
         }
+
+        //unset the branchid because we are using it internally to get the branch email
+        unset($data['user']['branchId']);
+        $userEmail = $data['user']['email'];
+
+        if (!$this->isValidEmail($userEmail)) {
+            return new JsonResponse(['error' => 'Invalid email address'], Response::HTTP_BAD_REQUEST);
+        }
+       
+        $pdfContent = $this->generatePdf($data);
+
+        $email = (new Email())
+            ->from('monitoring@suyool.com')
+            ->to($branchEmail)
+            ->subject('Form submitted from ' . $data['user']['fullName'])
+            ->text('Please find attached the form submitted from ' . $data['user']['fullName'] . '.');
+        $email->attach($pdfContent, $data['user']['fullName'].' Data.pdf');
+        $this->mailer->send($email);
+
+        $email = (new Email())
+            ->from('monitoring@suyool.com')
+            ->to($data['user']['email'])
+            ->subject('Thank you for choosing NBK Lebanon.')
+            ->text("Dear " . $data['user']['fullName'] . ",\n\nThank you for choosing NBK Lebanon.\nWe will contact you within 5-7 days.\n\nRegards.");
+        $this->mailer->send($email);
 
         // Set the user for Address and WorkDetails
         $address = $addressRepository->createAddress($data['address'] ?? []);
@@ -91,7 +121,6 @@ class NBKController extends AbstractController
         if ($financialDetails) {
             $financialDetails->setUser($user);
         }
-        $branchEmail = $this->getBranchEmail($data['user']['branchId']);
 
         // Persist and flush all entities
         $this->entityManager->persist($user);
@@ -246,6 +275,41 @@ public function getUserByMobile($mobileNumber): Response
         } else {
             return null;
         }
+    }
+
+    public function generatePdf($data) {
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+        $options->set('isRemoteEnabled', true);
+        $dompdf = new Dompdf($options);
+        $html = '<html><body>';
+        $html .= $this->printKeyValuePairs($data);
+        $html .= '</body></html>';
+        $dompdf->loadHtml($html);
+        $dompdf->render();
+        return $dompdf->output();
+    }
+
+    private function printKeyValuePairs($data) {
+        $html = '<table style="border-collapse: collapse; width: 100%;">';
+    
+        foreach ($data as $key => $value) {
+            if (is_array($value)) {
+                $uppercaseKey = strtoupper($key);
+                $html .= '<tr><td colspan="2" style="border: 1px solid #ddd; padding: 8px; background-color: #f2f2f2;"><strong>' . $uppercaseKey . '</strong></td></tr>';
+                $html .= $this->printKeyValuePairs($value);
+            } else {
+                $html .= '<tr><td style="border: 1px solid #ddd; padding: 8px;"><strong>' . $key . ':</strong></td>';
+                $html .= '<td style="border: 1px solid #ddd; padding: 8px;">' . $value . '</td></tr>';
+            }
+        }
+        $html .= '</table>';
+        return $html;
+    }
+
+    public function isValidEmail(string $email): bool {
+        $pattern = '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/';
+        return preg_match($pattern, $email) === 1;
     }
 
 //    public function submitForm()

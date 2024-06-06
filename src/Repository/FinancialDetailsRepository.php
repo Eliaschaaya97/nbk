@@ -16,7 +16,11 @@ class FinancialDetailsRepository
         $financialDetails->setCurrency($userData['currency'] ?? '');
         $financialDetails->setMonthlyBasicSalary($userData['monthlyBasicSalary'] ?? 0.0);
         $financialDetails->setMonthlyAllowances($userData['monthlyAllowances'] ?? 0.0);
-        $financialDetails->setAdditionalIncomeSourcesArray($userData['additionalIncomeSources'] ?? []);
+        $additionalIncomeSources = $userData['additionalIncomeSources'] ?? [];
+        if (is_string($additionalIncomeSources)) {
+            $additionalIncomeSources = [$additionalIncomeSources];
+        }
+        $financialDetails->setAdditionalIncomeSourcesArray($additionalIncomeSources);
         $financialDetails->setTotalEstimatedMonthlyIncome((float)($userData['totalEstimatedMonthlyIncome'] ?? 0.0));
         $financialDetails->setIsWealthInherited($userData['isWealthInherited'] ?? false);
         $financialDetails->setExpectedNumberOfTransactions((int)($userData['expectedNumberOfTransactions'] ?? 0));
