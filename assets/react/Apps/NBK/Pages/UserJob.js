@@ -197,7 +197,7 @@ const UserJob = () => {
           {publicSector === "yes" && (
                        <div> <div className="form-group">
                             <label className="custom-control-label" htmlFor="customCheck1">
-                                If Yes, Grade
+                                Grade
                             </label>
                             <input
                                 type="text"
@@ -314,16 +314,25 @@ const UserJob = () => {
                     </div>
                     {errors.spouseProfession && <div className="text-danger error">{errors.spouseProfession}</div>}
                     <div className="form-group">
-                        <input
-                              type="number"
-                            value={noOfChildren}
-                            onChange={(e) => setNoOfChildren(e.target.value)}
-                            placeholder=""
-                            className="form-control mb-3"
-                         
-                        />
-                        <label className="floating-label">No. of Children</label>
-                    
+                    <select
+                        value={noOfChildren}
+                        onChange={(e) => setNoOfChildren(e.target.value)}
+                        className="form-select form-control mb-3"
+                        >
+                        <option value="">No. of Children</option>
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                     
+                      </select>
                     </div>
                     {errors.noOfChildren && <div className="text-danger error">{errors.noOfChildren}</div>} </>}
                     {status=== "widow" && <> <div className="form-group">

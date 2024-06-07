@@ -240,7 +240,7 @@ const AddressInfo = () => {
            
           <div className="form-group">
             <input type="text" value={alternateContactName} onChange={(e) => setAlternateContactName(e.target.value)} placeholder="" className="form-control mb-3" />
-            <label className="floating-label">Alternate Telephone Name</label>
+            <label className="floating-label">Alternate Contact Name</label>
           </div>
           <div className="label-div">  <label className="floating-label label-tel" >Alternate Telephone No.</label>
           <PhoneInput

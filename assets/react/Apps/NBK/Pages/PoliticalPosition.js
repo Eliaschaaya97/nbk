@@ -76,7 +76,7 @@ const PoliticalPosition = () => {
     if (!currentPrevious.trim() && activeButton === "Yes" && next) {
       errors.currentPrevious = "Current/Previous field is required";
 
-      if (!yearOfRetirement.trim()) {
+      if (currentPrevious === "previous" && !yearOfRetirement.trim()) {
         errors.yearOfRetirement = "Year of Retirement is required for Previous";
       }
       if (!PEPName.trim()) {
@@ -142,50 +142,94 @@ const PoliticalPosition = () => {
             </button>
           </div>
           {activeButton === "Yes" && (
-            <>
-              <div className="form-group">
-                <input type="text" value={currentPrevious} onChange={(e) => setCurrentPrevious(e.target.value)} placeholder="" className="form-control mb-3" />
-                <label className="floating-label">If yes, please specify Current/Previous?</label>
-              </div>
-              {errors.currentPrevious && <div className="text-danger error">{errors.currentPrevious}</div>}
-     
-                <div>
-                  <div className="form-group">
-                    <input type="text" value={yearOfRetirement} onChange={(e) => setYearOfRetirement(e.target.value)} placeholder="" className="form-control mb-3" />
-                    <label className="floating-label">If previous, please specify Year of Retirement</label>
-                  </div>
-                  {errors.yearOfRetirement && <div className="text-danger error">{errors.yearOfRetirement}</div>}
-                </div>
-                <label className="custom-control-label" htmlFor="customCheck1">
-                If you or any of your first or second-degree relatives or close associate (partner/consultant/legal representative) are holding political position, please specify your/their position:
-              </label>
-              
-              <div className="form-group">
-                <input type="text" value={PEPName} onChange={(e) => setPEPName(e.target.value)} placeholder="" className="form-control mb-3" />
-                <label className="floating-label">PEP Name</label>
-              </div>
-              {errors.PEPName && <div className="text-danger error">{errors.PEPName}</div>}
-          
-              <div className="form-group">
-                <input type="text" value={relationship} onChange={(e) => setRelationship(e.target.value)} placeholder="" className="form-control mb-3" />
-                <label className="floating-label">Relationship</label>
-              </div>
-              {errors.relationship && <div className="text-danger error">{errors.relationship}</div>}
-              <select value={PEPPosition} onChange={(e) => setPEPPosition(e.target.value)} className="form-select form-control mb-3">
-                <option value="">PEP Position</option>
-                <option value="royalfamily">Royal Family</option>
-                <option value="memberofparliament">Member of Parliament</option>
-                <option value="seniormilitary"> Senior Military</option>
-                <option value="seniorgovernmentofficer"> Senior Government Officer</option>
-                <option value="seniorpolitician"> Senior Politician</option>
-                <option value="entitiesdiplomat"> Entities Diplomat</option>
-                <option value="courtpresidentdeputy"> Court President/Deputy</option>
-                <option value="attorneygeneral"> Attorney General</option>
-                <option value="seniorpositionatIntlorganisation"> Senior Position at Int'l Organisation</option>
-              </select>
-              {errors.PEPPosition && <div className="text-danger error">{errors.PEPPosition}</div>}
-            </>
-          )}
+  <>
+    <div className="form-group">
+      <select
+        value={currentPrevious}
+        onChange={(e) => setCurrentPrevious(e.target.value)}
+        className="form-select form-control mb-3"
+      >
+        <option value="">If yes, please specify Current/Previous?</option>
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+      </select>
+    </div>
+    {errors.currentPrevious && (
+      <div className="text-danger error">{errors.currentPrevious}</div>
+    )}
+    {currentPrevious === "yes" && (
+      <div className="form-group">
+        <input
+          type="text"
+          value={yearOfRetirement}
+          onChange={(e) => setYearOfRetirement(e.target.value)}
+          placeholder=""
+          className="form-control mb-3"
+        />
+        <label className="floating-label">
+          If previous, please specify Year of Retirement
+        </label>
+        {errors.yearOfRetirement && (
+          <div className="text-danger error">{errors.yearOfRetirement}</div>
+        )}
+      </div>
+    )}
+    <label className="custom-control-label" htmlFor="customCheck1">
+      If you or any of your first or second-degree relatives or close associate
+      (partner/consultant/legal representative) are holding political position,
+      please specify your/their position:
+    </label>
+
+    <div className="form-group">
+      <input
+        type="text"
+        value={PEPName}
+        onChange={(e) => setPEPName(e.target.value)}
+        placeholder=""
+        className="form-control mb-3"
+      />
+      <label className="floating-label">PEP Name</label>
+      {errors.PEPName && <div className="text-danger error">{errors.PEPName}</div>}
+    </div>
+
+    <div className="form-group">
+      <input
+        type="text"
+        value={relationship}
+        onChange={(e) => setRelationship(e.target.value)}
+        placeholder=""
+        className="form-control mb-3"
+      />
+      <label className="floating-label">Relationship</label>
+      {errors.relationship && (
+        <div className="text-danger error">{errors.relationship}</div>
+      )}
+    </div>
+    <select
+      value={PEPPosition}
+      onChange={(e) => setPEPPosition(e.target.value)}
+      className="form-select form-control mb-3"
+    >
+      <option value="">PEP Position</option>
+      <option value="royalfamily">Royal Family</option>
+      <option value="memberofparliament">Member of Parliament</option>
+      <option value="seniormilitary">Senior Military</option>
+      <option value="seniorgovernmentofficer">
+        Senior Government Officer
+      </option>
+      <option value="seniorpolitician">Senior Politician</option>
+      <option value="entitiesdiplomat">Entities Diplomat</option>
+      <option value="courtpresidentdeputy">Court President/Deputy</option>
+      <option value="attorneygeneral">Attorney General</option>
+      <option value="seniorpositionatIntlorganisation">
+        Senior Position at Int'l Organisation
+      </option>
+    </select>
+    {errors.PEPPosition && (
+      <div className="text-danger error">{errors.PEPPosition}</div>
+    )}
+  </>
+)}
 {/* 
           <button type="submit" className="btn-proceed" onClick={() => setNext(true)}>
             Next

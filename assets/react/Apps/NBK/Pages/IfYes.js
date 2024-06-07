@@ -178,9 +178,8 @@ const IfYes = () => {
             <label className="floating-label">Full Name</label>
           </div>
           {errors.fullName && <div className="error text-danger">{errors.fullName}</div>}
-          
+          <div className="label-div"><label className=" label-tel" >Mobile No.</label></div>
           <PhoneInput
-    
             className="mb-3"
             country="lb"
             value={phoneNumber}
@@ -189,8 +188,9 @@ const IfYes = () => {
             prefix="+"
             inputStyle={{ width: '100%', paddingLeft: '50px', height: '45px' }}
           />
+        
           {errors.phoneNumber && <div className="error text-danger">{errors.phoneNumber}</div>}
-          
+      
           <div className="form-group">
             <input
               type="email"
