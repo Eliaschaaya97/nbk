@@ -161,7 +161,7 @@ const UserInfo = () => {
             <label className="floating-label">Full Name</label>
           </div>
           {errors.fullName && <div className="text-danger error">{errors.fullName}</div>}
-
+          <div className="label-div"><label className="label-tel" >Mobile No.</label></div>
           <PhoneInput
           className="mb-3"
           country={"lb"}
