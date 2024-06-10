@@ -153,8 +153,6 @@ const AppSlice = createSlice({
         financialDetails: {},
       };
     },
-
-    
   },
 });
 

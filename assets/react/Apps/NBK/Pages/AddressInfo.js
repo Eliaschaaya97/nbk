@@ -137,21 +137,28 @@ const AddressInfo = () => {
         
           <div className="form-group">
           <CountryDropdown
-    value={otherCountriesOfTaxResidence}
-    onChange={(value) => setOtherCountriesOfTaxResidence(value)} // Update this line
-    className="form-select form-control mb-3"
-    defaultOptionLabel="Other Countries of Tax Residence"
-    priorityOptions={['LB', 'KW']}
-/>
+              value={otherCountriesOfTaxResidence}
+              onChange={(value) => setOtherCountriesOfTaxResidence(value)} // Update this line
+              className="form-select form-control mb-3"
+              defaultOptionLabel="Other Countries of Tax Residence"
+              priorityOptions={['LB', 'KW']}
+          />
 
-     
           </div>
           {errors.selectedCountry && <div className="text-danger error">{errors.selectedCountry}</div>}
 
-          <div className="form-group">
-            <input type="text" value={taxResidencyIDNumber} onChange={(e) => setTaxResidencyIDNumber(e.target.value)} placeholder="" className="form-control mb-3" />
-            <label className="floating-label">Tax Residency ID Number</label>
-          </div>
+          {otherCountriesOfTaxResidence && (
+            <div className="form-group">
+              <input
+                type="text"
+                value={taxResidencyIDNumber}
+                onChange={(e) => setTaxResidencyIDNumber(e.target.value)}
+                placeholder=""
+                className="form-control mb-3"
+              />
+              <label className="floating-label">Tax Residency ID Number</label>
+            </div>
+          )}
 
           <p className="mb-3">Address of Residence</p>
           <div className="form-group">

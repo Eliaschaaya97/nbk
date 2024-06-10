@@ -141,13 +141,13 @@ const [accountBalanceUsd3, setAccountBalanceUsd3] = useState(userData.accountBal
       const errors = {};
       if (activeButton === "Yes" && next) {
           if (!bankName.trim()) {
-              errors.bankName = "Bank Name 1";
+              errors.bankName = "Bank Name 1 is required";
           }
           if ( !country1.trim()) {
-              errors.country1 = "Country 1";
+              errors.country1 = "Country 1 is required";
           }
           if (!accountBalanceUsd.trim()) {
-              errors.accountBalanceUsd = "Account 1 Balance $";
+              errors.accountBalanceUsd = "Account 1 Balance $ is required";
           }
           if (!natureOfRelation.trim()) {
               errors.natureOfRelation = "Nature of Relation: Personal is required";
@@ -155,9 +155,31 @@ const [accountBalanceUsd3, setAccountBalanceUsd3] = useState(userData.accountBal
           if (!purposeOfRelation.trim()) {
               errors.purposeOfRelation = "Purpose of Relation is required";
           }
-      }
-      return errors;
-  };
+          if (inputSets >= 1) {
+            if (!bankName2.trim()) {
+              errors.bankName2 = "Bank Name 2 is required";
+            }
+            if (!country2.trim()) {
+              errors.country2 = "Country 2 is required";
+            }
+            if (!accountBalanceUsd2.trim()) {
+              errors.accountBalanceUsd2 = "Account 2 Balance $ is required";
+            }
+          }
+          if (inputSets >= 2) {
+            if (!bankName3.trim()) {
+              errors.bankName3 = "Bank Name 3 is required";
+            }
+            if (!country3.trim()) {
+              errors.country3 = "Country 3 is required";
+            }
+            if (!accountBalanceUsd3.trim()) {
+              errors.accountBalanceUsd3 = "Account 3 Balance $ is required";
+            }
+          }
+        }
+        return errors;
+      };
   return (
     <div id="UserAcountBank" className="container align-items-center p-3">
       <button
@@ -242,6 +264,7 @@ const [accountBalanceUsd3, setAccountBalanceUsd3] = useState(userData.accountBal
                         className="form-control mb-3"
                       />
                       <label className="floating-label">Bank Name 2</label>
+                      {errors.bankName2 && <div className="text-danger error">{errors.bankName2}</div>}
                     </div>
                  
                     <div className="form-group">
@@ -252,8 +275,7 @@ const [accountBalanceUsd3, setAccountBalanceUsd3] = useState(userData.accountBal
     defaultOptionLabel="Country 2"
     priorityOptions={['LB', 'KW']}
 />
-
-     
+{errors.country2 && <div className="text-danger error">{errors.country2}</div>}
           </div>
                     <div className="form-group">
                       <input
@@ -264,6 +286,7 @@ const [accountBalanceUsd3, setAccountBalanceUsd3] = useState(userData.accountBal
                         className="form-control mb-3"
                       />
                       <label className="floating-label">Account 2 Balance $</label>
+                      {errors.accountBalanceUsd2 && <div className="text-danger error">{errors.accountBalanceUsd2}</div>}
                     </div>
                   </div>
                 )}
@@ -278,6 +301,7 @@ const [accountBalanceUsd3, setAccountBalanceUsd3] = useState(userData.accountBal
                         className="form-control mb-3"
                       />
                       <label className="floating-label">Bank Name 3</label>
+                      {errors.bankName3 && <div className="text-danger error">{errors.bankName3}</div>}
                     </div>
               
                     <div className="form-group">
@@ -288,8 +312,7 @@ const [accountBalanceUsd3, setAccountBalanceUsd3] = useState(userData.accountBal
     defaultOptionLabel="Country 3"
     priorityOptions={['LB', 'KW']}
 />
-
-     
+{errors.country3 && <div className="text-danger error">{errors.country3}</div>}
           </div>
                     <div className="form-group">
                       <input
@@ -300,6 +323,7 @@ const [accountBalanceUsd3, setAccountBalanceUsd3] = useState(userData.accountBal
                         className="form-control mb-3"
                       />
                       <label className="floating-label">Account 3 Balance $</label>
+                      {errors.accountBalanceUsd3 && <div className="text-danger error">{errors.accountBalanceUsd3}</div>}
                     </div>
                   </div>
                 )}

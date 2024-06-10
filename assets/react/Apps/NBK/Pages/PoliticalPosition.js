@@ -73,11 +73,9 @@ const PoliticalPosition = () => {
   };
   const validateForm = () => {
     const errors = {};
-    if (!currentPrevious.trim() && activeButton === "Yes" && next) {
-      errors.currentPrevious = "Current/Previous field is required";
-
-      if (currentPrevious === "previous" && !yearOfRetirement.trim()) {
-        errors.yearOfRetirement = "Year of Retirement is required for Previous";
+    if (activeButton === "Yes") {
+      if (!currentPrevious.trim()) {
+        errors.currentPrevious = "Current/Previous field is required";
       }
       if (!PEPName.trim()) {
         errors.PEPName = "PEP Name is required";
@@ -87,6 +85,9 @@ const PoliticalPosition = () => {
       }
       if (!PEPPosition.trim()) {
         errors.PEPPosition = "PEP Position is required";
+      }
+      if (!yearOfRetirement.trim()){
+        errors.yearOfRetirement = "Year of Retirement is required";
       }
     }
     return errors;
@@ -144,20 +145,21 @@ const PoliticalPosition = () => {
           {activeButton === "Yes" && (
   <>
     <div className="form-group">
-      <select
+    <input
+        type="text"
         value={currentPrevious}
         onChange={(e) => setCurrentPrevious(e.target.value)}
-        className="form-select form-control mb-3"
-      >
-        <option value="">If yes, please specify Current/Previous?</option>
-        <option value="yes">Yes</option>
-        <option value="no">No</option>
-      </select>
-    </div>
+        placeholder=""
+        className="form-control mb-3"
+      />
+      <label className="floating-label">
+          If yes, please specify Current/Previous?
+      </label>
     {errors.currentPrevious && (
       <div className="text-danger error">{errors.currentPrevious}</div>
     )}
-    {currentPrevious === "yes" && (
+    </div>
+
       <div className="form-group">
         <input
           type="text"
@@ -173,7 +175,6 @@ const PoliticalPosition = () => {
           <div className="text-danger error">{errors.yearOfRetirement}</div>
         )}
       </div>
-    )}
     <label className="custom-control-label" htmlFor="customCheck1">
       If you or any of your first or second-degree relatives or close associate
       (partner/consultant/legal representative) are holding political position,

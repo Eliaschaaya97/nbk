@@ -29,14 +29,13 @@ const UserInfoSalary = () => {
   const [frequency, setFrequency] = useState(userData.frequency || "");
   const [errors, setErrors] = useState({});
   const [next, setNext] = useState(false);
-
+  
 
   const isoCode = list.apply()
   const [countryISO, setCountryISO] = useState([]);
   
   useEffect(() => {
     const updatedCountryISO = [...countryISO, ...Object.keys(isoCode)];
-
     setCountryISO(updatedCountryISO);
 }, []);
 
@@ -48,16 +47,21 @@ const handleISOChange = (event) => {
   setCurrency(event.target.value);
 };
 const IncomeSources=[
-
-
   { id: "1", value: "none", label: "None" },
-  { id: "2", value: "realestatelandsrentincome", label: "Real Estate/Lands (Rent Income)" },
+  { id: "2", value: "realestatelandsrentincome", label: "Real Estate/Lands (Rent Income)"},
   { id: "3", value: "trading", label: "Trading" },
   { id: "4", value: "investments", label: "Investments" },
-  { id: "5", value: "others", label: "Others" },
-
+  { id: "5", value: "others", label: "Others"},
 ];
 
+const handleIncomeSourceChange = (selectedOptions) => {
+  if (selectedOptions.includes('none')) {
+    setAdditionalIncomeSource(['none']);
+  } else {
+    const updatedOptions = selectedOptions.filter(option => option !== 'none');
+    setAdditionalIncomeSource(updatedOptions);
+  }
+};
 
 
   const getHeaderTitle = () => {
@@ -161,6 +165,7 @@ const IncomeSources=[
     }
   };
 
+  
   const getHeaderTitleBack = () => {
     dispatch(
       settingObjectData({
@@ -222,9 +227,17 @@ const IncomeSources=[
 
           <div className="form-group-dropdown">
   
-  <DropdownCheckbox idPrefix={'trtype'} options={IncomeSources} onChange={setAdditionalIncomeSource} valueObj="value" labelObj="label" selectedData={additionalIncomeSource} label={"Additional Income Sources"}    />
-  {errors.additionalIncomeSource && <div className="text-danger error">{errors.additionalIncomeSource}</div>}
-</div>
+          <DropdownCheckbox 
+            idPrefix={'trtype'} 
+            options={IncomeSources} 
+            onChange={handleIncomeSourceChange} 
+            valueObj="value" 
+            labelObj="label" 
+            selectedData={additionalIncomeSource} 
+            label={"Additional Income Sources"} 
+          />
+        {errors.additionalIncomeSource && <div className="text-danger error">{errors.additionalIncomeSource}</div>}
+      </div>
        
 
         
