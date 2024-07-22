@@ -34,6 +34,7 @@ const [accountBalanceUsd2, setAccountBalanceUsd2] = useState(userData.accountBal
 const [bankName3, setBankName3] = useState(userData.bankName3 || "");
 const [country3, setCountry3] = useState(userData.country3|| "");
 const [accountBalanceUsd3, setAccountBalanceUsd3] = useState(userData.accountBalance3 || "");
+const regex = /^[A-Za-z\s\-']*$/;
 
   const handleAddInput = () => {
     if (inputSets < 2) {
@@ -108,10 +109,24 @@ const [accountBalanceUsd3, setAccountBalanceUsd3] = useState(userData.accountBal
     setAccountBalanceUsd(e.target.value);
   };
 
+ 
   const handleBankNameChange = (e) => {
-    setBankName(e.target.value);
+    const { value } = e.target;
+    if (regex.test(value)) {
+      setBankName(value);
+    } 
   };
-
+  const handleBankNameChange2 = (e) => {
+    const { value } = e.target;
+    if (regex.test(value)) {
+      setBankName2(value);
+    } 
+  };  const handleBankNameChange3 = (e) => {
+    const { value } = e.target;
+    if (regex.test(value)) {
+      setBankName3(value);
+    } 
+  };
 
 
   const handleTotalPurposeOfRelationChange = (e) => {
@@ -259,7 +274,7 @@ const [accountBalanceUsd3, setAccountBalanceUsd3] = useState(userData.accountBal
                       <input
                         type="text"
                         value={bankName2}
-                        onChange={(e) => setBankName2(e.target.value)}
+                        onChange={handleBankNameChange2}
                         placeholder="Bank Name 2"
                         className="form-control mb-3"
                       />
@@ -296,7 +311,7 @@ const [accountBalanceUsd3, setAccountBalanceUsd3] = useState(userData.accountBal
                       <input
                         type="text"
                         value={bankName3}
-                        onChange={(e) => setBankName3(e.target.value)}
+                        onChange={handleBankNameChange3}
                         placeholder="Bank Name 3"
                         className="form-control mb-3"
                       />

@@ -21,6 +21,8 @@ const UserInfo = () => {
   const [errors, setErrors] = useState({});
   const [modalIsOpenNum, setModalIsOpenNum] = useState(false);
   const [branchId, setBranchId] = useState(null);
+  const regex = /^[A-Za-z\s\-']*$/;
+
 
   const parameters = useSelector((state) => state.appData.parameters);
   useEffect(() => {
@@ -120,8 +122,12 @@ const UserInfo = () => {
     setPhoneNumber(e.target.value);
   };
 
+ 
   const handleFullNameChange = (e) => {
-    setFullName(e.target.value);
+    const { value } = e.target;
+    if (regex.test(value)) {
+      setFullName(value);
+    } 
   };
 
   const handleEmailChange = (e) => {

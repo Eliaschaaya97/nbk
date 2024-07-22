@@ -9,6 +9,7 @@ const IfNo = () => {
     const dispatch = useDispatch();
     const [checked, setChecked] = useState(false);
     const [error, setError] = useState(false); 
+    
 
     const getHeaderTitle = () => {    
         dispatch(

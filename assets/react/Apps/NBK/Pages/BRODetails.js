@@ -22,6 +22,10 @@ const BRODetails = () => {
   const [activeButton, setActiveButton] = useState(userData.customerSameAsBeneficiary || "Yes");
   const [errors, setErrors] = useState({});
   const [next, setNext] = useState(false);
+  const regex = /^[A-Za-z\s\-']*$/;
+
+
+
 
   const dispatch = useDispatch();
 
@@ -37,6 +41,18 @@ const BRODetails = () => {
         value: "PoliticalPosition",
       })
     );
+  };
+  const handlesBeneficiaryName = (e) => {
+    const { value } = e.target;
+    if (regex.test(value)) {
+      setBeneficiaryName(value);
+    } 
+  };
+  const handlesProfession = (e) => {
+    const { value } = e.target;
+    if (regex.test(value)) {
+      setProfession(value);
+    } 
   };
 
   const handleNext = (e) => {
@@ -192,7 +208,7 @@ const BRODetails = () => {
 
               {errors.BRONationality && <div className="text-danger error">{errors.BRONationality}</div>}
               <div className="form-group">
-                <input type="text" value={beneficiaryName} onChange={(e) => setBeneficiaryName(e.target.value)} placeholder="" className="form-control mb-3" />
+                <input type="text" value={beneficiaryName} onChange={handlesBeneficiaryName} placeholder="" className="form-control mb-3" />
                 <label className="floating-label">Please specify Beneficiary Name</label>
               </div>
               {errors.beneficiaryName && <div className="text-danger error">{errors.beneficiaryName}</div>}
@@ -222,7 +238,7 @@ const BRODetails = () => {
               </div>
               {errors.address && <div className="text-danger error">{errors.address}</div>}
               <div className="form-group">
-                <input type="text" value={profession} onChange={(e) => setProfession(e.target.value)} placeholder="" className="form-control mb-3" />
+                <input type="text" value={profession} onChange={handlesProfession} placeholder="" className="form-control mb-3" />
                 <label className="floating-label">Profession</label>
               </div>
               {errors.profession && <div className="text-danger error">{errors.profession}</div>}

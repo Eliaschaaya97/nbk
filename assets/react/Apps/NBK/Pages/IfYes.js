@@ -78,9 +78,13 @@ const IfYes = () => {
     }
     return errors;
   };
+  const regex = /^[A-Za-z\s\-']*$/;
 
   const handleFullNameChange = (e) => {
-    setFullName(e.target.value);
+    const { value } = e.target;
+    if (regex.test(value)) {
+      setFullName(value);
+    }
   };
 
   const handleEmailChange = (e) => {

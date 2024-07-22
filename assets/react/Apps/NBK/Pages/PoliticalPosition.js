@@ -28,6 +28,7 @@ const PoliticalPosition = () => {
       })
     );
   };
+  const regex = /^[A-Za-z\s\-']*$/;
 
   const dispatch = useDispatch();
   const handleAddInput = (index) => {
@@ -35,6 +36,12 @@ const PoliticalPosition = () => {
       // Check if the first input is clicked and only one input exists
       setInputs([...inputs, ""]); // Add a new input field
     }
+  };
+  const handlesPEPName= (e) => {
+    const { value } = e.target;
+    if (regex.test(value)) {
+      setPEPName(value);
+    } 
   };
   const handleChanges = (event, index) => {
     const newInputs = [...inputs];
@@ -185,7 +192,7 @@ const PoliticalPosition = () => {
       <input
         type="text"
         value={PEPName}
-        onChange={(e) => setPEPName(e.target.value)}
+        onChange={handlesPEPName}
         placeholder=""
         className="form-control mb-3"
       />

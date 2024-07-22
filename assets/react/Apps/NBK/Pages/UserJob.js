@@ -28,6 +28,7 @@ const UserJob = () => {
     const [activeButton, setActiveButton] = useState( userData.placeOfWorkListed || "No");
     const [errors, setErrors] = useState({});
     const [next,setNext]=useState(false);
+    const regex = /^[A-Za-z\s\-']*$/;
 
     const dispatch = useDispatch();
   const [status ,setStatus]=useState(   localStorage.getItem("status"));
@@ -48,6 +49,30 @@ const UserJob = () => {
           )
         );
       };
+      const handlesJobTitle = (e) => {
+        const { value } = e.target;
+        if (regex.test(value)) {
+            setJobTitle(value);
+        } 
+      };
+      const handlesEntityName = (e) => {
+        const { value } = e.target;
+        if (regex.test(value)) {
+            setEntityName(value);
+        } 
+      };
+      const handlesSpouseName = (e) => {
+        const { value } = e.target;
+        if (regex.test(value)) {
+            setSpouseName(value);
+        } 
+      };
+      const handlesSpouseProfessione = (e) => {
+        const { value } = e.target;
+        if (regex.test(value)) {
+            setSpouseProfession(value);
+        } 
+      };
 
   
     const getHeaderTitle = () => {    
@@ -59,6 +84,7 @@ const UserJob = () => {
             })
         );
     };
+    
 
     const handleNext = (e) => {
         e.preventDefault();
@@ -172,7 +198,7 @@ const UserJob = () => {
                         <input
                             type="text"
                             value={jobTitle}
-                            onChange={(e) => setJobTitle(e.target.value)}
+                            onChange={handlesJobTitle}
                             placeholder=""
                             className="form-control mb-3"
                          
@@ -228,7 +254,7 @@ const UserJob = () => {
                         <input
                             type="text"
                             value={entityName}
-                            onChange={(e) => setEntityName(e.target.value)}
+                            onChange={handlesEntityName}
                             placeholder=""
                             className="form-control mb-3"
                      
@@ -291,7 +317,7 @@ const UserJob = () => {
                         <input
                             type="text"
                             value={spouseName}
-                            onChange={(e) => setSpouseName(e.target.value)}
+                            onChange={handlesSpouseName}
                             placeholder=""
                             className="form-control mb-3"
                           
@@ -304,7 +330,7 @@ const UserJob = () => {
                         <input
                             type="text"
                             value={spouseProfession}
-                            onChange={(e) => setSpouseProfession(e.target.value)}
+                            onChange={handlesSpouseProfessione}
                             placeholder=""
                             className="form-control mb-3"
                        

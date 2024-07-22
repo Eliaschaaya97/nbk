@@ -13,7 +13,7 @@ import ButtonModile from "./ButtonMobile";
 const AddressInfo = () => {
  const userDataUser = useSelector((state) => state.appData.userData.user || {});
  const userData = useSelector((state) => state.appData.userData.address || {});
-
+ const regex = /^[A-Za-z\s\-']*$/;
 
   const [otherCountriesOfTaxResidence, setOtherCountriesOfTaxResidence] = useState(userDataUser.otherCountriesOfTaxResidence || "");
   const [street, setStreet] = useState( userData.street|| "");
@@ -51,6 +51,12 @@ const AddressInfo = () => {
         value: "UserJob",
       })
     );
+  };
+  const handleAlternateContactName = (e) => {
+    const { value } = e.target;
+    if (regex.test(value)) {
+      setAlternateContactName(value);
+    } 
   };
 
   const handleNext = (e) => {
@@ -246,7 +252,7 @@ const AddressInfo = () => {
         </div> 
            
           <div className="form-group">
-            <input type="text" value={alternateContactName} onChange={(e) => setAlternateContactName(e.target.value)} placeholder="" className="form-control mb-3" />
+            <input type="text" value={alternateContactName} onChange={handleAlternateContactName} placeholder="" className="form-control mb-3" />
             <label className="floating-label">Alternate Contact Name</label>
           </div>
           <div className="label-div">  <label className="floating-label label-tel" >Alternate Telephone No.</label>
