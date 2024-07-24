@@ -169,6 +169,7 @@ const UserInfo = () => {
           {errors.fullName && <div className="text-danger error">{errors.fullName}</div>}
           <div className="label-div"><label className="label-tel" >Mobile No.</label></div>
           <PhoneInput
+          enableSearch
           className="mb-3"
           country={"lb"}
           // value={"phoneNumber"}

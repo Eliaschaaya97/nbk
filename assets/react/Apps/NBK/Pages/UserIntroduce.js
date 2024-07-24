@@ -1,6 +1,6 @@
-import React, { useState,useEffect } from "react";
-import { useDispatch ,useSelector } from "react-redux";
-import { settingObjectData,updateUserData } from "../Redux/Slices/AppSlice";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { settingObjectData, updateUserData } from "../Redux/Slices/AppSlice";
 import ProgressBar from "../Component/ProgressBar";
 import { CountryDropdown, RegionDropdown } from "react-country-region-selector";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,29 +10,42 @@ import ButtonModile from "./ButtonMobile";
 const UserIntroduce = () => {
   const userData = useSelector((state) => state.appData.userData.user || {});
 
-  const [motherName, setMotherName] = useState( userData.mothersName ||"");
-  const [date, setDate] = useState(  userData.dob || "");
+  const [motherName, setMotherName] = useState(userData.mothersName || "");
+  const [date, setDate] = useState(userData.dob || "");
   const [progress, setProgress] = useState(8);
   const regex = /^[A-Za-z\s\-']*$/;
 
-  const [selectedCountry, setSelectedCountry] = useState( userData.countryOfOrigin || "");
-  const [selectedState, setSelectedState] = useState(  userData.registerPlaceAndNo || "");
-  const [placeOfBirth, setPlaceOfBirth] = useState( userData.placeOfBirth ||"");
-  const [civilNational, setCivilNational] = useState(  userData.nationalId ||"");
-  const [expirationDate, setExpirationDate] = useState(  userData.expirationDateNationalId|| "");
-  const [status, setStatus] = useState( userData.maritalStatus||"");
-  const [passport, setPassport] = useState( userData.passportNumber||"");
-  const [placeOfIssue, setPlaceOfIssue] = useState( userData.placeOfIssuePassport || "");
-  const [secondExpirationDate, setSecondExpirationDate] = useState( userData.expirationDatePassport|| "");
-  const [otherNationalities, setOtherNationalities] = useState( userData.otherNationalities|| "");
-  const [statusInLebanon, setStatusInLebanon] = useState( userData.statusInLebanon|| "");
+  const [selectedCountry, setSelectedCountry] = useState(
+    userData.countryOfOrigin || ""
+  );
+  const [selectedState, setSelectedState] = useState(
+    userData.registerPlaceAndNo || ""
+  );
+  const [placeOfBirth, setPlaceOfBirth] = useState(userData.placeOfBirth || "");
+  const [civilNational, setCivilNational] = useState(userData.nationalId || "");
+  const [expirationDate, setExpirationDate] = useState(
+    userData.expirationDateNationalId || ""
+  );
+  const [status, setStatus] = useState(userData.maritalStatus || "");
+  const [passport, setPassport] = useState(userData.passportNumber || "");
+  const [placeOfIssue, setPlaceOfIssue] = useState(
+    userData.placeOfIssuePassport || ""
+  );
+  const [secondExpirationDate, setSecondExpirationDate] = useState(
+    userData.expirationDatePassport || ""
+  );
+  const [otherNationalities, setOtherNationalities] = useState(
+    userData.otherNationalities || ""
+  );
+  const [statusInLebanon, setStatusInLebanon] = useState(
+    userData.statusInLebanon || ""
+  );
   const [errors, setErrors] = useState({});
-  const [dateEx ,setDateEx]=useState("");
-  const [validDate,setValidDate]=useState(false);
-  const [gender,setGender] =useState(  userData.gender || "female");
+  const [dateEx, setDateEx] = useState("");
+  const [validDate, setValidDate] = useState(false);
+  const [gender, setGender] = useState(userData.gender || "female");
 
-  localStorage.setItem("status",status);
-
+  localStorage.setItem("status", status);
 
   const dispatch = useDispatch();
   const updateUserFieldInUserData = (field, value) => {
@@ -41,13 +54,11 @@ const UserIntroduce = () => {
 
   useEffect(() => {
     const today = new Date();
-    const nextMonth = new Date(today.setMonth(today.getMonth() + 1 ));
+    const nextMonth = new Date(today.setMonth(today.getMonth() + 1));
     nextMonth.setDate(today.getDate() + 1);
 
-  
-    const formattedDate = nextMonth.toISOString().split('T')[0];
+    const formattedDate = nextMonth.toISOString().split("T")[0];
     setDateEx(formattedDate);
-   
   }, []);
 
   const getHeaderTitle = () => {
@@ -82,30 +93,39 @@ const UserIntroduce = () => {
     } else {
       setErrors(validationErrors);
     }
-     updateUserFieldInUserData("mothersName", motherName);
-     updateUserFieldInUserData("gender", gender);
-     updateUserFieldInUserData("dob", date);
-     updateUserFieldInUserData("placeOfBirth", placeOfBirth);
-     updateUserFieldInUserData("countryOfOrigin", selectedCountry);
-     updateUserFieldInUserData("nationalId", civilNational);
-     updateUserFieldInUserData("expirationDateNationalId", expirationDate);
-     updateUserFieldInUserData("registerPlaceAndNo", selectedState);
-     updateUserFieldInUserData("maritalStatus", status);
-     updateUserFieldInUserData("passportNumber", passport);
-      updateUserFieldInUserData("expirationDatePassport", secondExpirationDate);
-       updateUserFieldInUserData("otherNationalities", otherNationalities);
-            updateUserFieldInUserData("statusInLebanon", statusInLebanon);
-     updateUserFieldInUserData("placeOfIssuePassport", placeOfIssue);
-
-     
+    updateUserFieldInUserData("mothersName", motherName);
+    updateUserFieldInUserData("gender", gender);
+    updateUserFieldInUserData("dob", date);
+    updateUserFieldInUserData("placeOfBirth", placeOfBirth);
+    updateUserFieldInUserData("countryOfOrigin", selectedCountry);
+    updateUserFieldInUserData("nationalId", civilNational);
+    updateUserFieldInUserData("expirationDateNationalId", expirationDate);
+    updateUserFieldInUserData("registerPlaceAndNo", selectedState);
+    updateUserFieldInUserData("maritalStatus", status);
+    updateUserFieldInUserData("passportNumber", passport);
+    updateUserFieldInUserData("expirationDatePassport", secondExpirationDate);
+    updateUserFieldInUserData("otherNationalities", otherNationalities);
+    updateUserFieldInUserData("statusInLebanon", statusInLebanon);
+    updateUserFieldInUserData("placeOfIssuePassport", placeOfIssue);
   };
   const handleMotherName = (e) => {
     const { value } = e.target;
     if (regex.test(value)) {
       setMotherName(value);
-    } 
+    }
   };
-
+  const handlePlaceofBirth = (e) => {
+    const { value } = e.target;
+    if (regex.test(value)) {
+      setPlaceOfBirth(value);
+    }
+  };
+  const handlePlaceofIssue = (e) => {
+    const { value } = e.target;
+    if (regex.test(value)) {
+      setPlaceOfIssue(value);
+    }
+  };
 
   const validateForm = () => {
     const errors = {};
@@ -121,36 +141,35 @@ const UserIntroduce = () => {
     if (!selectedCountry) {
       errors.selectedCountry = "Country of Origin is required";
     }
-    if (!civilNational.trim() && !secondExpirationDate.trim() && !placeOfIssue.trim()&& !passport.trim() ) {
+    if (
+      !civilNational.trim() &&
+      !secondExpirationDate.trim() &&
+      !placeOfIssue.trim() &&
+      !passport.trim()
+    ) {
       errors.civilNational = "Civil/National ID No. is required";
     }
 
-  
     if (!selectedState) {
       errors.selectedState = "Register Place & No. is required";
     }
     if (!status) {
       errors.status = "Marital Status is required";
     }
-    if (!passport.trim() &&  !expirationDate.trim() && !civilNational.trim()) {
-      errors.passport = "Passport No. is required";
-    }
-    if (!placeOfIssue.trim() &&  !expirationDate.trim() && !civilNational.trim() ) {
+    if (selectedCountry === "") {
+    } else if (selectedCountry !== "Lebanon")
+      errors.passport = " passport is required";
+
+    if (passport.trim() && !expirationDate.trim() && !civilNational.trim()) {
+      errors.secondExpirationDate = " Expiration Date is required";
       errors.placeOfIssue = "Place of Issue is required";
     }
-    if (!expirationDate.trim() &&  !secondExpirationDate.trim() && !placeOfIssue.trim()&& !passport.trim()) {
-      errors.expirationDate = " Expiration Date is required";
-    }
-    if (  !secondExpirationDate.trim() && !expirationDate.trim() && !civilNational.trim()  ) {
-      errors.secondExpirationDate = " Expiration Date is required";
-    }
-  
+
     if (!statusInLebanon.trim()) {
       errors.statusInLebanon = "Status in Lebanon is required";
     }
     return errors;
   };
-
 
   return (
     <div id="UserIntroduce" className="container align-items-center p-3">
@@ -171,44 +190,48 @@ const UserIntroduce = () => {
             <input
               type="text"
               value={motherName}
-              onChange={ handleMotherName}
+              onChange={handleMotherName}
               placeholder=""
               className="form-control mb-3"
-              
             />
             <label className="floating-label">Mother's Name</label>
-      
           </div>
-          {errors.motherName && <div className="text-danger error">{errors.motherName}</div>}
-     
-          <div className="radioOptionsFlex">
-        <div className="radio-options">
-          <input
-            type="radio"
-            id="female"
-            name="gender"
-            className="formborders"
-            value="female"
-            defaultChecked={gender == "female" }
-            onChange={(e) => setGender( e.target.value)}
-          />
-          <label htmlFor="female">Female</label>
-        </div>
-        <div className="radio-options">
-          <input
-            type="radio"
-            id="male"
-            name="gender"
-            className="formborders"
-            value="male"
-            defaultChecked={gender == "male"}
-            onChange={(e) => setGender( e.target.value)}
-          />
-          <label htmlFor="male">Male</label>
-        </div>
-      </div>
+          {errors.motherName && (
+            <div className="text-danger error">{errors.motherName}</div>
+          )}
 
-          {errors.gender && <div className="text-danger error error-status">{errors.gender}</div>}
+          <div className="radioOptionsFlex">
+            <div className="radio-options">
+              <input
+                type="radio"
+                id="female"
+                name="gender"
+                className="formborders"
+                value="female"
+                defaultChecked={gender == "female"}
+                onChange={(e) => setGender(e.target.value)}
+              />
+              <label htmlFor="female">Female</label>
+            </div>
+            <div className="radio-options">
+              <input
+                type="radio"
+                id="male"
+                name="gender"
+                className="formborders"
+                value="male"
+                defaultChecked={gender == "male"}
+                onChange={(e) => setGender(e.target.value)}
+              />
+              <label htmlFor="male">Male</label>
+            </div>
+          </div>
+
+          {errors.gender && (
+            <div className="text-danger error error-status">
+              {errors.gender}
+            </div>
+          )}
           <div className="form-group">
             <input
               type="date"
@@ -216,57 +239,58 @@ const UserIntroduce = () => {
               onChange={(e) => setDate(e.target.value)}
               placeholder=""
               className="form-control mb-3"
-           
             />
             <label className="floating-label">Date of Birth</label>
-
           </div>
-          {errors.date && <div className="text-danger error">{errors.date}</div>}
+          {errors.date && (
+            <div className="text-danger error">{errors.date}</div>
+          )}
           <div className="form-group">
             <input
               type="text"
               value={placeOfBirth}
-              onChange={(e) => setPlaceOfBirth(e.target.value)}
+              onChange={handlePlaceofBirth}
               placeholder=""
               className="form-control mb-3"
-             
             />
             <label className="floating-label">Place of Birth</label>
-
           </div>
-          {errors.placeOfBirth && <div className="text-danger error">{errors.placeOfBirth}</div>}
+          {errors.placeOfBirth && (
+            <div className="text-danger error">{errors.placeOfBirth}</div>
+          )}
           <div className="form-group">
-          <CountryDropdown
-    value={selectedCountry}
-    onChange={(value) => setSelectedCountry(value)} // Update this line
-    className="form-select form-control mb-3"
-    defaultOptionLabel="Country of Origin"
-    priorityOptions={['LB', 'KW']}
-/>
-
-     
+            <CountryDropdown
+              value={selectedCountry}
+              onChange={(value) => setSelectedCountry(value)} // Update this line
+              className="form-select form-control mb-3"
+              defaultOptionLabel="Country of Origin"
+              priorityOptions={["LB", "KW"]}
+            />
           </div>
-          {errors.selectedCountry && <div className="text-danger error">{errors.selectedCountry}</div>}
+          {errors.selectedCountry && (
+            <div className="text-danger error">{errors.selectedCountry}</div>
+          )}
           <div className="form-group">
             <input
               type="text"
               value={civilNational}
-              onChange={(e) => {setCivilNational(e.target.value);
+              onChange={(e) => {
+                setCivilNational(e.target.value);
                 if (e.target.value) {
-           
-                  delete errors.secondExpirationDate; 
+                  delete errors.secondExpirationDate;
                   delete errors.placeOfIssue;
                   delete errors.passport;
                   delete errors.civilNational;
-                }}}
+                }
+              }}
               placeholder=""
               className="form-control mb-3"
-            
             />
             <label className="floating-label">Civil/National ID No.</label>
-          
           </div>
-          {errors.civilNational && <div className="text-danger error">{errors.civilNational}</div>}
+          {errors.civilNational && (
+            <div className="text-danger error">{errors.civilNational}</div>
+          )}
           <div className="form-group">
             <input
               type="date"
@@ -274,23 +298,22 @@ const UserIntroduce = () => {
               onChange={(e) => {
                 setExpirationDate(e.target.value);
                 if (e.target.value) {
-                  delete errors.expirationDate; 
-                  delete errors.secondExpirationDate; 
+                  delete errors.expirationDate;
+                  delete errors.secondExpirationDate;
                   delete errors.placeOfIssue;
                   delete errors.passport;
-                
                 }
               }}
               placeholder=""
               className="form-control mb-3"
               min={dateEx}
-           
             />
             <label className="floating-label">Expiration Date</label>
-            {errors.expirationDate && <div className="text-danger error">{errors.expirationDate}</div>}
-
+            {errors.expirationDate && (
+              <div className="text-danger error">{errors.expirationDate}</div>
+            )}
           </div>
-   
+
           <div className="form-group">
             <RegionDropdown
               country={selectedCountry}
@@ -301,7 +324,9 @@ const UserIntroduce = () => {
               defaultOptionLabel="Register Place & No."
               blankOptionLabel="Register Place & No."
             />
-            {errors.selectedState && <div className="text-danger error">{errors.selectedState}</div>}
+            {errors.selectedState && (
+              <div className="text-danger error">{errors.selectedState}</div>
+            )}
           </div>
           <select
             value={status}
@@ -313,103 +338,109 @@ const UserIntroduce = () => {
             <option value="single">Single</option>
             <option value="divorced">Divorced</option>
             <option value="widow">Widow</option>
-            
           </select>
-          {errors.status && <div className="text-danger error error-status">{errors.status}</div>}
+          {errors.status && (
+            <div className="text-danger error error-status">
+              {errors.status}
+            </div>
+          )}
           <div className="form-group">
             <input
               type="text"
               value={passport}
-              onChange={(e) =>{ setPassport(e.target.value);
-              if (e.target.value) {
-                delete errors.expirationDate; 
-               
-            
-                delete errors.passport;
-                delete errors.civilNational;
-              }}}
+              onChange={(e) => {
+                setPassport(e.target.value);
+                if (e.target.value) {
+                  delete errors.expirationDate;
+
+                  delete errors.passport;
+                  delete errors.civilNational;
+                }
+              }}
               placeholder=""
               className="form-control mb-3"
-             
             />
             <label className="floating-label">Passport No.</label>
-
           </div>
-          {errors.passport && <div className="text-danger error">{errors.passport}</div>}
+
+          {errors.passport && (
+            <div className="text-danger error">{errors.passport}</div>
+          )}
+          {passport && (
+            <>
+              <div className="form-group">
+                <input
+                  type="text"
+                  value={placeOfIssue}
+                  onChange={handlePlaceofIssue}
+                  placeholder=""
+                  className="form-control mb-3"
+                />
+                <label className="floating-label">Place of Issue</label>
+              </div>
+              {errors.placeOfIssue && (
+                <div className="text-danger error">{errors.placeOfIssue}</div>
+              )}
+              <div className="form-group">
+                <input
+                  type="date"
+                  value={secondExpirationDate}
+                  onChange={(e) => {
+                    setSecondExpirationDate(e.target.value);
+
+                    if (e.target.value) {
+                      delete errors.expirationDate;
+                      delete errors.secondExpirationDate;
+
+                      delete errors.civilNational;
+                    }
+                  }}
+                  placeholder=""
+                  className="form-control mb-3"
+                  min={dateEx}
+                />
+                <label className="floating-label">Expiration Date</label>
+              </div>
+              {errors.secondExpirationDate && (
+                <div className="text-danger error">
+                  {errors.secondExpirationDate}
+                </div>
+              )}
+            </>
+          )}
+
           <div className="form-group">
-            <input
-              type="text"
-              value={placeOfIssue}
-              onChange={(e) =>{ setPlaceOfIssue(e.target.value);
-              
-                if (e.target.value) {
-                  delete errors.expirationDate; 
-       
-                  delete errors.placeOfIssue;
-           
-                  delete errors.civilNational;
-                }}}
-              placeholder=""
-              className="form-control mb-3"
-             
+            <label
+              className="floating-label "
+              style={{ top: "7px", fontSize: "11px" }}
+            >
+              Other Nationalities
+            </label>
+            <CountryDropdown
+              value={otherNationalities}
+              onChange={(value) => setOtherNationalities(value)} // Update this line
+              className="form-select form-control mb-3"
+              defaultOptionLabel="None"
+              priorityOptions={["LB", "KW"]}
             />
-            <label className="floating-label">Place of Issue</label>
-            
           </div>
-          {errors.placeOfIssue && <div className="text-danger error">{errors.placeOfIssue}</div>}
-          <div className="form-group">
-      <input
-        type="date"
-        value={secondExpirationDate}
-        onChange={(e) => {
-          setSecondExpirationDate(e.target.value);
-     
-          if (e.target.value) {
-            delete errors.expirationDate; 
-            delete errors.secondExpirationDate; 
-    
-     
-            delete errors.civilNational;
-          }
-        }}
-        placeholder=""
-        className="form-control mb-3"
-        min={dateEx}
-      />
-      <label className="floating-label">Expiration Date</label>
-    </div>
-    {errors.secondExpirationDate && <div className="text-danger error">{errors.secondExpirationDate}</div>}
 
-    
-          <div className="form-group">
-          <CountryDropdown
-    value={otherNationalities}
-    onChange={(value) =>setOtherNationalities(value)} // Update this line
-    className="form-select form-control mb-3"
-    defaultOptionLabel="Other Nationalities"
-    priorityOptions={['LB', 'KW']}
-/>
-
-     
-          </div>
-      
-          
           <select
-  value={statusInLebanon}
-  onChange={(e) =>setStatusInLebanon(e.target.value)}
-  className="form-select form-control mb-3"
->
-  <option value="">Status</option>
-  <option value="resident">Resident</option>
-  <option value="nonresident">Non-Resident</option>
- 
-  
-</select>
-{errors.statusInLebanon && <div className="text-danger error">{errors.statusInLebanon}</div>}
+            value={statusInLebanon}
+            onChange={(e) => setStatusInLebanon(e.target.value)}
+            className="form-select form-control mb-3"
+          >
+            <option value="">Status in Lebanon</option>
+            <option value="resident">Resident</option>
+            <option value="nonresident">Non-Resident</option>
+          </select>
+          {errors.statusInLebanon && (
+            <div className="text-danger error">{errors.statusInLebanon}</div>
+          )}
           {/* <button type="submit" className="btn-proceed" >
             Next
           </button> */}
-          <ButtonModile buttonName={"Next"}/>
+          <ButtonModile buttonName={"Next"} />
         </form>
       </div>
     </div>

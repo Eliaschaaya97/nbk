@@ -99,6 +99,7 @@ const initialState = {
       estimatedWealthAmount : "",
       isWealthInherited: "",
       sourcesOfWealth: "",
+      incomeCategory:"",
       expectedNumberOfTransactions: "",
       expectedValueOfTransactions: "",
       frequency: "",

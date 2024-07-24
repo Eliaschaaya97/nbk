@@ -8,12 +8,12 @@ const ButtonMobile = ({ buttonName, setNext }) => {
   useEffect(() => {
     if (parameters?.deviceType === "Android") {
       const handleFocus = () => {
-        console.log("Keyboard is open");
+        // console.log("Keyboard is open");
         setKeyboardVisible(true);
       };
 
       const handleBlur = () => {
-        console.log("Keyboard is closed");
+        // console.log("Keyboard is closed");
         setKeyboardVisible(false);
       };
 

@@ -184,6 +184,7 @@ const IfYes = () => {
           {errors.fullName && <div className="error text-danger">{errors.fullName}</div>}
           <div className="label-div"><label className=" label-tel" >Mobile No.</label></div>
           <PhoneInput
+          enableSearch
             className="mb-3"
             country="lb"
             value={phoneNumber}

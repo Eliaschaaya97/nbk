@@ -27,6 +27,8 @@ const UserInfoSalary = () => {
   const [expectedNoTrans, setExpectedNoTrans] = useState(userData.expectedNumberOfTransactions || "");
   const [expectedValueTrans, setExpectedValueTrans] = useState(userData.expectedValueOfTransactions || "");
   const [frequency, setFrequency] = useState(userData.frequency || "");
+  const [incomeCategory, setIncomeCategory] = useState(userData.incomeCategory || "");
+
   const [errors, setErrors] = useState({});
   const [next, setNext] = useState(false);
   
@@ -104,6 +106,7 @@ const handleIncomeSourceChange = (selectedOptions) => {
       updateUserFieldInUserData("othersSourceOfFound", otherSpecify);
       updateUserFieldInUserData("estimatedWealthAmount", estimatedWealthMonth);
       updateUserFieldInUserData("sourcesOfWealth", sourceOfYourWealth);
+      updateUserFieldInUserData("incomeCategory", incomeCategory);
   };
 
   const validateForm = () => {
@@ -115,9 +118,7 @@ const handleIncomeSourceChange = (selectedOptions) => {
     if (!currency.trim()) {
       errors.currency = "Currency is required";
     }
-    if (!monthlyBasicSal.trim()) {
-      errors.monthlyBasicSal = "Monthly Basic Salary is required";
-    }
+  
     if (!monthlyAllowances.trim()) {
       errors.monthlyAllowances = "Monthly Allowances is required";
     }
@@ -217,7 +218,7 @@ const handleIncomeSourceChange = (selectedOptions) => {
             />
             <label className="floating-label">Monthly Basic Salary</label>
           </div>
-          {errors.monthlyBasicSal && <div className="text-danger error">{errors.monthlyBasicSal}</div>}
+      
           <div className="form-group">
             <input type="number" value={monthlyAllowances} onChange={(e) => setMonthlyAllowances(e.target.value)} placeholder="" className="form-control mb-3" />
             <label className="floating-label">Monthly Allowances</label>
@@ -249,14 +250,39 @@ const handleIncomeSourceChange = (selectedOptions) => {
               </>}
           <div className="form-group">
             <input type="number" value={totalEstimatedMonthlyin} onChange={(e) => setTotalEstimatedMonthlyin(e.target.value)} placeholder="" className="form-control mb-3" />
-            <label className="floating-label">Total Estimated monthly income</label>
+            <label className="floating-label">Total Estimated monthly income in $</label>
           </div>
           {errors.totalEstimatedMonthlyin && <div className="text-danger error">{errors.totalEstimatedMonthlyin}</div>}
           <div className="form-group">
             <input type="number" value={estimatedWealthMonth} onChange={(e) => setEstimatedWealthMonth(e.target.value)} placeholder="" className="form-control mb-3" />
-            <label className="floating-label">Estimated Wealth Amount</label>
+            <label className="floating-label">Estimated Wealth Amount </label>
           </div>
           {errors.estimatedWealthMonth && <div className="text-danger error">{errors.estimatedWealthMonth}</div>}
+          <select
+        value={incomeCategory}
+        onChange={(e) => setIncomeCategory(e.target.value)}
+        className="form-select form-control mb-3"
+        
+      >
+          {!totalEstimatedMonthlyin  && (
+          <option value=""> Income Category</option>
+        )}
+       
+        {totalEstimatedMonthlyin && totalEstimatedMonthlyin <= 2000 && (
+          <option value="micro">Micro {"<"} $2,000</option>
+        )}
+        {totalEstimatedMonthlyin > 2000 && totalEstimatedMonthlyin <= 5000 && (
+          <option value="small">Small $2,001 - $5,000</option>
+        )}
+        {totalEstimatedMonthlyin > 5000 && totalEstimatedMonthlyin <= 15000 && (
+          <option value="medium">Medium $5,001 - $15,000</option>
+        )}
+        {totalEstimatedMonthlyin > 15000 && (
+          <option value="large">Large {">"} $15,000</option>
+        )}
+      </select>
+          {errors.incomeCategory && <div className="text-danger error">{errors.incomeCategory}</div>}
+
           <label className="custom-control-label" htmlFor="customCheck1">
             Is your wealth inherited?
           </label>

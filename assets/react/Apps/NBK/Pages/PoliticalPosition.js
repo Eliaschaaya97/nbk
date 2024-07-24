@@ -12,11 +12,12 @@ const PoliticalPosition = () => {
 
   const [yearOfRetirement, setYearOfRetirement] = useState(userData.yearOfRetirement || "");
   const [progress, setProgress] = useState(60);
-  const [currentPrevious, setCurrentPrevious] = useState(userData.currentOrPrevious || "");
+
   const [PEPName, setPEPName] = useState(userData.pepName || "");
   const [relationship, setRelationship] = useState(userData.relationship || "");
   const [PEPPosition, setPEPPosition] = useState(userData.pepPosition || "");
   const [activeButton, setActiveButton] = useState( userData.politicalPosition || "No");
+  const [activeButton2, setActiveButton2] = useState(userData.currentOrPrevious || "" );
   const [errors, setErrors] = useState({});
   const [next, setNext] = useState(false);
   const [inputs, setInputs] = useState([""]);
@@ -72,7 +73,7 @@ const PoliticalPosition = () => {
       setErrors(validationErrors);
     }
     updateUserFieldInUserData("politicalPosition", activeButton);
-    updateUserFieldInUserData("currentOrPrevious", currentPrevious);
+    updateUserFieldInUserData("currentOrPrevious", activeButton2);
     updateUserFieldInUserData("yearOfRetirement", yearOfRetirement);
     updateUserFieldInUserData("pepName", PEPName);
     updateUserFieldInUserData("relationship", relationship);
@@ -81,7 +82,7 @@ const PoliticalPosition = () => {
   const validateForm = () => {
     const errors = {};
     if (activeButton === "Yes") {
-      if (!currentPrevious.trim()) {
+      if (!activeButton2.trim()) {
         errors.currentPrevious = "Current/Previous field is required";
       }
       if (!PEPName.trim()) {
@@ -93,9 +94,7 @@ const PoliticalPosition = () => {
       if (!PEPPosition.trim()) {
         errors.PEPPosition = "PEP Position is required";
       }
-      if (!yearOfRetirement.trim()){
-        errors.yearOfRetirement = "Year of Retirement is required";
-      }
+
     }
     return errors;
   };
@@ -110,6 +109,13 @@ const PoliticalPosition = () => {
       delete errors.PEPName;
       delete errors.relationship;
       delete errors.PEPPosition;
+    }
+  };
+  const handleButtonClick2 = (event) => {
+    event.preventDefault();
+    setActiveButton2(event.target.innerText);
+    if (event.target.innerText === "Pevious") {
+      delete errors.yearOfRetirement;
     }
   };
 
@@ -151,22 +157,26 @@ const PoliticalPosition = () => {
           </div>
           {activeButton === "Yes" && (
   <>
-    <div className="form-group">
-    <input
-        type="text"
-        value={currentPrevious}
-        onChange={(e) => setCurrentPrevious(e.target.value)}
-        placeholder=""
-        className="form-control mb-3"
-      />
-      <label className="floating-label">
-          If yes, please specify Current/Previous?
-      </label>
-    {errors.currentPrevious && (
-      <div className="text-danger error">{errors.currentPrevious}</div>
-    )}
-    </div>
 
+  <label className="custom-control-label" htmlFor="customCheck1">
+  If yes, please specify Current/Previous?
+          </label>
+       <div className="buttons d-flex gap-3  " style={{margin:"auto"}}>
+            <button    className={`btn px-8 py-2  px-5 ${activeButton2 === "Current" ? "active" : ""}`} onClick={handleButtonClick2}>
+            Current
+            </button>
+            <button  className={`btn px-8 py-2 px-5 ${activeButton2 === "Pevious" ? "active" : ""}`} onClick={handleButtonClick2}>
+            Pevious
+            </button>
+          </div>
+          {errors.activeButton2 && (
+      <div className="text-danger error">{errors.activeButton2}</div>
+    )}
+
+
+   
+
+{activeButton2 === "Pevious" && (
       <div className="form-group">
         <input
           type="text"
@@ -182,6 +192,7 @@ const PoliticalPosition = () => {
           <div className="text-danger error">{errors.yearOfRetirement}</div>
         )}
       </div>
+)}
     <label className="custom-control-label" htmlFor="customCheck1">
       If you or any of your first or second-degree relatives or close associate
       (partner/consultant/legal representative) are holding political position,

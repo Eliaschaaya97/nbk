@@ -291,7 +291,7 @@ const UserJob = () => {
           <PhoneInput
           className="mb-3"
           country={"lb"}
-
+          enableSearch
           value={workTelNo}
           defaultValue={workTelNo}
           onChange={(value, country) =>
