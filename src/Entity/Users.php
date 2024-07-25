@@ -293,11 +293,12 @@ class Users
         return $this->expirationDatePassport;
     }
 
-    public function getOtherNationalities(): ?string
+  
+    public function getOtherNationalities(): array
     {
-        return $this->otherNationalities;
+        return json_decode($this->otherNationalities, true);
     }
-
+    
     public function getStatusInLebanon(): ?string
     {
         return $this->statusInLebanon;
@@ -417,10 +418,9 @@ class Users
         return $this;
     }
 
-    public function setOtherNationalities(string $otherNationalities): self
+    public function setOtherNationalities(array $otherNationalities): self
     {
-        $this->otherNationalities = $otherNationalities;
-
+        $this->otherNationalities = json_encode($otherNationalities);
         return $this;
     }
 

@@ -110,6 +110,11 @@ class FinancialDetails
      * @ORM\Column(name="sourcesOfWealth",type="text", nullable=true)
      */
     private $sourcesOfWealth;
+   
+       /**
+     * @ORM\Column(name="incomeCategory", type="string", length=50, nullable=true)
+     */
+    private $incomeCategory;
 
     /**
      * @ORM\Column(name="otherAccountsAtBanks", type="boolean")
@@ -234,6 +239,17 @@ class FinancialDetails
     public function setSourcesOfWealth(?string $sourcesOfWealth): self
     {
         $this->sourcesOfWealth = $sourcesOfWealth;
+
+        return $this;
+    }
+    public function getIncomeCategory(): ?string
+    {
+        return $this->incomeCategory;
+    }
+
+    public function setIncomeCategory(?string $incomeCategory): self
+    {
+        $this->incomeCategory = $incomeCategory;
 
         return $this;
     }

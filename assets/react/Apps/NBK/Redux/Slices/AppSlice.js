@@ -28,7 +28,7 @@ const initialState = {
       passportNumber: "",
       placeOfIssuePassport: "",
       expirationDatePassport: "",
-      otherNationalities: "",
+      otherNationalities: [],
       statusInLebanon: "",
       otherCountriesOfTaxResidence: "",
       taxResidencyIdNumber: "",
@@ -52,8 +52,6 @@ const initialState = {
       intBuilding:"",
       intFloor:"",
       intApartment:""
-
-
     },
     workDetails: {
       profession: "",

@@ -10,8 +10,7 @@ import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import ButtonModile from "./ButtonMobile";
 // import { parsePhoneNumber } from 'libphonenumber-js';
 // import * as PhoneNumberValidator from 'libphonenumber-js';
-import { parsePhoneNumberFromString } from 'libphonenumber-js';
-
+import { parsePhoneNumberFromString } from "libphonenumber-js";
 
 const AddressInfo = () => {
   const userDataUser = useSelector(
@@ -62,9 +61,12 @@ const AddressInfo = () => {
     userData.alternateTelephoneNumber || ""
   );
   const [errors, setErrors] = useState({});
-  const [validationMessage, setValidationMessage] = useState('');
-  const [countryCode, setCountryCode] = useState('lb');
-
+  const [validationMessage, setValidationMessage] = useState("");
+  const [validationMessage2, setValidationMessage2] = useState("");
+  const [validationMessage3, setValidationMessage3] = useState("");
+  const [countryCode, setCountryCode] = useState("lb");
+  const [countryCode2, setCountryCode2] = useState("lb");
+  const [countryCode3, setCountryCode3] = useState("lb");
 
   const statusInLebanon = useSelector(
     (state) => state.appData.userData.user.statusInLebanon || {}
@@ -143,19 +145,6 @@ const AddressInfo = () => {
   const validateForm = () => {
     const errors = {};
 
-    if (!street.trim()) {
-      errors.street = "Street is required";
-    }
-    if (!buildingHouse.trim()) {
-      errors.buildingHouse = "Building/House is required";
-    }
-    if (!floor.trim()) {
-      errors.floor = "Floor is required";
-    }
-    if (!apartment.trim()) {
-      errors.apartment = "Apartment is required";
-    }
-
     if (!houseTelNo.trim()) {
       errors.houseTelNo = "House Tel No. is required";
     }
@@ -163,7 +152,6 @@ const AddressInfo = () => {
       errors.alternateContactName = "alternateContactName is required";
     }
 
-    console.log(selectedCountry);
     return errors;
   };
 
@@ -187,39 +175,80 @@ const AddressInfo = () => {
     }
   };
 
-
   const handleChange = (value, country) => {
     setValue(value);
     const countryCode = country?.countryCode.toUpperCase();
-    console.log(value, 'value');
-    
     let length = 0;
-    value?.split('')?.forEach(() => {
+    value?.split("")?.forEach(() => {
       length++;
     });
-  
-    console.log(length, 'length');
-  
-    if (length >= 9) {
-      setValidationMessage('Phone number is valid.');
-    } else {
-      setValidationMessage('Invalid phone number format.');
-    }  
-    // try {
-    //   const phoneNumber = parsePhoneNumberFromString(value, countryCode);
-    //   console.log(phoneNumber)
-    //   if (phoneNumber && phoneNumber.isValid()) {
-    //     setValidationMessage('Phone number is valid.');
-    //   } else {
-    //     setValidationMessage('Phone number is invalid.');
-    //   }
-    // } catch (error) {
-    //   console.error("Phone number parsing error:", error);
+    // if (length >= 9) {
+    //   setValidationMessage('Phone number is valid.');
+    // } else {
     //   setValidationMessage('Invalid phone number format.');
     // }
+    try {
+      const phoneNumber = parsePhoneNumberFromString(value, countryCode);
+      if (phoneNumber && phoneNumber.isValid() && length >= 9) {
+        setValidationMessage("Phone number is valid.");
+      } else {
+        setValidationMessage("Phone number is invalid.");
+      }
+    } catch (error) {
+      console.error("Phone number parsing error:", error);
+      setValidationMessage("Invalid phone number format.");
+    }
   };
-  
-  
+  const handleChangeMobile = (value, country) => {
+    setMobileValue(value);
+    const countryCode = country?.countryCode.toUpperCase();
+    let length = 0;
+    value?.split("")?.forEach(() => {
+      length++;
+    });
+
+    // if (length >= 9) {
+    //   setValidationMessage('Phone number is valid.');
+    // } else {
+    //   setValidationMessage('Invalid phone number format.');
+    // }
+    try {
+      const phoneNumber = parsePhoneNumberFromString(value, countryCode);
+      if (phoneNumber && phoneNumber.isValid() && length >= 9) {
+        setValidationMessage2("Phone number is valid.");
+      } else {
+        setValidationMessage2("Phone number is invalid.");
+      }
+    } catch (error) {
+      console.error("Phone number parsing error:", error);
+      setValidationMessage2("Invalid phone number format.");
+    }
+  };
+  const handleChangeAlternate = (value, country) => {
+    setAlternateTelephoneValue(value);
+    const countryCode = country?.countryCode.toUpperCase();
+    let length = 0;
+    value?.split("")?.forEach(() => {
+      length++;
+    });
+
+    // if (length >= 9) {
+    //   setValidationMessage('Phone number is valid.');
+    // } else {
+    //   setValidationMessage('Invalid phone number format.');
+    // }
+    try {
+      const phoneNumber = parsePhoneNumberFromString(value, countryCode);
+      if (phoneNumber && phoneNumber.isValid() && length >= 9) {
+        setValidationMessage3("Phone number is valid.");
+      } else {
+        setValidationMessage3("Phone number is invalid.");
+      }
+    } catch (error) {
+      console.error("Phone number parsing error:", error);
+      setValidationMessage3("Invalid phone number format.");
+    }
+  };
 
   return (
     <div id="AddressInfo" className="container align-items-center p-3">
@@ -279,9 +308,9 @@ const AddressInfo = () => {
                 />
                 <label className="floating-label">Street</label>
               </div>
-              {errors.street && (
+              {/* {errors.street && (
                 <div className="text-danger error">{errors.street}</div>
-              )}
+              )} */}
               <div className="form-group">
                 <input
                   type="text"
@@ -292,9 +321,9 @@ const AddressInfo = () => {
                 />
                 <label className="floating-label">Building/House</label>
               </div>
-              {errors.buildingHouse && (
+              {/* {errors.buildingHouse && (
                 <div className="text-danger error">{errors.buildingHouse}</div>
-              )}
+              )} */}
               <div className="form-group">
                 <input
                   type="text"
@@ -305,9 +334,9 @@ const AddressInfo = () => {
                 />
                 <label className="floating-label">Floor</label>
               </div>
-              {errors.floor && (
+              {/* {errors.floor && (
                 <div className="text-danger error">{errors.floor}</div>
-              )}
+              )} */}
               <div className="form-group">
                 <input
                   type="text"
@@ -318,9 +347,9 @@ const AddressInfo = () => {
                 />
                 <label className="floating-label">Apartment</label>
               </div>
-              {errors.apartment && (
+              {/* {errors.apartment && (
                 <div className="text-danger error">{errors.apartment}</div>
-              )}
+              )} */}
               <div className="form-group">
                 <input
                   type="text"
@@ -331,9 +360,9 @@ const AddressInfo = () => {
                 />
                 <label className="floating-label">House Tel No.</label>
               </div>
-              {errors.houseTelNo && (
+              {/* {errors.houseTelNo && (
                 <div className="text-danger error">{errors.houseTelNo}</div>
-              )}
+              )} */}
             </>
           )}
           {statusInLebanon === "nonresident" && (
@@ -399,55 +428,80 @@ const AddressInfo = () => {
                 />
                 <label className="floating-label">Apartment</label>
               </div>
+              <div className="label-div">
+                {" "}
+                <label className="floating-label label-tel">
+                  House Tel No.
+                </label>
+                <PhoneInput
+                  disableSearchIcon={true}
+                  className="mb-3"
+                  country={countryCode}
+                  enableSearch
+                  value={value}
+                  onChange={handleChange}
+                  inputProps={{
+                    required: true,
+                  }}
+                  inputStyle={{
+                    width: "100%",
+                    paddingLeft: "50px",
+                    height: "45px",
+                  }}
+                />
+                {validationMessage && (
+                  <p
+                    style={{
+                      color: validationMessage.includes("invalid")
+                        ? "red"
+                        : "#034a8e",
+                            fontFamily:"none",
+                                marginBottom:"10px",
+                                       fontWeight:"unset",
+                                        marginTop: "-10px"
+                    }}
+                  >
+                    {validationMessage}
+                  </p>
+                )}{" "}
+              </div>
+
+              <div className="label-div">
+                <label className="floating-label label-tel">Mobile No.</label>
+                <PhoneInput
+                  disableSearchIcon={true}
+                  className="mb-3"
+                  country={countryCode2}
+                  enableSearch
+                  value={mobileValue}
+                  onChange={handleChangeMobile}
+                  inputProps={{
+                    required: true,
+                  }}
+                  inputStyle={{
+                    width: "100%",
+                    paddingLeft: "50px",
+                    height: "45px",
+                  }}
+                />
+                {validationMessage2 && (
+                  <p
+                    style={{
+                      color: validationMessage2.includes("invalid")
+                        ? "red"
+                        : "#034a8e",
+                            fontFamily:"none",
+                                marginBottom:"10px",
+                                   fontWeight:"unset",
+                                    marginTop: "-10px"
+                    }}
+                  >
+                    {validationMessage2}
+                  </p>
+                )}
+              </div>
             </>
           )}
-          <div className="label-div">
-            {" "}
-            <label className="floating-label label-tel">House Tel No.</label>
-         
-            <PhoneInput
-      disableSearchIcon={true}
-      className="mb-3"
-      country={countryCode}
-      enableSearch
-      value={value}
-      onChange={handleChange}
-      inputProps={{
-        required: true
-      }}
-      inputStyle={{
-        width: "100%",
-        paddingLeft: "50px",
-        height: "45px",
-      }}
-    />
-    {validationMessage && (
-      <p style={{ color: validationMessage.includes('invalid') ? 'red' : 'blue' }}>
-        {validationMessage}
-      </p>
-    )}
-
-
-
-          </div>
-          <div className="label-div">
-            <label className="floating-label label-tel">Mobile No.</label>
-            <PhoneInput
-              disableSearchIcon={true}
-              className="mb-3"
-              country={"lb"}
-              enableSearch
-              value={mobileValue}
-              defaultValue={mobileValue}
-              onChange={(mobileValue, country) => setMobileValue(mobileValue)}
-              prefix="+"
-              inputStyle={{
-                width: "100%",
-                paddingLeft: "50px",
-                height: "45px",
-              }}
-            />
-          </div>
 
           <div className="form-group">
             <input
@@ -472,13 +526,11 @@ const AddressInfo = () => {
             </label>
             <PhoneInput
               className="mb-3"
-              country={"lb"}
+              country={countryCode3}
               enableSearch
               value={alternateTelephoneValue}
               defaultValue={alternateTelephoneValue}
-              onChange={(alternateTelephoneValue, country) =>
-                setAlternateTelephoneValue(alternateTelephoneValue)
-              }
+              onChange={handleChangeAlternate}
               disableSearchIcon={true}
               // enableAreaCodeStretch={true}
               prefix="+"
@@ -488,6 +540,21 @@ const AddressInfo = () => {
                 height: "45px",
               }}
             />
+            {validationMessage3 && (
+              <p
+                style={{
+                  color: validationMessage3.includes("invalid")
+                    ? "red"
+                    : "#034a8e",
+                        fontFamily:"none",
+                            marginBottom:"10px",
+                               fontWeight:"unset",
+                                marginTop: "-10px"
+                }}
+              >
+                {validationMessage3}
+              </p>
+            )}
           </div>
           {/* <button type="submit" className="btn-proceed">
             Next

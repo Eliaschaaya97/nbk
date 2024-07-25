@@ -85,7 +85,7 @@
                 </tr>
                 <tr>
                     <th>Other Nationalities</th>
-                    <td>{{ user.otherNationalities }}</td>
+                      <td>{{ user.otherNationalities|join(', ') }}</td>
                 </tr>
                 <tr>
                     <th>Status in Lebanon</th>
@@ -307,6 +307,10 @@
                         <tr>
                             <th>Estimated Wealth Amount</th>
                             <td>{{ financialDetail.estimatedWealthAmount }}</td>
+                        </tr>
+                            <tr>
+                            <th>Income Category in $</th>
+                               <td>{{ financialDetail.incomeCategory }}</td>
                         </tr>
                         {% if financialDetail.isWealthInherited %}
                             <tr>

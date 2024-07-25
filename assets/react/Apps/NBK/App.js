@@ -63,6 +63,7 @@ const App = ({parameters}) => {
             <div className="container d-flex flex-column align-items-center p-3">
                 <Logo />
             </div>
+            
             {headerData.currentPage === "" && <Main />}
             {headerData.currentPage === "IfNo" && <IfNo />}
             {headerData.currentPage === "IfYes" && <IfYes />}

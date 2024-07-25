@@ -6,9 +6,15 @@ import { CountryDropdown, RegionDropdown } from "react-country-region-selector";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import ButtonModile from "./ButtonMobile";
+import { countries } from "../Utils/countries";
+import Select from "react-select";
 
 const UserIntroduce = () => {
   const userData = useSelector((state) => state.appData.userData.user || {});
+  const selectOptions = countries.map((country) => ({
+    value: country.id,
+    label: country.description,
+  }));
 
   const [motherName, setMotherName] = useState(userData.mothersName || "");
   const [date, setDate] = useState(userData.dob || "");
@@ -35,7 +41,7 @@ const UserIntroduce = () => {
     userData.expirationDatePassport || ""
   );
   const [otherNationalities, setOtherNationalities] = useState(
-    userData.otherNationalities || ""
+    userData.otherNationalities || []
   );
   const [statusInLebanon, setStatusInLebanon] = useState(
     userData.statusInLebanon || ""
@@ -108,6 +114,7 @@ const UserIntroduce = () => {
     updateUserFieldInUserData("statusInLebanon", statusInLebanon);
     updateUserFieldInUserData("placeOfIssuePassport", placeOfIssue);
   };
+
   const handleMotherName = (e) => {
     const { value } = e.target;
     if (regex.test(value)) {
@@ -158,10 +165,10 @@ const UserIntroduce = () => {
     }
     if (selectedCountry === "") {
     } else if (selectedCountry !== "Lebanon")
-      errors.passport = " passport is required";
+      errors.passport = "Passport is required";
 
     if (passport.trim() && !expirationDate.trim() && !civilNational.trim()) {
-      errors.secondExpirationDate = " Expiration Date is required";
+      errors.secondExpirationDate = "Expiration Date is required";
       errors.placeOfIssue = "Place of Issue is required";
     }
 
@@ -169,6 +176,11 @@ const UserIntroduce = () => {
       errors.statusInLebanon = "Status in Lebanon is required";
     }
     return errors;
+  };
+
+  const handleSelectChange = (selectedOptions) => {
+    const selectedLabels = selectedOptions.map((option) => option.label);
+    setOtherNationalities(selectedLabels);
   };
 
   return (
@@ -208,7 +220,7 @@ const UserIntroduce = () => {
                 name="gender"
                 className="formborders"
                 value="female"
-                defaultChecked={gender == "female"}
+                defaultChecked={gender === "female"}
                 onChange={(e) => setGender(e.target.value)}
               />
               <label htmlFor="female">Female</label>
@@ -220,7 +232,7 @@ const UserIntroduce = () => {
                 name="gender"
                 className="formborders"
                 value="male"
-                defaultChecked={gender == "male"}
+                defaultChecked={gender === "male"}
                 onChange={(e) => setGender(e.target.value)}
               />
               <label htmlFor="male">Male</label>
@@ -261,7 +273,7 @@ const UserIntroduce = () => {
           <div className="form-group">
             <CountryDropdown
               value={selectedCountry}
-              onChange={(value) => setSelectedCountry(value)} // Update this line
+              onChange={(value) => setSelectedCountry(value)}
               className="form-select form-control mb-3"
               defaultOptionLabel="Country of Origin"
               priorityOptions={["LB", "KW"]}
@@ -412,16 +424,16 @@ const UserIntroduce = () => {
           <div className="form-group">
             <label
               className="floating-label "
-              style={{ top: "7px", fontSize: "11px" }}
+              style={{ top: "7px", fontSize: "11px" ,marginLeft:"-7px"}}
             >
               Other Nationalities
             </label>
-            <CountryDropdown
-              value={otherNationalities}
-              onChange={(value) => setOtherNationalities(value)} // Update this line
-              className="form-select form-control mb-3"
-              defaultOptionLabel="None"
-              priorityOptions={["LB", "KW"]}
+            <Select
+              options={selectOptions}
+              isMulti
+              value={selectOptions.filter(option => otherNationalities.includes(option.label))}
+              onChange={handleSelectChange}
+             className=" mb-3 mt-3"
             />
           </div>
 
@@ -437,9 +449,6 @@ const UserIntroduce = () => {
           {errors.statusInLebanon && (
             <div className="text-danger error">{errors.statusInLebanon}</div>
           )}
-          {/* <button type="submit" className="btn-proceed" >
-            Next
-          </button> */}
           <ButtonModile buttonName={"Next"} />
         </form>
       </div>

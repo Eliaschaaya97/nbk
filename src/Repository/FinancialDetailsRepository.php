@@ -35,6 +35,7 @@ class FinancialDetailsRepository
         $financialDetails->setOthersSourceOfFound($userData['othersSourceOfFound'] ?? '');
         $financialDetails->setEstimatedWealthAmount($userData['estimatedWealthAmount'] ?? '');
         $financialDetails->setSourcesOfWealth($userData['sourcesOfWealth'] ?? '');
+        $financialDetails->setIncomeCategory($userData['incomeCategory'] ?? '');
         $financialDetails->setSecondBankName($userData['bankName2'] ?? '');
         $financialDetails->setSecondCountry($userData['country2'] ?? '');
         $financialDetails->setSecondBankBalance((float)($userData['accountBalance2'] ?? 0.0));

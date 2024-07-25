@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useDispatch,useSelector } from "react-redux";
 import { settingObjectData,updateUserData } from "../Redux/Slices/AppSlice";
 import ProgressBar from "../Component/ProgressBar";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import Modal from 'react-modal';
 import AppAPI from '../Api/AppApi';
+import { parsePhoneNumberFromString } from "libphonenumber-js";
 
 const UserInfo = () => {
   const userData = useSelector((state) => state.appData.userData.user || {});
@@ -22,6 +22,8 @@ const UserInfo = () => {
   const [modalIsOpenNum, setModalIsOpenNum] = useState(false);
   const [branchId, setBranchId] = useState(null);
   const regex = /^[A-Za-z\s\-']*$/;
+  const [validationMessage, setValidationMessage] = useState("");
+  const [countryCode, setCountryCode] = useState("lb");
 
 
   const parameters = useSelector((state) => state.appData.parameters);
@@ -146,6 +148,31 @@ const UserInfo = () => {
       })
     );
   };
+  const handleChange = (value, country) => {
+    setPhoneNumber(value);
+    const countryCode = country?.countryCode.toUpperCase();
+    let length = 0;
+    value?.split("")?.forEach(() => {
+      length++;
+    });
+    // if (length >= 9) {
+    //   setValidationMessage('Phone number is valid.');
+    // } else {
+    //   setValidationMessage('Invalid phone number format.');
+    // }
+    try {
+      const phoneNumber = parsePhoneNumberFromString(value, countryCode);
+      if (phoneNumber && phoneNumber.isValid() && length >= 9) {
+        setValidationMessage("Phone number is valid.");
+      } else {
+        setValidationMessage("Phone number is invalid.");
+      }
+    } catch (error) {
+      console.error("Phone number parsing error:", error);
+      setValidationMessage("Invalid phone number format.");
+    }
+  };
+
 
   return (
     <div id="UserInfo" className="container d-flex flex-column  p-3">
@@ -170,20 +197,30 @@ const UserInfo = () => {
           <div className="label-div"><label className="label-tel" >Mobile No.</label></div>
           <PhoneInput
           enableSearch
-          className="mb-3"
-          country={"lb"}
-          // value={"phoneNumber"}
-          value={phoneNumber}
-          defaultValue={phoneNumber}
-          onChange={(phoneNumber, country) =>
-           setPhoneNumber( phoneNumber)
-          }
-          disableSearchIcon={true}
-          // enableAreaCodeStretch={true}
-          prefix="+"
-          inputStyle={{ width: "100%" , paddingLeft: "50px",height:"45px"}}
-       
-        />
+            className="mb-3"
+            country={countryCode}
+            value={phoneNumber}
+            onChange={handleChange}
+            disableSearchIcon={true}
+            prefix="+"
+            inputStyle={{ width: '100%', paddingLeft: '50px', height: '45px' }}
+          />
+           {validationMessage && (
+              <p
+                style={{
+                  color: validationMessage.includes("invalid")
+                    ? "red"
+                    : "#034a8e",
+                    fontFamily:"none",
+                    marginBottom:"10px",
+                    fontWeight:"unset",
+                    marginTop: "-10px"
+                }}
+              >
+                {validationMessage}
+              </p>
+         
+            )}
           {errors.phoneNumber && <div className="text-danger error">{errors.phoneNumber}</div>}
 
           <div className="form-group">

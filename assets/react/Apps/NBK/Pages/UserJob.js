@@ -7,11 +7,11 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import ButtonModile from './ButtonMobile';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
+import { parsePhoneNumberFromString } from "libphonenumber-js";
 
 const UserJob = () => {
     const userDataUser = useSelector((state) => state.appData.userData.user || {});
     const userData = useSelector((state) => state.appData.userData.workDetails || {});
-
     const [profession, setProfession] = useState( userData.profession || '');
     const [publicSector, setPublicSector] = useState(userData.publicSector || '');
     const [progress, setProgress] = useState(25);
@@ -29,6 +29,8 @@ const UserJob = () => {
     const [errors, setErrors] = useState({});
     const [next,setNext]=useState(false);
     const regex = /^[A-Za-z\s\-']*$/;
+    const [validationMessage, setValidationMessage] = useState("");
+    const [countryCode, setCountryCode] = useState("lb");
 
     const dispatch = useDispatch();
   const [status ,setStatus]=useState(   localStorage.getItem("status"));
@@ -114,6 +116,31 @@ const UserJob = () => {
             updateUserFieldInUserDataUser("noOfChildren", noOfChildren);
 
     };
+    const handleChange = (value, country) => {
+        setWorkTelNo(value);
+        const countryCode = country?.countryCode.toUpperCase();
+        let length = 0;
+        value?.split("")?.forEach(() => {
+          length++;
+        });
+        // if (length >= 9) {
+        //   setValidationMessage('Phone number is valid.');
+        // } else {
+        //   setValidationMessage('Invalid phone number format.');
+        // }
+        try {
+          const phoneNumber = parsePhoneNumberFromString(value, countryCode);
+          if (phoneNumber && phoneNumber.isValid() && length >= 9) {
+            setValidationMessage("Phone number is valid.");
+          } else {
+            setValidationMessage("Phone number is invalid.");
+          }
+        } catch (error) {
+          console.error("Phone number parsing error:", error);
+          setValidationMessage("Invalid phone number format.");
+        }
+      };
+    
 
     const validateForm = () => {
         const errors = {};
@@ -288,21 +315,33 @@ const UserJob = () => {
                     </div>
                 
                     <div className="label-div"> <label className="floating-label label-tel" >Work Tel No.</label>
-          <PhoneInput
-          className="mb-3"
-          country={"lb"}
+   
+                  <PhoneInput
           enableSearch
-          value={workTelNo}
-          defaultValue={workTelNo}
-          onChange={(value, country) =>
-            setWorkTelNo( value)
-          }
-          disableSearchIcon={true}
-          // enableAreaCodeStretch={true}
-          prefix="+"
-          inputStyle={{ width: "100%" , paddingLeft: "50px",height:"45px"}}
-       
-        />
+            className="mb-3"
+            country={countryCode}
+            value={workTelNo}
+            onChange={handleChange}
+            disableSearchIcon={true}
+            prefix="+"
+            inputStyle={{ width: '100%', paddingLeft: '50px', height: '45px' }}
+          />
+           {validationMessage && (
+              <p
+                style={{
+                  color: validationMessage.includes("invalid")
+                    ? "red"
+                    : "#034a8e",
+                    fontFamily:"none",
+                    marginBottom:"10px",
+                     marginTop: "-10px",
+                     fontWeight:"unset"
+                }}
+              >
+                {validationMessage}
+              </p>
+         
+            )}
      </div> 
                     <div className="custom-control">
                         <label className="custom-control-label" htmlFor="customCheck1">

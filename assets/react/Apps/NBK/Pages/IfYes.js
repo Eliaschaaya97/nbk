@@ -8,6 +8,7 @@ import 'react-phone-input-2/lib/style.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import Modal from 'react-modal';
+import { parsePhoneNumberFromString } from "libphonenumber-js";
 
 
 const IfYes = () => {
@@ -17,14 +18,16 @@ const IfYes = () => {
   const [branch, setBranch] = useState('');
   const [errors, setErrors] = useState({});
   const [progress, setProgress] = useState(0);
-
   const { SendExistingUser ,fetUsers} = AppAPI();
   const parameters = useSelector((state) => state.appData.parameters);
-
   const dispatch = useDispatch();
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalIsOpenNum, setModalIsOpenNum] = useState(false);
-  const [branchId, setBranchId] = useState(null);
+  const [branchId, setBranchId] = useState(null); 
+  const [validationMessage, setValidationMessage] = useState("");
+  const [countryCode, setCountryCode] = useState("lb");
+  
+
   
 
   const handleButtonClick = () => {
@@ -155,6 +158,30 @@ const IfYes = () => {
       })
     );
   };
+  const handleChange = (value, country) => {
+    setPhoneNumber(value);
+    const countryCode = country?.countryCode.toUpperCase();
+    let length = 0;
+    value?.split("")?.forEach(() => {
+      length++;
+    });
+    // if (length >= 9) {
+    //   setValidationMessage('Phone number is valid.');
+    // } else {
+    //   setValidationMessage('Invalid phone number format.');
+    // }
+    try {
+      const phoneNumber = parsePhoneNumberFromString(value, countryCode);
+      if (phoneNumber && phoneNumber.isValid() && length >= 9) {
+        setValidationMessage("Phone number is valid.");
+      } else {
+        setValidationMessage("Phone number is invalid.");
+      }
+    } catch (error) {
+      console.error("Phone number parsing error:", error);
+      setValidationMessage("Invalid phone number format.");
+    }
+  };
 
   return (
     <div id="IfYes" className="container d-flex flex-column align-items-center p-3">
@@ -186,13 +213,28 @@ const IfYes = () => {
           <PhoneInput
           enableSearch
             className="mb-3"
-            country="lb"
+            country={countryCode}
             value={phoneNumber}
-            onChange={(phoneNumber) => setPhoneNumber(phoneNumber)}
+            onChange={handleChange}
             disableSearchIcon={true}
             prefix="+"
             inputStyle={{ width: '100%', paddingLeft: '50px', height: '45px' }}
           />
+           {validationMessage && (
+              <p
+                style={{
+                  color: validationMessage.includes("invalid")
+                    ? "red"
+                    : "#034a8e",
+                    fontFamily:"none",
+                    marginBottom:"10px",
+                     marginTop: "-10px"
+                }}
+              >
+                {validationMessage}
+              </p>
+         
+            )}
         
           {errors.phoneNumber && <div className="error text-danger">{errors.phoneNumber}</div>}
       
