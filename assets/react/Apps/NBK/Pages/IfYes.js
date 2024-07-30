@@ -83,8 +83,10 @@ const IfYes = () => {
   };
   const regex = /^[A-Za-z\s\-']*$/;
 
-  const handleFullNameChange = (e) => {
-    const { value } = e.target;
+  const handleFullNameChange = (event) => {
+    const { value } = event.target;
+    // Allow only alphabetic characters and symbols
+    const regex = /^[A-Za-z\s\.\,\-\!\@\#\$\%\^\&\*\(\)\_\+\=\[\]\{\}\;\:\'\"\<\>\?\/\|\\]*$/;
     if (regex.test(value)) {
       setFullName(value);
     }
@@ -271,7 +273,7 @@ const IfYes = () => {
         onRequestClose={() => setModalIsOpen(false)}
         contentLabel="Example Modal"
       >
-        <p className='p-modal'>Thank you for choosing NBK Lebanon. <br/> We will contact you within 5-7 days. </p>
+        <p className='p-modal'>Thank you for choosing NBK Lebanon. <br/> We will contact you within 3-5 days. </p>
         <button  className='button-modal'  onClick={() => {setModalIsOpen(false) ,handleButtonClick() }  }  type="submit"  >Done</button>
       </Modal>
       <Modal

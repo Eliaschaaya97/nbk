@@ -124,12 +124,13 @@ const UserInfo = () => {
     setPhoneNumber(e.target.value);
   };
 
- 
-  const handleFullNameChange = (e) => {
-    const { value } = e.target;
+  const handleFullNameChange = (event) => {
+    const { value } = event.target;
+    // Allow only alphabetic characters and symbols
+    const regex = /^[A-Za-z\s\.\,\-\!\@\#\$\%\^\&\*\(\)\_\+\=\[\]\{\}\;\:\'\"\<\>\?\/\|\\]*$/;
     if (regex.test(value)) {
       setFullName(value);
-    } 
+    }
   };
 
   const handleEmailChange = (e) => {

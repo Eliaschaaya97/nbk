@@ -88,7 +88,7 @@ class NBKController extends AbstractController
             ->from('monitoring@suyool.com')
             ->to($data['user']['email'])
             ->subject('Thank you for choosing NBK Lebanon.')
-            ->text("Dear " . $data['user']['fullName'] . ",\n\nThank you for choosing NBK Lebanon.\nWe will contact you within 5-7 days.\n\nRegards.");
+            ->text("Dear " . $data['user']['fullName'] . ",\n\nThank you for choosing NBK Lebanon.\nWe will contact you within 3-5 days.\n\nRegards.");
         $this->mailer->send($email);
 
         // Set the user for Address and WorkDetails
