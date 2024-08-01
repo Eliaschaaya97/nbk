@@ -52,7 +52,7 @@ const UserJob = () => {
         );
       };
       const handlesJobTitle = (e) => {
-        const { value } = e.target; 
+        const { value } = e.target;
         if (regex.test(value)) {
             setJobTitle(value);
         } 
@@ -193,6 +193,13 @@ const UserJob = () => {
         );
     };
 
+    const handleEducationLevelChange = (event) => {
+        const { value } = event.target;
+        if (regex.test(value)) {
+            setEducationLevel(value);
+        }
+      };
+
     return (
         <div id="UserJob" className="container align-items-center p-3">
             <button
@@ -293,7 +300,7 @@ const UserJob = () => {
                         <input
                             type="text"
                             value={educationLevel}
-                            onChange={(e) => setEducationLevel(e.target.value)}
+                            onChange={handleEducationLevelChange}
                             placeholder=""
                             className="form-control mb-3"
                      

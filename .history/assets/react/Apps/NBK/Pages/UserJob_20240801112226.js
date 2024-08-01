@@ -52,7 +52,7 @@ const UserJob = () => {
         );
       };
       const handlesJobTitle = (e) => {
-        const { value } = e.target; 
+        const { value } = e.target;
         if (regex.test(value)) {
             setJobTitle(value);
         } 
@@ -293,7 +293,7 @@ const UserJob = () => {
                         <input
                             type="text"
                             value={educationLevel}
-                            onChange={(e) => setEducationLevel(e.target.value)}
+                            onChange={(e) => setActivitySector(e.target.value)}
                             placeholder=""
                             className="form-control mb-3"
                      

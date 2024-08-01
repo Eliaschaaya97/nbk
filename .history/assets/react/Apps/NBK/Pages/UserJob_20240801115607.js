@@ -52,7 +52,7 @@ const UserJob = () => {
         );
       };
       const handlesJobTitle = (e) => {
-        const { value } = e.target; 
+        const { value } = e.target;
         if (regex.test(value)) {
             setJobTitle(value);
         } 
@@ -158,7 +158,7 @@ const UserJob = () => {
             errors.grade = "Grade is required for Stock Exchange listed workplaces";}
         
         if (!spouseName.trim() && (status === "widow" || status === "married"))  {
-            errors.spouseName = "Spouse Name is required";
+            errors.spouseName = "SNamepouse  is required";
         }
         if (!spouseProfession.trim()  && (status === "widow" || status === "married")) {
             errors.spouseProfession = "Spouse Profession is required";

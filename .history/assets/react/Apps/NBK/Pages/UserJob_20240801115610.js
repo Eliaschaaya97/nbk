@@ -52,7 +52,7 @@ const UserJob = () => {
         );
       };
       const handlesJobTitle = (e) => {
-        const { value } = e.target; 
+        const { value } = e.target;
         if (regex.test(value)) {
             setJobTitle(value);
         } 

@@ -17,7 +17,8 @@ const AddressInfo = () => {
     (state) => state.appData.userData.user || {}
   );
   const userData = useSelector((state) => state.appData.userData.address || {});
-  const regex = /^[A-Za-z\s\.\,\-\!\@\#\$\%\^\&\*\(\)\_\+\=\[\]\{\}\;\:\'\"\<\>\?\/\|\\]*$/;
+  const regex = /^[A-Za-z\s\-']*$/;
+
   const [otherCountriesOfTaxResidence, setOtherCountriesOfTaxResidence] =
     useState(userDataUser.otherCountriesOfTaxResidence || "");
   const [street, setStreet] = useState(userData.street || "");

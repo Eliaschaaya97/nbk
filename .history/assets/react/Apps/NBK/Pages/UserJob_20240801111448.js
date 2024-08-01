@@ -28,7 +28,7 @@ const UserJob = () => {
     const [activeButton, setActiveButton] = useState( userData.placeOfWorkListed || "No");
     const [errors, setErrors] = useState({});
     const [next,setNext]=useState(false);
-    const regex = /^[A-Za-z\s\.\,\-\!\@\#\$\%\^\&\*\(\)\_\+\=\[\]\{\}\;\:\'\"\<\>\?\/\|\\]*$/;
+    const regex = /^[A-Za-z\s\-']*$/;
     const [validationMessage, setValidationMessage] = useState("");
     const [countryCode, setCountryCode] = useState("lb");
 
@@ -52,7 +52,7 @@ const UserJob = () => {
         );
       };
       const handlesJobTitle = (e) => {
-        const { value } = e.target; 
+        const { value } = e.target;
         if (regex.test(value)) {
             setJobTitle(value);
         } 
@@ -193,6 +193,15 @@ const UserJob = () => {
         );
     };
 
+    const handleEducationLevelChange = (event) => {
+        const { value } = event.target;
+        // Allow only alphabetic characters and symbols
+        const regex = /^[A-Za-z\s\.\,\-\!\@\#\$\%\^\&\*\(\)\_\+\=\[\]\{\}\;\:\'\"\<\>\?\/\|\\]*$/;
+        if (regex.test(value)) {
+            setEducationLevel(value);
+        }
+      };
+
     return (
         <div id="UserJob" className="container align-items-center p-3">
             <button
@@ -293,7 +302,7 @@ const UserJob = () => {
                         <input
                             type="text"
                             value={educationLevel}
-                            onChange={(e) => setEducationLevel(e.target.value)}
+                            onChange={handleEducationLevelChange}
                             placeholder=""
                             className="form-control mb-3"
                      

@@ -85,6 +85,7 @@ const initialState = {
       relationship: "",
       pepPosition: "",
       additionalInfo: "",
+      currentPrevious: ""
     },
     financialDetails: {
       sourceOfFunds: "",

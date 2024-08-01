@@ -19,8 +19,9 @@ const UserIntroduce = () => {
   const [motherName, setMotherName] = useState(userData.mothersName || "");
   const [date, setDate] = useState(userData.dob || "");
   const [progress, setProgress] = useState(8);
-  const regex = /^[A-Za-z\s\.\,\-\!\@\#\$\%\^\&\*\(\)\_\+\=\[\]\{\}\;\:\'\"\<\>\?\/\|\\]*$/;
+  const regex = /^[A-Za-z\s\-']*$/;
 
+  Mother's Name
 
   const [selectedCountry, setSelectedCountry] = useState(
     userData.countryOfOrigin || ""

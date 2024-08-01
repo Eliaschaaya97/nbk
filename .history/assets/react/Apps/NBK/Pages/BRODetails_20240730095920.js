@@ -22,7 +22,7 @@ const BRODetails = () => {
   const [activeButton, setActiveButton] = useState(userData.customerSameAsBeneficiary || "Yes");
   const [errors, setErrors] = useState({});
   const [next, setNext] = useState(false);
-  const regex = /^[A-Za-z\s\.\,\-\!\@\#\$\%\^\&\*\(\)\_\+\=\[\]\{\}\;\:\'\"\<\>\?\/\|\\]*$/;
+  const regex = /^[A-Za-z\s\-']*$/;
 
 
 

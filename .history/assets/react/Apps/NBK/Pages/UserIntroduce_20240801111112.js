@@ -19,8 +19,16 @@ const UserIntroduce = () => {
   const [motherName, setMotherName] = useState(userData.mothersName || "");
   const [date, setDate] = useState(userData.dob || "");
   const [progress, setProgress] = useState(8);
-  const regex = /^[A-Za-z\s\.\,\-\!\@\#\$\%\^\&\*\(\)\_\+\=\[\]\{\}\;\:\'\"\<\>\?\/\|\\]*$/;
+  const regex = /^[A-Za-z\s\-']*$/;
 
+  const handleFullNameChange = (event) => {
+    const { value } = event.target;
+    // Allow only alphabetic characters and symbols
+    const regex = /^[A-Za-z\s\.\,\-\!\@\#\$\%\^\&\*\(\)\_\+\=\[\]\{\}\;\:\'\"\<\>\?\/\|\\]*$/;
+    if (regex.test(value)) {
+      setFullName(value);
+    }
+  };
 
   const [selectedCountry, setSelectedCountry] = useState(
     userData.countryOfOrigin || ""

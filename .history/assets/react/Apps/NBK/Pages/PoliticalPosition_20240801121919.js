@@ -73,7 +73,7 @@ const PoliticalPosition = () => {
       setErrors(validationErrors);
     }
     updateUserFieldInUserData("politicalPosition", activeButton);
-    updateUserFieldInUserData("currentOrPrevious", currentOrPrevious);
+    updateUserFieldInUserData("currentOrPrevious", activeButton2);
     updateUserFieldInUserData("yearOfRetirement", yearOfRetirement);
     updateUserFieldInUserData("pepName", PEPName);
     updateUserFieldInUserData("relationship", relationship);
@@ -113,7 +113,7 @@ const PoliticalPosition = () => {
   };
   const handleButtonClick2 = (event) => {
     event.preventDefault();
-    setCurrentOrPrevious(event.target.innerText);
+    setActiveButton2(event.target.innerText);
     if (event.target.innerText === "Pevious") {
       delete errors.yearOfRetirement;
     }
@@ -166,18 +166,17 @@ const PoliticalPosition = () => {
       onChange={(e) => setCurrentOrPrevious(e.target.value)}
       className="form-select form-control mb-3"
     >
-      <option value="">Current/Previous</option>
-      <option value="current">Current</option>
-      <option value="previous">Previous</option>
+      <option value="">PEP Position</option>
+      <option value="royalfamily">Royal Family</option>
     </select>
           {errors.currentPrevious && (
-      <div className="text-danger error">{errors.currentPrevious}</div>
+      <div className="text-danger error">{errors.currentOrPrevious}</div>
     )}
 
 
    
 
-{currentOrPrevious === "Pevious" && (
+{activeButton2 === "Pevious" && (
       <div className="form-group">
         <input
           type="text"

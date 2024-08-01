@@ -113,7 +113,7 @@ const PoliticalPosition = () => {
   };
   const handleButtonClick2 = (event) => {
     event.preventDefault();
-    setCurrentOrPrevious(event.target.innerText);
+    setActiveButton2(event.target.innerText);
     if (event.target.innerText === "Pevious") {
       delete errors.yearOfRetirement;
     }

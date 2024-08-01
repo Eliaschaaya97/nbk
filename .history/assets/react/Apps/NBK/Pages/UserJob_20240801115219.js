@@ -52,7 +52,7 @@ const UserJob = () => {
         );
       };
       const handlesJobTitle = (e) => {
-        const { value } = e.target; 
+        const { value } = e.target;
         if (regex.test(value)) {
             setJobTitle(value);
         } 
@@ -299,8 +299,6 @@ const UserJob = () => {
                      
                         />
                         <label className="floating-label">Education Level</label>
-
-             
                     </div>
                     <div className="form-group">
                         <input

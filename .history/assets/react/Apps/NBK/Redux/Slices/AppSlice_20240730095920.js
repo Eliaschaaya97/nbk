@@ -84,7 +84,7 @@ const initialState = {
       pepName: "",
       relationship: "",
       pepPosition: "",
-      additionalInfo: "",
+      additionalInfo: ""
     },
     financialDetails: {
       sourceOfFunds: "",

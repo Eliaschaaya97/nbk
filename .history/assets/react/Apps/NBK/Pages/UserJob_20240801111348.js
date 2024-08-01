@@ -28,7 +28,7 @@ const UserJob = () => {
     const [activeButton, setActiveButton] = useState( userData.placeOfWorkListed || "No");
     const [errors, setErrors] = useState({});
     const [next,setNext]=useState(false);
-    const regex = /^[A-Za-z\s\.\,\-\!\@\#\$\%\^\&\*\(\)\_\+\=\[\]\{\}\;\:\'\"\<\>\?\/\|\\]*$/;
+    const regex = /^[A-Za-z\s\-']*$/;
     const [validationMessage, setValidationMessage] = useState("");
     const [countryCode, setCountryCode] = useState("lb");
 
@@ -52,7 +52,7 @@ const UserJob = () => {
         );
       };
       const handlesJobTitle = (e) => {
-        const { value } = e.target; 
+        const { value } = e.target;
         if (regex.test(value)) {
             setJobTitle(value);
         } 
@@ -300,6 +300,7 @@ const UserJob = () => {
                         />
                         <label className="floating-label">Education Level</label>
 
+                        
              
                     </div>
                     <div className="form-group">

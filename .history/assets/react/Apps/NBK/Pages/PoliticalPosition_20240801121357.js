@@ -17,7 +17,7 @@ const PoliticalPosition = () => {
   const [relationship, setRelationship] = useState(userData.relationship || "");
   const [PEPPosition, setPEPPosition] = useState(userData.pepPosition || "");
   const [activeButton, setActiveButton] = useState( userData.politicalPosition || "No");
-  const [currentOrPrevious, setCurrentOrPrevious] = useState(userData.currentOrPrevious || "" );
+  const [activeButton2, setActiveButton2] = useState(userData.currentOrPrevious || "" );
   const [errors, setErrors] = useState({});
   const [next, setNext] = useState(false);
   const [inputs, setInputs] = useState([""]);
@@ -73,7 +73,7 @@ const PoliticalPosition = () => {
       setErrors(validationErrors);
     }
     updateUserFieldInUserData("politicalPosition", activeButton);
-    updateUserFieldInUserData("currentOrPrevious", currentOrPrevious);
+    updateUserFieldInUserData("currentOrPrevious", activeButton2);
     updateUserFieldInUserData("yearOfRetirement", yearOfRetirement);
     updateUserFieldInUserData("pepName", PEPName);
     updateUserFieldInUserData("relationship", relationship);
@@ -82,7 +82,7 @@ const PoliticalPosition = () => {
   const validateForm = () => {
     const errors = {};
     if (activeButton === "Yes") {
-      if (!currentOrPrevious.trim()) {
+      if (!activeButton2.trim()) {
         errors.currentPrevious = "Current/Previous field is required";
       }
       if (!PEPName.trim()) {
@@ -113,7 +113,7 @@ const PoliticalPosition = () => {
   };
   const handleButtonClick2 = (event) => {
     event.preventDefault();
-    setCurrentOrPrevious(event.target.innerText);
+    setActiveButton2(event.target.innerText);
     if (event.target.innerText === "Pevious") {
       delete errors.yearOfRetirement;
     }
@@ -161,23 +161,34 @@ const PoliticalPosition = () => {
   <label className="custom-control-label" htmlFor="customCheck1">
   If yes, please specify Current/Previous?
           </label>
-       <select
-      value={currentOrPrevious}
-      onChange={(e) => setCurrentOrPrevious(e.target.value)}
+          <select
+      value={PEPPosition}
+      onChange={(e) => setPEPPosition(e.target.value)}
       className="form-select form-control mb-3"
     >
-      <option value="">Current/Previous</option>
-      <option value="current">Current</option>
-      <option value="previous">Previous</option>
+      <option value="">PEP Position</option>
+      <option value="royalfamily">Royal Family</option>
+      <option value="memberofparliament">Member of Parliament</option>
+      <option value="seniormilitary">Senior Military</option>
+      <option value="seniorgovernmentofficer">
+        Senior Government Officer
+      </option>
+      <option value="seniorpolitician">Senior Politician</option>
+      <option value="entitiesdiplomat">Entities Diplomat</option>
+      <option value="courtpresidentdeputy">Court President/Deputy</option>
+      <option value="attorneygeneral">Attorney General</option>
+      <option value="seniorpositionatIntlorganisation">
+        Senior Position at Int'l Organisation
+      </option>
     </select>
-          {errors.currentPrevious && (
-      <div className="text-danger error">{errors.currentPrevious}</div>
+          {errors.activeButton2 && (
+      <div className="text-danger error">{errors.activeButton2}</div>
     )}
 
 
    
 
-{currentOrPrevious === "Pevious" && (
+{activeButton2 === "Pevious" && (
       <div className="form-group">
         <input
           type="text"
