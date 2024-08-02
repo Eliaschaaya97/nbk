@@ -149,33 +149,33 @@ const UserIntroduce = () => {
     if (!selectedCountry) {
       errors.selectedCountry = "Country of Origin is required";
     }
-    if (
-      !civilNational.trim() &&
-      !secondExpirationDate.trim() &&
-      !placeOfIssue.trim() &&
-      !passport.trim()
-    ) {
+    if (!civilNational.trim()) {
       errors.civilNational = "Civil/National ID No. is required";
     }
-
     if (!selectedState) {
       errors.selectedState = "Register Place & No. is required";
     }
     if (!status) {
       errors.status = "Marital Status is required";
     }
-    if (selectedCountry === "") {
-    } else if (selectedCountry !== "Lebanon")
-      errors.passport = "Passport is required";
-
-    if (passport.trim() && !expirationDate.trim() && !civilNational.trim()) {
-      errors.secondExpirationDate = "Expiration Date is required";
-      errors.placeOfIssue = "Place of Issue is required";
+  
+    if (selectedCountry !== "Lebanon") {
+      if (!passport.trim()) {
+        errors.passport = "Passport is required";
+      } else {
+        if (!secondExpirationDate.trim()) {
+          errors.secondExpirationDate = "Expiration Date is required";
+        }
+        if (!placeOfIssue.trim()) {
+          errors.placeOfIssue = "Place of Issue is required";
+        }
+      }
     }
-
+  
     if (!statusInLebanon.trim()) {
       errors.statusInLebanon = "Status in Lebanon is required";
     }
+  
     return errors;
   };
 
