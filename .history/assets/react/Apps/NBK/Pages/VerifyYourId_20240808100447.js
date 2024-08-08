@@ -11,11 +11,9 @@ import "react-phone-input-2/lib/style.css";
 import DropdownCheckbox from "../Component/DropdownCheckbox";
 
 const VerifyYourId = () => {
-
   const [frontImage, setFrontImage] = useState(null);
   const [backImage, setBackImage] = useState(null);
   const [progress, setProgress] = useState(93);
-  const [documentStates, setDocumentStates] = useState({});
   const [errors, setErrors] = useState({});
   const [next, setNext] = useState(false);
   const [selectIDType, setSelectIDType] = useState("");
@@ -30,6 +28,13 @@ const VerifyYourId = () => {
   });
 
   const [additionalDocuments, setAdditionalDocuments] = useState([]);
+
+  const [documentStates, setDocumentStates] = useState({
+    AccountStatement: null,
+    EmployerLetterReference: null,
+    RealEstateTitleDeed: null,
+    other: null,
+  });
 
   const IncomeSources = [
     {
@@ -139,7 +144,6 @@ const VerifyYourId = () => {
         ...prevState,
         [documentType]: imageUrl,
       }));
-
       dispatch(
         updateUserData({
           category: "verifyID",

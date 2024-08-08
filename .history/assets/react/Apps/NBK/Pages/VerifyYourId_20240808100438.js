@@ -15,7 +15,6 @@ const VerifyYourId = () => {
   const [frontImage, setFrontImage] = useState(null);
   const [backImage, setBackImage] = useState(null);
   const [progress, setProgress] = useState(93);
-  const [documentStates, setDocumentStates] = useState({});
   const [errors, setErrors] = useState({});
   const [next, setNext] = useState(false);
   const [selectIDType, setSelectIDType] = useState("");
@@ -30,6 +29,14 @@ const VerifyYourId = () => {
   });
 
   const [additionalDocuments, setAdditionalDocuments] = useState([]);
+
+  const [documentStates, setDocumentStates] = useState({
+    AccountStatement: null,
+    EmployerLetterReference: null,
+    RealEstateTitleDeed: null,
+    other: null,
+  });
+  
 
   const IncomeSources = [
     {
@@ -139,20 +146,13 @@ const VerifyYourId = () => {
         ...prevState,
         [documentType]: imageUrl,
       }));
-
-      dispatch(
-        updateUserData({
-          category: "verifyID",
-          data: {
-            additionalDocuments: {
-              ...documentStates,
-              [documentType]: imageUrl,
-            },
-          },
-        })
-      );
+      dispatch(updateUserData({
+        category: 'verifyID',
+        data: { additionalDocuments: { ...documentStates, [documentType]: imageUrl } }
+      }));
     }
   };
+  
 
   const handleBoxClick = (doc) => {
     console.log("Box clicked");
@@ -312,36 +312,35 @@ const VerifyYourId = () => {
               </div>
             )}
             {additionalDocuments.map((doc, index) => (
-              <div key={index} className="form-group mt-4">
-                <div className="box" onClick={() => handleBoxClick(doc.value)}>
-                  <div className="box-image">
-                    {documentStates[doc.value] ? (
-                      <img
-                        className="img"
-                        src={documentStates[doc.value]}
-                        alt={doc.label}
-                      />
-                    ) : (
-                      <>
-                        <img src={ScanID} alt="scan upload" />
-                        <p className="p-img">Scan or Upload {doc.label}</p>
-                      </>
-                    )}
-                  </div>
-                </div>
-                <input
-                  type="file"
-                  accept="image/*"
-                  capture="camera"
-                  style={{ display: "none" }}
-                  ref={(el) => (fileInputRefs.current[doc.value] = el)}
-                  onChange={(e) => handleFileChange(e, doc.value)}
-                />
-                {errors[doc.value] && (
-                  <div className="text-danger error">{errors[doc.value]}</div>
-                )}
-              </div>
-            ))}
+  <div key={index} className="form-group mt-4">
+    <div className="box" onClick={() => handleBoxClick(doc.value)}>
+      <div className="box-image">
+        {documentStates[doc.value] ? (
+          <img className="img" src={documentStates[doc.value]} alt={doc.label} />
+        ) : (
+          <>
+            <img src={ScanID} alt="scan upload" />
+            <p className="p-img">Scan or Upload {doc.label}</p>
+          </>
+        )}
+      </div>
+    </div>
+    <input
+      type="file"
+      accept="image/*"
+      capture="camera"
+      style={{ display: "none" }}
+      ref={(el) => (fileInputRefs.current[doc.value] = el)}
+      onChange={(e) => handleFileChange(e, doc.value)}
+    />
+    {errors[doc.value] && (
+      <div className="text-danger error">
+        {errors[doc.value]}
+      </div>
+    )}
+  </div>
+))}
+
           </div>
           <ButtonModile buttonName={"Next"} setNext={setNext} />
         </form>

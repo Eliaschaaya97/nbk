@@ -156,7 +156,6 @@ const AppSlice = createSlice({
         beneficiaryRightsOwner: {},
         politicalPositionDetails: {},
         financialDetails: {},
-        verifyID: {}
       };
     },
   },

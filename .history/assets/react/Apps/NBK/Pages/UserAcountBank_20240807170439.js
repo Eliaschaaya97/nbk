@@ -61,7 +61,7 @@ const regex = /^[A-Za-z\s\-']*$/;
       settingObjectData({
         mainField: "headerData",
         field: "currentPage",
-        value: "VerifyYourId",
+        value: "CustomerDeclaration",
       })
     );
   };

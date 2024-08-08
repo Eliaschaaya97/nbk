@@ -134,25 +134,25 @@ const VerifyYourId = () => {
   const handleFileChange = (event, documentType) => {
     const file = event.target.files[0];
     if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setDocumentStates((prevState) => ({
-        ...prevState,
-        [documentType]: imageUrl,
-      }));
-
-      dispatch(
-        updateUserData({
-          category: "verifyID",
-          data: {
-            additionalDocuments: {
-              ...documentStates,
-              [documentType]: imageUrl,
-            },
-          },
-        })
-      );
+        const imageUrl = URL.createObjectURL(file);
+        setDocumentStates((prevState) => ({
+            ...prevState,
+            [documentType]: imageUrl,
+        }));
+        dispatch(
+            updateUserData({
+                category: "verifyID",
+                data: {
+                    additionalDocuments: {
+                        ...documentStates,
+                        [documentType]: imageUrl,
+                    },
+                },
+            })
+        );
     }
-  };
+};
+
 
   const handleBoxClick = (doc) => {
     console.log("Box clicked");

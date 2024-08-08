@@ -9,10 +9,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import Modal from 'react-modal';
 import AppAPI from "../Api/AppApi";
-import ButtonMobile from "./ButtonMobile";
 
 const CustomerDeclaration = () => {
-  const [progress, setProgress] = useState(96);
+  const [progress, setProgress] = useState(98);
   const {SendInformation} = AppAPI();
   const formData = useSelector((state) => state.appData.userData);
   const parameters = useSelector((state) => state.appData.parameters);
@@ -43,28 +42,53 @@ const CustomerDeclaration = () => {
 
   const handleNext = (e) => {
     e.preventDefault();
-    getHeaderTitle();
+    const validationErrors = validateForm();
+    if (Object.keys(validationErrors).length === 0) {
+        setProgress(progress + 20);
+        if (progress >= 100) {
+            setProgress(100);
+        }
+        getHeaderTitle();
+    } else {
+        setErrors(validationErrors);
+    }
+    updateUserFieldInUserData("hasOtherAccounts", activeButton);
+    updateUserFieldInUserData("bankName", bankName);
+    updateUserFieldInUserData("country", country1);
+    updateUserFieldInUserData("accountBalance", accountBalanceUsd);
+    updateUserFieldInUserData("natureOfRelation", natureOfRelation);
+    updateUserFieldInUserData("purposeOfRelation", purposeOfRelation);
+    
+    updateUserFieldInUserData("bankName2", bankName2);
+    updateUserFieldInUserData("country2", country2);
+    updateUserFieldInUserData("accountBalance2", accountBalanceUsd2);
+    
+    updateUserFieldInUserData("bankName3", bankName3);
+    updateUserFieldInUserData("country3", country3);
+    updateUserFieldInUserData("accountBalance3", accountBalanceUsd3);
+
+  
 };
-  // const [modalIsOpen, setModalIsOpen] = useState(false);
-//   const handleButtonClick = () => {
-//     if (parameters?.deviceType === "Android") {
-//       window.AndroidInterface.callbackHandler("GoToApp");
-//     } else if (parameters?.deviceType === "Iphone") {
-//       window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
-//     }
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const handleButtonClick = () => {
+    if (parameters?.deviceType === "Android") {
+      window.AndroidInterface.callbackHandler("GoToApp");
+    } else if (parameters?.deviceType === "Iphone") {
+      window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
+    }
 
-//   if (isBottomSlider) {
-//     dispatch(settingData({ field: "bottomSlider", value: { isShow: false } }));
-//   } else if (isModalData) {
-//     dispatch(settingData({ field: "modalData", value: { isShow: false } }));
-//   } else {
-//     dispatch(settingObjectData({ mainField: "headerData", field: "currentPage", value: headerData.backLink }));
-//   }
-// };
+  if (isBottomSlider) {
+    dispatch(settingData({ field: "bottomSlider", value: { isShow: false } }));
+  } else if (isModalData) {
+    dispatch(settingData({ field: "modalData", value: { isShow: false } }));
+  } else {
+    dispatch(settingObjectData({ mainField: "headerData", field: "currentPage", value: headerData.backLink }));
+  }
+};
 
-  // const handleSubmitInformation = () => {
-  //   SendInformation(formData);
-  // }
+  const handleSubmitInformation = () => {
+    SendInformation(formData);
+  }
 
   return (
     <div id="CustomerDeclaration" className="container align-items-center p-3">
@@ -80,7 +104,7 @@ const CustomerDeclaration = () => {
       <div className="intro d-flex flex-column align-items-center">
         <ProgressBar progress={progress} />
         <div className="container-fluid">
-        <form className="form " onSubmit={handleNext}>
+        <form className="form " >
           <div>
             <p className="title-final">Customer Declaration:</p>
             <p className="paragh-final">
@@ -93,7 +117,7 @@ I/We understand and agree that this declaration is final and irrevocable, and th
             </p>
           </div>
 
-          <ButtonMobile buttonName={"Next"} setNext={setNext}/>
+          <ButtonModile buttonName={"Next"} setNext={setNext} />
         </form>
         </div>
       </div>

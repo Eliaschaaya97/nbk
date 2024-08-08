@@ -12,7 +12,7 @@ import AppAPI from "../Api/AppApi";
 import ButtonMobile from "./ButtonMobile";
 
 const CustomerDeclaration = () => {
-  const [progress, setProgress] = useState(96);
+  const [progress, setProgress] = useState(93);
   const {SendInformation} = AppAPI();
   const formData = useSelector((state) => state.appData.userData);
   const parameters = useSelector((state) => state.appData.parameters);

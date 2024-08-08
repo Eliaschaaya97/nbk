@@ -11,13 +11,27 @@ import "react-phone-input-2/lib/style.css";
 import DropdownCheckbox from "../Component/DropdownCheckbox";
 
 const VerifyYourId = () => {
-
+  const userDataUser = useSelector(
+    (state) => state.appData.userData.user || {}
+  );
+  const userData = useSelector(
+    (state) => state.appData.userData.workDetails || {}
+  );
   const [frontImage, setFrontImage] = useState(null);
   const [backImage, setBackImage] = useState(null);
-  const [progress, setProgress] = useState(93);
+  const [profession, setProfession] = useState(userData.profession || "");
+  const [progress, setProgress] = useState(25);
+  const [grade, setGrade] = useState(userData.grade || "");
+  const [workTelNo, setWorkTelNo] = useState(
+    userData.workTelephoneNumber || ""
+  );
+  const [activeButton, setActiveButton] = useState(
+    userData.placeOfWorkListed || "No"
+  );
   const [documentStates, setDocumentStates] = useState({});
   const [errors, setErrors] = useState({});
   const [next, setNext] = useState(false);
+  const [validationMessage, setValidationMessage] = useState("");
   const [selectIDType, setSelectIDType] = useState("");
   const dispatch = useDispatch();
   const fileInputRefFront = useRef(null);
@@ -48,43 +62,10 @@ const VerifyYourId = () => {
 
   const handleIncomeSourceChange = (selectedOptions) => {
     setAdditionalDocuments(selectedOptions);
-    dispatch(
-      updateUserData({
-        category: "verifyID",
-        data: { additionalDocuments: selectedOptions },
-      })
-    );
-  };
-
-  const handleSelectIDTypeChange = (e) => {
-    const selectedValue = e.target.value;
-    setSelectIDType(selectedValue);
-    dispatch(
-      updateUserData({
-        category: "verifyID",
-        data: { selectIDType: selectedValue },
-      })
-    );
-  };
-
-  const getHeaderTitle = () => {
-    dispatch(
-      settingObjectData({
-        mainField: "headerData",
-        field: "currentPage",
-        value: "CustomerDeclaration",
-      })
-    );
-  };
-
-  const getHeaderTitleBack = () => {
-    dispatch(
-      settingObjectData({
-        mainField: "headerData",
-        field: "currentPage",
-        value: "UserAcountBank",
-      })
-    );
+    dispatch(updateUserData({
+      category: 'verifyID',
+      data: { additionalDocuments: selectedOptions }
+    }));
   };
 
   const handleNext = (e) => {
@@ -96,12 +77,10 @@ const VerifyYourId = () => {
         setProgress(100);
       }
       getHeaderTitle();
-      dispatch(
-        updateUserData({
-          category: "verifyID",
-          data: { selectIDType, frontImage, backImage, additionalDocuments },
-        })
-      );
+      dispatch(updateUserData({
+        category: 'verifyID',
+        data: { selectIDType, frontImage, backImage, additionalDocuments }
+      }));
     } else {
       setErrors(validationErrors);
     }
@@ -112,23 +91,19 @@ const VerifyYourId = () => {
     if (!selectIDType.trim()) {
       errors.selectIDType = "Select ID Type is required";
     }
-    if (!frontImage) {
-      errors.frontImage = "Front ID image is required";
-    }
-    if (!backImage) {
-      errors.backImage = "Back ID image is required";
-    }
-    if (additionalDocuments.length === 0) {
-      errors.additionalDocuments =
-        "At least one additional document is required";
-    } else {
-      additionalDocuments.forEach((doc) => {
-        if (!documentStates[doc.value]) {
-          errors[doc.value] = `additional Documents is required`;
-        }
-      });
-    }
     return errors;
+  };
+
+  const handleButtonClick = (event) => {
+    event.preventDefault();
+    setActiveButton(event.target.innerText);
+    if (event.target.innerText === "No") {
+      setNext(false);
+      delete errors.grade;
+      delete errors.spouseName;
+      delete errors.spouseProfession;
+      delete errors.noOfChildren;
+    }
   };
 
   const handleFileChange = (event, documentType) => {
@@ -139,18 +114,6 @@ const VerifyYourId = () => {
         ...prevState,
         [documentType]: imageUrl,
       }));
-
-      dispatch(
-        updateUserData({
-          category: "verifyID",
-          data: {
-            additionalDocuments: {
-              ...documentStates,
-              [documentType]: imageUrl,
-            },
-          },
-        })
-      );
     }
   };
 
@@ -172,26 +135,32 @@ const VerifyYourId = () => {
     }
   };
 
+  const getHeaderTitleBack = () => {
+    dispatch(
+      settingObjectData({
+        mainField: "headerData",
+        field: "currentPage",
+        value: "AddressInfo",
+      })
+    );
+  };
+
   const handleFileChange1 = (event, step) => {
     const file = event.target.files[0];
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       if (step === "Front ID") {
         setFrontImage(imageUrl);
-        dispatch(
-          updateUserData({
-            category: "verifyID",
-            data: { frontImage: imageUrl },
-          })
-        );
+        dispatch(updateUserData({
+          category: 'verifyID',
+          data: { frontImage: imageUrl }
+        }));
       } else if (step === "Back ID") {
         setBackImage(imageUrl);
-        dispatch(
-          updateUserData({
-            category: "verifyID",
-            data: { backImage: imageUrl },
-          })
-        );
+        dispatch(updateUserData({
+          category: 'verifyID',
+          data: { backImage: imageUrl }
+        }));
       }
     }
   };
@@ -214,7 +183,7 @@ const VerifyYourId = () => {
           <div className="form-group">
             <select
               value={selectIDType}
-              onChange={handleSelectIDTypeChange}
+              onChange={(e) => setSelectIDType(e.target.value)}
               className="form-select form-control mb-3"
             >
               <option value="">Select ID Type</option>
@@ -253,11 +222,6 @@ const VerifyYourId = () => {
               style={{ display: "none" }}
               onChange={(e) => handleFileChange1(e, "Front ID")}
             />
-            {errors.frontImage && (
-              <div className="error text-danger error-status">
-                {errors.frontImage}
-              </div>
-            )}
           </div>
 
           <div className="form-group">
@@ -286,11 +250,6 @@ const VerifyYourId = () => {
               style={{ display: "none" }}
               onChange={(e) => handleFileChange1(e, "Back ID")}
             />
-            {errors.backImage && (
-              <div className="error text-danger error-status">
-                {errors.backImage}
-              </div>
-            )}
           </div>
           <div
             className="form-group-dropdown"
@@ -313,18 +272,17 @@ const VerifyYourId = () => {
             )}
             {additionalDocuments.map((doc, index) => (
               <div key={index} className="form-group mt-4">
-                <div className="box" onClick={() => handleBoxClick(doc.value)}>
+                <div
+                  className="box"
+                  onClick={() => handleBoxClick(doc)}
+                >
                   <div className="box-image">
-                    {documentStates[doc.value] ? (
-                      <img
-                        className="img"
-                        src={documentStates[doc.value]}
-                        alt={doc.label}
-                      />
+                    {documentStates[doc] ? (
+                      <img className="img" src={documentStates[doc]} alt={doc} />
                     ) : (
                       <>
                         <img src={ScanID} alt="scan upload" />
-                        <p className="p-img">Scan or Upload {doc.label}</p>
+                        <p className="p-img">Scan or Upload {doc}</p>
                       </>
                     )}
                   </div>
@@ -334,12 +292,9 @@ const VerifyYourId = () => {
                   accept="image/*"
                   capture="camera"
                   style={{ display: "none" }}
-                  ref={(el) => (fileInputRefs.current[doc.value] = el)}
-                  onChange={(e) => handleFileChange(e, doc.value)}
+                  ref={(el) => (fileInputRefs.current[doc] = el)}
+                  onChange={(e) => handleFileChange(e, doc)}
                 />
-                {errors[doc.value] && (
-                  <div className="text-danger error">{errors[doc.value]}</div>
-                )}
               </div>
             ))}
           </div>

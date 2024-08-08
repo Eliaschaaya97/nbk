@@ -66,7 +66,7 @@ const App = ({parameters}) => {
                 <Logo />
             </div>
             
-            {headerData.currentPage === "ER" && <Main />}
+            {headerData.currentPage === "" && <Main />}
             {headerData.currentPage === "IfNo" && <IfNo />}
             {headerData.currentPage === "IfYes" && <IfYes />}
             {headerData.currentPage === "UserInfo" && <UserInfo />}
@@ -77,7 +77,7 @@ const App = ({parameters}) => {
             {headerData.currentPage === "PoliticalPosition" && <PoliticalPosition />}
             {headerData.currentPage === "UserInfoSalary" && <UserInfoSalary />}
             {headerData.currentPage === "UserAcountBank" && <UserAcountBank />}
-            {headerData.currentPage === "" && <VerifyYourId/>}
+            {headerData.currentPage === "VerifyYourId" && <VerifyYourId/>}
             {headerData.currentPage === "CustomerDeclaration" && <CustomerDeclaration />}
             {headerData.currentPage === "Disclaimer" && <Disclaimer />}
 

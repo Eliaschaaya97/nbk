@@ -77,7 +77,7 @@ const App = ({parameters}) => {
             {headerData.currentPage === "PoliticalPosition" && <PoliticalPosition />}
             {headerData.currentPage === "UserInfoSalary" && <UserInfoSalary />}
             {headerData.currentPage === "UserAcountBank" && <UserAcountBank />}
-            {headerData.currentPage === "" && <VerifyYourId/>}
+            {headerData.currentPage === "VerifyYourId" && <VerifyYourId/>}
             {headerData.currentPage === "CustomerDeclaration" && <CustomerDeclaration />}
             {headerData.currentPage === "Disclaimer" && <Disclaimer />}
 

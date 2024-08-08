@@ -48,13 +48,20 @@ const VerifyYourId = () => {
 
   const handleIncomeSourceChange = (selectedOptions) => {
     setAdditionalDocuments(selectedOptions);
+    const updatedDocumentStates = selectedOptions.reduce((acc, option) => {
+        acc[option.value] = documentStates[option.value] || null;
+        return acc;
+    }, {});
+
+    setDocumentStates(updatedDocumentStates);
     dispatch(
-      updateUserData({
-        category: "verifyID",
-        data: { additionalDocuments: selectedOptions },
-      })
+        updateUserData({
+            category: "verifyID",
+            data: { additionalDocuments: selectedOptions },
+        })
     );
-  };
+};
+
 
   const handleSelectIDTypeChange = (e) => {
     const selectedValue = e.target.value;
@@ -134,25 +141,25 @@ const VerifyYourId = () => {
   const handleFileChange = (event, documentType) => {
     const file = event.target.files[0];
     if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setDocumentStates((prevState) => ({
-        ...prevState,
-        [documentType]: imageUrl,
-      }));
-
-      dispatch(
-        updateUserData({
-          category: "verifyID",
-          data: {
-            additionalDocuments: {
-              ...documentStates,
-              [documentType]: imageUrl,
-            },
-          },
-        })
-      );
+        const imageUrl = URL.createObjectURL(file);
+        setDocumentStates((prevState) => ({
+            ...prevState,
+            [documentType]: imageUrl,
+        }));
+        dispatch(
+            updateUserData({
+                category: "verifyID",
+                data: {
+                    additionalDocuments: {
+                        ...documentStates,
+                        [documentType]: imageUrl,
+                    },
+                },
+            })
+        );
     }
-  };
+};
+
 
   const handleBoxClick = (doc) => {
     console.log("Box clicked");

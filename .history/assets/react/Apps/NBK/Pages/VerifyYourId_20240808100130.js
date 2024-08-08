@@ -11,13 +11,19 @@ import "react-phone-input-2/lib/style.css";
 import DropdownCheckbox from "../Component/DropdownCheckbox";
 
 const VerifyYourId = () => {
-
+  const userDataUser = useSelector(
+    (state) => state.appData.userData.user || {}
+  );
+  const userData = useSelector(
+    (state) => state.appData.userData.workDetails || {}
+  );
   const [frontImage, setFrontImage] = useState(null);
   const [backImage, setBackImage] = useState(null);
   const [progress, setProgress] = useState(93);
   const [documentStates, setDocumentStates] = useState({});
   const [errors, setErrors] = useState({});
   const [next, setNext] = useState(false);
+  const [validationMessage, setValidationMessage] = useState("");
   const [selectIDType, setSelectIDType] = useState("");
   const dispatch = useDispatch();
   const fileInputRefFront = useRef(null);

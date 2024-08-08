@@ -31,6 +31,14 @@ const VerifyYourId = () => {
 
   const [additionalDocuments, setAdditionalDocuments] = useState([]);
 
+  const [documentStates, setDocumentStates] = useState({
+    AccountStatement: null,
+    EmployerLetterReference: null,
+    RealEstateTitleDeed: null,
+    other: null,
+  });
+  
+
   const IncomeSources = [
     {
       id: "1",

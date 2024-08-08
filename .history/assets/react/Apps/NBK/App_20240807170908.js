@@ -66,7 +66,7 @@ const App = ({parameters}) => {
                 <Logo />
             </div>
             
-            {headerData.currentPage === "ER" && <Main />}
+            {headerData.currentPage === "kmmk" && <Main />}
             {headerData.currentPage === "IfNo" && <IfNo />}
             {headerData.currentPage === "IfYes" && <IfYes />}
             {headerData.currentPage === "UserInfo" && <UserInfo />}
