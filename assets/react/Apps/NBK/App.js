@@ -16,6 +16,7 @@ import CustomerDeclaration from "./Pages/CustomerDeclaration";
 import IfNo from "./Pages/IfNo";
 import IfYes from "./Pages/IfYes";
 import VerifyYourId from "./Pages/VerifyYourId";
+import { Declaration } from "postcss";
 import Disclaimer from "./Pages/Disclaimer";
 
 
@@ -66,7 +67,7 @@ const App = ({parameters}) => {
                 <Logo />
             </div>
             
-            {headerData.currentPage === "ER" && <Main />}
+            {headerData.currentPage === "" && <Main />}
             {headerData.currentPage === "IfNo" && <IfNo />}
             {headerData.currentPage === "IfYes" && <IfYes />}
             {headerData.currentPage === "UserInfo" && <UserInfo />}
@@ -77,11 +78,9 @@ const App = ({parameters}) => {
             {headerData.currentPage === "PoliticalPosition" && <PoliticalPosition />}
             {headerData.currentPage === "UserInfoSalary" && <UserInfoSalary />}
             {headerData.currentPage === "UserAcountBank" && <UserAcountBank />}
-            {headerData.currentPage === "" && <VerifyYourId/>}
             {headerData.currentPage === "CustomerDeclaration" && <CustomerDeclaration />}
+            {headerData.currentPage === "VerifyYourId" && <VerifyYourId/>}
             {headerData.currentPage === "Disclaimer" && <Disclaimer />}
-
-            
         </div>
     );
     

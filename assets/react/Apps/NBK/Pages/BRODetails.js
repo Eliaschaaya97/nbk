@@ -136,12 +136,12 @@ const BRODetails = () => {
     // Function to add event listeners to input fields
     const addInputEventListeners = () => {
       const handleFocus = () => {
-        console.log("Keyboard is open");
+        // console.log("Keyboard is open");
         setKeyboardVisible(true);
       };
 
       const handleBlur = () => {
-        console.log("Keyboard is closed");
+        // console.log("Keyboard is closed");
         setKeyboardVisible(false);
       };
 

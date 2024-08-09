@@ -143,10 +143,6 @@ const AddressInfo = () => {
 
   const validateForm = () => {
     const errors = {};
-
-    if (!houseTelNo.trim()) {
-      errors.houseTelNo = "House Tel No. is required";
-    }
     if (!alternateContactName.trim()) {
       errors.alternateContactName = "alternateContactName is required";
     }
@@ -375,6 +371,7 @@ const AddressInfo = () => {
                   defaultOptionLabel="Country"
                 />
               </div>
+
               <div className="form-group">
                 <input
                   type="text"
@@ -385,6 +382,7 @@ const AddressInfo = () => {
                 />
                 <label className="floating-label">Area</label>
               </div>
+
               <div className="form-group">
                 <input
                   type="text"
@@ -395,6 +393,7 @@ const AddressInfo = () => {
                 />
                 <label className="floating-label">Street</label>
               </div>
+
               <div className="form-group">
                 <input
                   type="text"
@@ -407,6 +406,7 @@ const AddressInfo = () => {
                 />
                 <label className="floating-label">Building/House</label>
               </div>
+
               <div className="form-group">
                 <input
                   type="text"
@@ -417,6 +417,7 @@ const AddressInfo = () => {
                 />
                 <label className="floating-label">Floor</label>
               </div>
+
               <div className="form-group">
                 <input
                   type="text"
@@ -427,6 +428,7 @@ const AddressInfo = () => {
                 />
                 <label className="floating-label">Apartment</label>
               </div>
+
               <div className="label-div">
                 {" "}
                 <label className="floating-label label-tel">

@@ -83,10 +83,12 @@
                     <th>Expiration Date (Passport)</th>
                     <td>{{ user.expirationDatePassport|date('Y-m-d') }}</td>
                 </tr>
+                 {% if user.otherNationalities is not empty %}
                 <tr>
                     <th>Other Nationalities</th>
-                      <td>{{ user.otherNationalities|join(', ') }}</td>
+                      <td>{{ user.otherNationalities }}</td>
                 </tr>
+                {% endif %}
                 <tr>
                     <th>Status in Lebanon</th>
                     <td>{{ user.statusInLebanon }}</td>
@@ -392,6 +394,38 @@
                             <tr>
                                 <th>Purpose Of Relation</th>
                                 <td>{{ financialDetail.purposeOfRelation }}</td>
+                            </tr>
+                              <tr>
+                                <th>select ID Type</th>
+                                <td>{{ financialDetail.selectIDType }}</td>
+                            </tr>
+                                <tr>
+                                <th>Front Image ID</th>
+                                <td>{{ financialDetail.frontImageID }}</td>
+                            </tr>
+
+                                 <tr>
+                                <th>Back Image ID</th>
+                                <td>{{ financialDetail.backImageID }}</td>
+                            </tr>
+                             
+                                 <tr>
+                                <th>Account Statement</th>
+                                <td>{{ financialDetail.accountStatement }}</td>
+                            </tr>
+                                 <tr>
+                                <th>Other Document</th>
+                                <td>{{ financialDetail.otherDocument }}</td>
+                            </tr>     <tr>
+                                <th>Purpose Of Relation</th>
+                                <td>{{ financialDetail.purposeOfRelation }}</td>
+                            </tr>        <tr>
+                                <th>Real Estate Title</th>
+                                <td>{{ financialDetail.realEstateTitle }}</td>
+                            </tr>
+                                 </tr>        <tr>
+                                <th>Employer Letter</th>
+                                <td>{{ financialDetail.employerLetter }}</td>
                             </tr>
                         {% else %}
                             <tr>

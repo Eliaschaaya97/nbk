@@ -145,6 +145,35 @@ class FinancialDetails
      * @ORM\Column(name="purposeOfRelation", type="string", length=255, nullable=true)
      */
     private $purposeOfRelation;
+    
+     /**
+     * @ORM\Column(name="selectIDType", type="string", length=255, nullable=true)
+     */
+    private $selectIDType;
+     /**
+     * @ORM\Column(name="frontImageID", type="string", length=50, nullable=true)
+     */
+    private $frontImageID;
+     /**
+     * @ORM\Column(name="backImageID", type="string", length=255, nullable=true)
+     */
+    private $backImageID;
+     /**
+     * @ORM\Column(name="realEstateTitle", type="string", length=255, nullable=true)
+     */
+    private $realEstateTitle;
+     /**
+     * @ORM\Column(name="accountStatement", type="string", length=255, nullable=true)
+     */
+    private $accountStatement;
+        /**
+     * @ORM\Column(name="otherDocument", type="string", length=255, nullable=true)
+     */
+    private $otherDocument;
+        /**
+     * @ORM\Column(name="employerLetter", type="string", length=255, nullable=true)
+     */
+    private $employerLetter;
 
 
     /**
@@ -445,13 +474,91 @@ public function getSecondBankName(): ?string
     {
         return $this->purposeOfRelation;
     }
-
     public function setPurposeOfRelation(?string $purposeOfRelation): self
     {
         $this->purposeOfRelation = $purposeOfRelation;
 
         return $this;
     }
+
+    public function setSelectIDType(?string $selectIDType): self
+    {
+        $this->selectIDType = $selectIDType;
+
+        return $this;
+    }
+    public function getSelectIDType(): ?string
+    {
+        return $this->selectIDType;
+    }
+   
+
+    public function setFrontImageID(?string $frontImageID): self
+    {
+        $this->frontImageID = $frontImageID;
+
+        return $this;
+    }
+    public function getFrontImageID(): ?string
+    {
+        return $this->frontImageID;
+    }
+
+    public function setBackImageID(?string $backImageID): self
+    {
+        $this->backImageID = $backImageID;
+
+        return $this;
+    }
+    public function getBackImageID(): ?string
+    {
+        return $this->backImageID;
+    }
+
+    public function setRealEstateTitle(?string $realEstateTitle): self
+    {
+        $this->realEstateTitle = $realEstateTitle;
+
+        return $this;
+    }
+    public function getRealEstateTitle(): ?string
+    {
+        return $this->realEstateTitle;
+    }
+    
+    public function setAccountStatement(?string $accountStatement): self
+    {
+        $this->accountStatement = $accountStatement;
+
+        return $this;
+    }
+    public function getAccountStatement(): ?string
+    {
+        return $this->accountStatement;
+    }
+
+    public function setOtherDocument(?string $otherDocument): self
+    {
+        $this->otherDocument = $otherDocument;
+
+        return $this;
+    }
+    public function getOtherDocument(): ?string
+    {
+        return $this->otherDocument;
+    }
+
+    public function setEmployerLetter(?string $employerLetter): self
+    {
+        $this->employerLetter = $employerLetter;
+
+        return $this;
+    }
+    public function getEmployerLetter(): ?string
+    {
+        return $this->employerLetter;
+    }
+  
 
     public function getSecondBankBalance(): ?float
     {

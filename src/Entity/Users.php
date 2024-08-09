@@ -106,7 +106,7 @@ class Users
     private $expirationDatePassport;
 
     /**
-     * @ORM\Column(name="otherNationalities", type="string", length=255)
+     * @ORM\Column(name="otherNationalities", type="text", length=255)
      */
     private $otherNationalities;
 
@@ -296,8 +296,9 @@ class Users
   
     public function getOtherNationalities(): array
     {
-        return json_decode($this->otherNationalities, true);
+        return $this->otherNationalities ?? [];
     }
+    
     
     public function getStatusInLebanon(): ?string
     {

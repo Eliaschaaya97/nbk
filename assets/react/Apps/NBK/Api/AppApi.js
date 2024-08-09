@@ -17,7 +17,7 @@ const AppAPI = () => {
         if (response?.data?.isSuccess) {
           
             const parsedDate = response?.data;
-            console.log("parsed data :", parsedDate)
+            // console.log("parsed data :", parsedDate)
         }
         // dispatch(settingData({ field: "isloading", value: false }));
       });
@@ -35,7 +35,7 @@ const AppAPI = () => {
         if (response?.data?.isSuccess) {
           
             const parsedDate = response?.data;
-            console.log("parsed data :", parsedDate)
+            // console.log("parsed data :", parsedDate)
         }
         // dispatch(settingData({ field: "isloading", value: false }));
       });

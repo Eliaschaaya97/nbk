@@ -9,7 +9,7 @@ use Doctrine\Persistence\ManagerRegistry;
 
 class FinancialDetailsRepository
 {
-    public function createFinancialDetails(array $userData): ?FinancialDetails
+    public function createFinancialDetails(array $userData, $imageFront,$imageBack, $imageRealEState = null, $imageFrontaccoountStat = null,  $imageotherdoc  = null, $imageEmployerLetter = null): ?FinancialDetails
     {
         $financialDetails = new FinancialDetails();
         $financialDetails->setSourceOfFunds($userData['sourceOfFunds'] ?? '');
@@ -42,6 +42,13 @@ class FinancialDetailsRepository
         $financialDetails->setThirdBankName($userData['bankName3'] ?? '');
         $financialDetails->setThirdAccountCountry($userData['country3'] ?? '');
         $financialDetails->setThirdAccountBalance((float)($userData['accountBalance3'] ?? 0.0));
+        $financialDetails->setFrontImageID($imageFront);
+        $financialDetails->setSelectIDType($userData['selectIDType'] ?? '');
+        $financialDetails->setBackImageID($imageBack);
+        $financialDetails->setRealEstateTitle($imageRealEState);
+        $financialDetails->setAccountStatement($imageFrontaccoountStat);
+        $financialDetails->setOtherDocument($imageotherdoc);
+        $financialDetails->setEmployerLetter($imageEmployerLetter);
 
 
 
