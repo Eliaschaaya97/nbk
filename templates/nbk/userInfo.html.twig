@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Info</title>
     <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"
 </head>
 <body>
 <div class="container-fluid mt-4">
@@ -83,12 +83,17 @@
                     <th>Expiration Date (Passport)</th>
                     <td>{{ user.expirationDatePassport|date('Y-m-d') }}</td>
                 </tr>
-                 {% if user.otherNationalities is not empty %}
-                <tr>
-                    <th>Other Nationalities</th>
-                      <td>{{ user.otherNationalities }}</td>
-                </tr>
-                {% endif %}
+     {% if user.getOtherNationalities() is not empty %}
+    <tr>
+        <th>Other Nationalities</th>
+        <td>
+            {% for nationality in user.getOtherNationalities() %}
+                {{ nationality }}{% if not loop.last %}, {% endif %}
+            {% endfor %}
+        </td>
+    </tr>
+{% endif %}
+
                 <tr>
                     <th>Status in Lebanon</th>
                     <td>{{ user.statusInLebanon }}</td>
@@ -398,35 +403,77 @@
                               <tr>
                                 <th>select ID Type</th>
                                 <td>{{ financialDetail.selectIDType }}</td>
-                            </tr>
-                                <tr>
-                                <th>Front Image ID</th>
-                                <td>{{ financialDetail.frontImageID }}</td>
-                            </tr>
+                          <tr>
+    <th>Front Image ID</th>
+    <td>
+        {% if financialDetail.frontImageID %}
+         
+              <a href="{{financialDetail.frontImageID}}" target="_blank">  <img src="{{ financialDetail.frontImageID  }}" alt="Front Image ID" style="max-width: 300px; max-height: 300px;"> </a>
 
-                                 <tr>
-                                <th>Back Image ID</th>
-                                <td>{{ financialDetail.backImageID }}</td>
-                            </tr>
-                             
-                                 <tr>
-                                <th>Account Statement</th>
-                                <td>{{ financialDetail.accountStatement }}</td>
-                            </tr>
-                                 <tr>
-                                <th>Other Document</th>
-                                <td>{{ financialDetail.otherDocument }}</td>
-                            </tr>     <tr>
-                                <th>Purpose Of Relation</th>
-                                <td>{{ financialDetail.purposeOfRelation }}</td>
-                            </tr>        <tr>
-                                <th>Real Estate Title</th>
-                                <td>{{ financialDetail.realEstateTitle }}</td>
-                            </tr>
-                                 </tr>        <tr>
-                                <th>Employer Letter</th>
-                                <td>{{ financialDetail.employerLetter }}</td>
-                            </tr>
+        {% endif %}
+    </td>
+</tr>
+
+<tr>
+    <th>Back Image ID</th>
+    <td>
+        {% if financialDetail.backImageID  %}
+        
+                   <a href="{{financialDetail.backImageID}}" target="_blank">     <img src="{{  financialDetail.backImageID }}" alt="Back Image ID" style="max-width: 300px; max-height: 300px;"></a>
+        {% endif %}
+    </td>
+</tr>
+    {% if financialDetail.accountStatement %}
+<tr>
+    <th>Account Statement</th>
+    <td>
+        {% if financialDetail.accountStatement  %}
+          
+                    <a href="{{financialDetail.accountStatement}}" target="_blank">     <img src="{{ financialDetail.accountStatement  }}"alt="Account Statement" style="max-width: 300px; max-height: 300px;"></a>
+        {% endif %}
+    </td>
+</tr>
+           {% endif %}
+             {% if financialDetail.otherDocument %}
+<tr>
+    <th>Other Document</th>
+    <td>
+        {% if financialDetail.otherDocument  %}
+       
+              <a href="{{financialDetail.otherDocument}}" target="_blank">     <img src="{{financialDetail.otherDocument  }}" alt="other Document " style="max-width: 300px; max-height: 300px;"></a>
+ 
+        {% endif %}
+    </td>
+</tr>
+
+           {% endif %}
+
+             {% if financialDetail.realEstateTitle %}
+<tr>
+    <th>Real Estate Title</th>
+    <td>
+        {% if financialDetail.realEstateTitle  %}
+            <a href="{{financialDetail.realEstateTitle}}" target="_blank">        <img src="{{ financialDetail.realEstateTitle }}" alt="Real Estate Title " style="max-width: 300px; max-height: 300px;"></a>
+        {% endif %}
+    </td>
+</tr>
+           {% endif %}
+               {% if financialDetail.employerLetter %}  
+<tr>
+    <th>Employer Letter</th>
+    <td>
+        {% if financialDetail.employerLetter  %}
+     
+                    <a href="{{financialDetail.employerLetter}}" target="_blank">       <img src="{{ financialDetail.employerLetter }}" alt="Employer Letter Image" style="max-width: 300px; max-height: 300px;"></a>
+      
+    
+        {% endif %}
+    </td>
+</tr>
+
+           {% endif %}
+
+
                         {% else %}
                             <tr>
                                 <th>Has Other Accounts</th>

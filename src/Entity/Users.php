@@ -106,9 +106,10 @@ class Users
     private $expirationDatePassport;
 
     /**
-     * @ORM\Column(name="otherNationalities", type="text", length=255)
+     * @ORM\Column(name="otherNationalities", type="text", length=255, nullable=true)
      */
     private $otherNationalities;
+
 
     /**
      * @ORM\Column(name="statusInLebanon", type="string", length=50)
@@ -293,12 +294,29 @@ class Users
         return $this->expirationDatePassport;
     }
 
-  
+      /**
+     * Get the other nationalities as an array.
+     *
+     * @return array
+     */
     public function getOtherNationalities(): array
     {
-        return $this->otherNationalities ?? [];
+        return json_decode($this->otherNationalities, true) ?? [];
     }
     
+        /**
+     * Set the other nationalities.
+     *
+     * @param array $otherNationalities
+     * @return self
+     */
+    public function setOtherNationalities(array $otherNationalities): self
+    {
+        $this->otherNationalities = json_encode($otherNationalities);
+        return $this;
+    }
+
+
     
     public function getStatusInLebanon(): ?string
     {
@@ -419,12 +437,7 @@ class Users
         return $this;
     }
 
-    public function setOtherNationalities(array $otherNationalities): self
-    {
-        $this->otherNationalities = json_encode($otherNationalities);
-        return $this;
-    }
-
+  
     public function setStatusInLebanon(string $statusInLebanon): self
     {
         $this->statusInLebanon = $statusInLebanon;

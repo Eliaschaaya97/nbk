@@ -42,13 +42,13 @@ class FinancialDetailsRepository
         $financialDetails->setThirdBankName($userData['bankName3'] ?? '');
         $financialDetails->setThirdAccountCountry($userData['country3'] ?? '');
         $financialDetails->setThirdAccountBalance((float)($userData['accountBalance3'] ?? 0.0));
-        $financialDetails->setFrontImageID($imageFront);
+        $financialDetails->setFrontImageID('/' .$imageFront);
         $financialDetails->setSelectIDType($userData['selectIDType'] ?? '');
-        $financialDetails->setBackImageID($imageBack);
-        $financialDetails->setRealEstateTitle($imageRealEState);
-        $financialDetails->setAccountStatement($imageFrontaccoountStat);
-        $financialDetails->setOtherDocument($imageotherdoc);
-        $financialDetails->setEmployerLetter($imageEmployerLetter);
+        $financialDetails->setBackImageID('/' . $imageBack);
+        $financialDetails->setRealEstateTitle('/' .$imageRealEState);
+        $financialDetails->setAccountStatement('/' .$imageFrontaccoountStat);
+        $financialDetails->setOtherDocument('/' .$imageotherdoc);
+        $financialDetails->setEmployerLetter('/' .$imageEmployerLetter);
 
 
 
