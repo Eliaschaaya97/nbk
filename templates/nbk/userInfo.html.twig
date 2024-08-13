@@ -124,8 +124,12 @@
                 {% for address in user.addresses %}
                     <tr>
                         <th>Address</th>
-                        <td>{{ address.street }}, {{ address.building }}, {{ address.floor }}
-                            , {{ address.apartment }}</td>
+                        <td>
+                  {% if address.street %}{{ address.street }}{% endif %}
+            {% if address.building %}, {{ address.building }}{% endif %}
+            {% if address.floor %}, {{ address.floor }}{% endif %}
+            {% if address.apartment %}, {{ address.apartment }}{% endif %}
+                            </td>
                     </tr>
                     <tr>
                         <th>House Tel NO.</th>
