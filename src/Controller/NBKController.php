@@ -76,10 +76,15 @@ class NBKController extends AbstractController
 
         $frontImageID = $data['financialDetails']['frontImageID'];
         $backImageID = $data['financialDetails']['backImageID'];
+
         $realStateImage = $data['financialDetails']['realEstateTitle'];
         $otherDocumentImage = $data['financialDetails']['otherDocument'];
         $accountStatementImage = $data['financialDetails']['accountStatement'];
         $employeeLetterImage = $data['financialDetails']['employerLetter'];
+
+
+
+
 
         $imageParts = explode(';base64,', $frontImageID);
         $imageBase64 = $imageParts[1];
@@ -91,24 +96,9 @@ class NBKController extends AbstractController
         $imageTypeBack = explode('/', $imagePartsBack[0])[1];
 
         //real estate
-        $imagePartsrealestate = explode(';base64,', $realStateImage);
-        $imageBase64realestate = $imagePartsrealestate[1];
-        $imageTyperealestate = explode('/', $imagePartsrealestate[0])[1];
 
-        //account statement
-        $imagePartsaccountStatement = explode(';base64,', $accountStatementImage);
-        $imageBase64accountstatement = $imagePartsaccountStatement[1];
-        $imageTypeaccountstatement = explode('/', $imagePartsaccountStatement[0])[1];
 
-        //other doc
-        $imagePartsotherDocument = explode(';base64,', $otherDocumentImage);
-        $imageBase64otherDocument = $imagePartsotherDocument[1];
-        $imageTypeotherDocument = explode('/', $imagePartsotherDocument[0])[1];
 
-        //employee
-        $imagePartsemployee = explode(';base64,', $employeeLetterImage);
-        $imageBase64employee = $imagePartsemployee[1];
-        $imageTypeemployee = explode('/', $imagePartsemployee[0])[1];
 
 
         // Prepare the file path
@@ -117,6 +107,51 @@ class NBKController extends AbstractController
         $folderName = $fullName . '-' . $mobileNumb;
         $imageFolder = 'imageUser/' . str_replace(' ', '_', $folderName);
         $publicDir = $this->getParameter('kernel.project_dir') . '/public/' . $imageFolder;
+            
+        $imageRealEState ='';
+
+        if (!empty($realStateImage)) {
+            $imagePartsrealestate = explode(';base64,', $realStateImage);
+            $imageBase64realestate = $imagePartsrealestate[1];
+            $imageTyperealestate = explode('/', $imagePartsrealestate[0])[1];
+            $imageRealEState = 'imageUser/' . $folderName . '/imageRealEState.' . $imageTyperealestate;
+            $imageContentRealState = base64_decode($imageBase64realestate);
+        }
+
+        $imageotherdoc='';
+
+        if (!empty($otherDocumentImage)) {
+            //other doc
+            $imagePartsotherDocument = explode(';base64,', $otherDocumentImage);
+            $imageBase64otherDocument = $imagePartsotherDocument[1];
+            $imageTypeotherDocument = explode('/', $imagePartsotherDocument[0])[1];
+            $imageotherdoc = 'imageUser/' . $folderName . '/imageotherdoc.' . $imageTypeotherDocument;
+            $imageContentOtherDoc = base64_decode($imageBase64otherDocument);
+        }
+
+        $imageFrontaccoountStat='';
+
+        if (!empty($accountStatementImage)) {
+            //account statement
+            $imagePartsaccountStatement = explode(';base64,', $accountStatementImage);
+            $imageBase64accountstatement = $imagePartsaccountStatement[1];
+            $imageTypeaccountstatement = explode('/', $imagePartsaccountStatement[0])[1];
+            $imageFrontaccoountStat = 'imageUser/' . $folderName . '/imageFrontaccoountStat.' . $imageTypeaccountstatement;
+            $imageContentFrontAccountStat = base64_decode($imageBase64accountstatement);
+        }
+
+        $imageEmployerLetter ='';
+        if (!empty($employeeLetterImage)) {
+            //account statement
+            //employee
+            $imagePartsemployee = explode(';base64,', $employeeLetterImage);
+            $imageBase64employee = $imagePartsemployee[1];
+            $imageTypeemployee = explode('/', $imagePartsemployee[0])[1];
+            $imageEmployerLetter = 'imageUser/' . $folderName . '/imageEmployerLetter.' . $imageTypeemployee;
+            $imageContentEmployementLetter = base64_decode($imageBase64employee);
+        }
+
+
 
         if (!file_exists($publicDir)) {
             mkdir($publicDir, 0777, true);
@@ -124,18 +159,15 @@ class NBKController extends AbstractController
         $imagePath = $publicDir . '/frontImageID.' . $imageType;
         $imageFront = 'imageUser/' . $folderName . '/frontImageID.' . $imageTypeBack;
         $imageBack = 'imageUser/' . $folderName . '/BackimageID.' . $imageTypeBack;
-        $imageRealEState = 'imageUser/' . $folderName . '/imageRealEState.' . $imageTyperealestate;
-        $imageFrontaccoountStat = 'imageUser/' . $folderName . '/imageFrontaccoountStat.' . $imageTypeaccountstatement;
-        $imageotherdoc = 'imageUser/' . $folderName . '/imageotherdoc.' . $imageTypeotherDocument;
-        $imageEmployerLetter = 'imageUser/' . $folderName . '/imageEmployerLetter.' . $imageTypeemployee;
+
 
         // Decode the base64 data and save the file
         $imageContent = base64_decode($imageBase64);
         $imageContentBack = base64_decode($imageBase64Back);
-        $imageContentRealState = base64_decode($imageBase64realestate);
-        $imageContentFrontAccountStat = base64_decode($imageBase64accountstatement);
-        $imageContentOtherDoc = base64_decode($imageBase64otherDocument);
-        $imageContentEmployementLetter = base64_decode($imageBase64employee);
+
+
+
+
 
         if (file_put_contents($imagePath, $imageContent) === false || file_put_contents($imageBack, $imageContentBack) === false) {
             return new JsonResponse(['error' => 'Failed to save image content'], Response::HTTP_INTERNAL_SERVER_ERROR);
@@ -356,7 +388,7 @@ class NBKController extends AbstractController
     public function getBranchEmail($branchId)
     {
         // $branchEmails = [1=>"Sanayehbr@nbk.com.lb", 2=>"Bhamdounbr@nbk.com.lb",3=>"privatebr@nbk.com.lb"];
-        $branchEmails = [1=>"bilal.alkhodor@nbk.com.lb", 2=>"bilal.alkhodor@nbk.com.lb",3=>"bilal.alkhodor@nbk.com.lb"];
+        $branchEmails = [1 => "bilal.alkhodor@nbk.com.lb", 2 => "bilal.alkhodor@nbk.com.lb", 3 => "bilal.alkhodor@nbk.com.lb"];
         // $branchEmails = [1 => "elionajem51@gmail.com", 2 => "eliaschaaya97@gmail.com", 3 => "habchipatrick@gmail.com"];
         if (array_key_exists($branchId, $branchEmails)) {
             return $branchEmails[$branchId];
