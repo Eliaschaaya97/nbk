@@ -511,9 +511,7 @@ const AddressInfo = () => {
                 />
                 <label className="floating-label">Apartment</label>
               </div>
-              {errors.internationalApartment && (
-                <div className="text-danger error">{errors.internationalApartment}</div>
-              )}
+
               <div className="label-div">
                 {" "}
                 <label className="floating-label label-tel">
@@ -535,9 +533,6 @@ const AddressInfo = () => {
                     height: "45px",
                   }}
                 />
-                              {errors.value && (
-                <div className="text-danger error">{errors.value}</div>
-              )}
                 {validationMessage && (
                   <p
                     style={{
@@ -573,9 +568,6 @@ const AddressInfo = () => {
                     height: "45px",
                   }}
                 />
-                                              {errors.mobileValue && (
-                <div className="text-danger error">{errors.mobileValue}</div>
-              )}
                 {validationMessage2 && (
                   <p
                     style={{

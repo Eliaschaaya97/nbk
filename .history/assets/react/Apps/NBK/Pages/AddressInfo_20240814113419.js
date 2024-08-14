@@ -498,9 +498,9 @@ const AddressInfo = () => {
                 />
                 <label className="floating-label">Floor</label>
               </div>
-              {errors.internationalFloor && (
+              {/* {errors.internationalFloor && (
                 <div className="text-danger error">{errors.internationalFloor}</div>
-              )}
+              )} */}
               <div className="form-group">
                 <input
                   type="text"
@@ -511,9 +511,9 @@ const AddressInfo = () => {
                 />
                 <label className="floating-label">Apartment</label>
               </div>
-              {errors.internationalApartment && (
+              {/* {errors.internationalApartment && (
                 <div className="text-danger error">{errors.internationalApartment}</div>
-              )}
+              )} */}
               <div className="label-div">
                 {" "}
                 <label className="floating-label label-tel">

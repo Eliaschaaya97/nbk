@@ -198,10 +198,10 @@ const AddressInfo = () => {
         errors.internationalApartment = "International Apartment is required";
       }
       if (!value.trim()) {
-        errors.value = "International House Telephone Number is required";
+        errors.value = "International House Telephone is required";
       }
       if (!mobileValue.trim()) {
-        errors.mobileValue = "International Mobile Number is required";
+        errors.mobileValue = "Area is required";
       }
     }
 
@@ -470,9 +470,7 @@ const AddressInfo = () => {
                 />
                 <label className="floating-label">Street</label>
               </div>
-              {errors.internationalStreet && (
-                <div className="text-danger error">{errors.internationalStreet}</div>
-              )}
+
               <div className="form-group">
                 <input
                   type="text"
@@ -485,9 +483,7 @@ const AddressInfo = () => {
                 />
                 <label className="floating-label">Building/House</label>
               </div>
-              {errors.internationalBuildingHouse && (
-                <div className="text-danger error">{errors.internationalBuildingHouse}</div>
-              )}
+
               <div className="form-group">
                 <input
                   type="text"
@@ -498,9 +494,7 @@ const AddressInfo = () => {
                 />
                 <label className="floating-label">Floor</label>
               </div>
-              {errors.internationalFloor && (
-                <div className="text-danger error">{errors.internationalFloor}</div>
-              )}
+
               <div className="form-group">
                 <input
                   type="text"
@@ -511,9 +505,7 @@ const AddressInfo = () => {
                 />
                 <label className="floating-label">Apartment</label>
               </div>
-              {errors.internationalApartment && (
-                <div className="text-danger error">{errors.internationalApartment}</div>
-              )}
+
               <div className="label-div">
                 {" "}
                 <label className="floating-label label-tel">
@@ -535,9 +527,6 @@ const AddressInfo = () => {
                     height: "45px",
                   }}
                 />
-                              {errors.value && (
-                <div className="text-danger error">{errors.value}</div>
-              )}
                 {validationMessage && (
                   <p
                     style={{
@@ -573,9 +562,6 @@ const AddressInfo = () => {
                     height: "45px",
                   }}
                 />
-                                              {errors.mobileValue && (
-                <div className="text-danger error">{errors.mobileValue}</div>
-              )}
                 {validationMessage2 && (
                   <p
                     style={{

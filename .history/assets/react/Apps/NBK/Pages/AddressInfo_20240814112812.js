@@ -573,9 +573,7 @@ const AddressInfo = () => {
                     height: "45px",
                   }}
                 />
-                                              {errors.mobileValue && (
-                <div className="text-danger error">{errors.mobileValue}</div>
-              )}
+
                 {validationMessage2 && (
                   <p
                     style={{

@@ -511,9 +511,9 @@ const AddressInfo = () => {
                 />
                 <label className="floating-label">Apartment</label>
               </div>
-              {errors.internationalApartment && (
+              {/* {errors.internationalApartment && (
                 <div className="text-danger error">{errors.internationalApartment}</div>
-              )}
+              )} */}
               <div className="label-div">
                 {" "}
                 <label className="floating-label label-tel">

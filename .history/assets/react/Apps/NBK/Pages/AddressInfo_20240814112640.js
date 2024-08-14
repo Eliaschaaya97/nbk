@@ -535,8 +535,8 @@ const AddressInfo = () => {
                     height: "45px",
                   }}
                 />
-                              {errors.value && (
-                <div className="text-danger error">{errors.value}</div>
+                              {errors.internationalApartment && (
+                <div className="text-danger error">{errors.internationalApartment}</div>
               )}
                 {validationMessage && (
                   <p
@@ -573,9 +573,6 @@ const AddressInfo = () => {
                     height: "45px",
                   }}
                 />
-                                              {errors.mobileValue && (
-                <div className="text-danger error">{errors.mobileValue}</div>
-              )}
                 {validationMessage2 && (
                   <p
                     style={{
