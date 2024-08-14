@@ -71,7 +71,7 @@ const App = ({parameters}) => {
             {headerData.currentPage === "IfNo" && <IfNo />}
             {headerData.currentPage === "IfYes" && <IfYes />}
             {headerData.currentPage === "UserInfo" && <UserInfo />}
-            {headerData.currentPage === "UserIntroduce" && <UserIntroduce />}
+            {headerData.currentPage === "" && <UserIntroduce />}
             {headerData.currentPage === "AddressInfo" && <AddressInfo />}
             {headerData.currentPage === "UserJob" && <UserJob />}
             {headerData.currentPage === "BRODetails" && <BRODetails />}
