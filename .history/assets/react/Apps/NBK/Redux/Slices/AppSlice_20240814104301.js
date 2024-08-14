@@ -24,7 +24,7 @@ const initialState = {
       nationalId: "",
       expirationDateNationalId: "",
       registerPlaceAndNo: "",
-      maritalStatus: "",
+      maritalStatus: "married",
       passportNumber: "",
       placeOfIssuePassport: "",
       expirationDatePassport: "",
