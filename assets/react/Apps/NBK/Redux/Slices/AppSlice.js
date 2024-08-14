@@ -20,11 +20,11 @@ const initialState = {
       gender: "",
       dob: "",
       placeOfBirth: "",
-      countryOfOrigin: "",
+      countryOfOrigin: "Lebanon",
       nationalId: "",
       expirationDateNationalId: "",
       registerPlaceAndNo: "",
-      maritalStatus: "",
+      maritalStatus: "married",
       passportNumber: "",
       placeOfIssuePassport: "",
       expirationDatePassport: "",
@@ -37,6 +37,7 @@ const initialState = {
       noOfChildren: ""
     },
     address: {
+      city: "",
       street: "",
       building: "",
       floor: "",

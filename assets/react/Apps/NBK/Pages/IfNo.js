@@ -65,13 +65,12 @@ const IfNo = () => {
                 </p>
                 <form className="form mb-3" onSubmit={handleSubmit}>  
                     <ul>
-                        <li><strong>Nationality: Lebanese, Kuwaiti or GCC</strong></li>
                         <li><strong>Age: 18+</strong></li>
                         <li><strong>Minimum Initial Deposit to open the account: $5,000 cash or Fresh Funds transfer through NBK Lebanon correspondent bank outside Lebanon</strong></li>
                         <li><strong>Minimum Wealth: $100,000 or salary =&gt; $3,000</strong></li>
                         <li><strong>Documents required:
                             <ul>
-                                <li>National ID or Passport</li>
+                                <li>National ID &/or Passport</li>
                                 <li>Statement of account for the last 3 months 
                                     or Employer Letter Reference for employees or Title Deed</li>
                             </ul>

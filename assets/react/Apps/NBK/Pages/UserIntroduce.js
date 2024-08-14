@@ -158,6 +158,10 @@ const UserIntroduce = () => {
     if (!status) {
       errors.status = "Marital Status is required";
     }
+    if (otherNationalities.length === 0) { 
+      errors.otherNationalities = "Other nationalities are required"; 
+    }
+  
   
     if (selectedCountry !== "Lebanon") {
       if (!passport.trim()) {
@@ -436,6 +440,9 @@ const UserIntroduce = () => {
               onChange={handleSelectChange}
              className=" mb-3 mt-3"
             />
+                      {errors.otherNationalities && (
+            <div className="text-danger error">{errors.otherNationalities}</div>
+          )}
           </div>
 
           <select

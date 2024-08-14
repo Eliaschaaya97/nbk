@@ -157,12 +157,12 @@ const UserJob = () => {
         if (!grade.trim() && publicSector === "yes"  ) {
             errors.grade = "Grade is required for Stock Exchange listed workplaces";}
         
-        if (!spouseName.trim() && (status === "widow" || status === "married"))  {
-            errors.spouseName = "Spouse Name is required";
-        }
-        if (!spouseProfession.trim()  && (status === "widow" || status === "married")) {
-            errors.spouseProfession = "Spouse Profession is required";
-        }
+        // if (!spouseName.trim() && (status === "widow" || status === "married"))  {
+        //     errors.spouseName = "Spouse Name is required";
+        // }
+        // if (!spouseProfession.trim()  && (status === "widow" || status === "married")) {
+        //     errors.spouseProfession = "Spouse Profession is required";
+        // }
         if (!noOfChildren.trim()  && (status === "widow" || status === "married" || status ==="divorced")) {
             errors.noOfChildren = "Number of Children is required";
                 }

@@ -12,6 +12,7 @@ class AddressRepository
     public function createAddress(array $userData): ?Address
     {
         $address = new Address();
+        $address->setCity($userData['city'] ?? '');
         $address->setStreet($userData['street'] ?? '');
         $address->setBuilding($userData['building'] ?? '');
         $address->setFloor($userData['floor'] ?? '');

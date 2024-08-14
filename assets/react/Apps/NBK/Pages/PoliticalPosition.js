@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ProgressBar from "../Component/ProgressBar";
 import { useDispatch ,useSelector} from "react-redux";
 import { settingObjectData, updateUserData } from "../Redux/Slices/AppSlice";
@@ -129,6 +129,10 @@ const PoliticalPosition = () => {
     );
   };
 
+  useEffect(()=>{
+    console.log(currentOrPrevious)
+  }, [currentOrPrevious])
+
   return (
     <div id="PoliticalPosition" className="container align-items-center p-3">
       <button
@@ -158,7 +162,7 @@ const PoliticalPosition = () => {
           {activeButton === "Yes" && (
   <>
 
-  <label className="custom-control-label" htmlFor="customCheck1">
+  <label className="custom-control-label" htmlFor="customCheck1" >
   If yes, please specify Current/Previous?
           </label>
        <select
@@ -167,8 +171,8 @@ const PoliticalPosition = () => {
       className="form-select form-control mb-3"
     >
       <option value="">Current/Previous</option>
-      <option value="current">Current</option>
-      <option value="previous">Previous</option>
+      <option value="Current">Current</option>
+      <option value="Previous">Previous</option>
     </select>
           {errors.currentPrevious && (
       <div className="text-danger error">{errors.currentPrevious}</div>
@@ -177,7 +181,7 @@ const PoliticalPosition = () => {
 
    
 
-{currentOrPrevious === "Pevious" && (
+{currentOrPrevious === "Previous" && (
       <div className="form-group">
         <input
           type="text"

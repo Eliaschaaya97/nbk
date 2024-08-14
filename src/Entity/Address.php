@@ -17,6 +17,10 @@ class Address
      */
     private $id;
 
+        /**
+     * @ORM\Column(name="city", type="string", length=255)
+     */
+    private $city;
     /**
      * @ORM\Column(name="street", type="string", length=255)
      */
@@ -116,6 +120,12 @@ class Address
     public function getUserId(): ?int
     {
         return $this->userId;
+    }
+
+
+    public function getCity(): ?string
+    {
+        return $this->city;
     }
 
     public function getStreet(): ?string
@@ -220,6 +230,15 @@ class Address
 
         return $this;
     }
+
+    public function setCity(string $city): self
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+
     public function setStreet(string $street): self
     {
         $this->street = $street;

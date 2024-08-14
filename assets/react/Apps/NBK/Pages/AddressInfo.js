@@ -20,6 +20,7 @@ const AddressInfo = () => {
   const regex = /^[A-Za-z\s\.\,\-\!\@\#\$\%\^\&\*\(\)\_\+\=\[\]\{\}\;\:\'\"\<\>\?\/\|\\]*$/;
   const [otherCountriesOfTaxResidence, setOtherCountriesOfTaxResidence] =
     useState(userDataUser.otherCountriesOfTaxResidence || "");
+  const [city, setCity] = useState(userData.city || "");
   const [street, setStreet] = useState(userData.street || "");
   const [progress, setProgress] = useState(17);
   const [taxResidencyIDNumber, setTaxResidencyIDNumber] = useState(
@@ -114,6 +115,7 @@ const AddressInfo = () => {
     );
     updateUserFieldInUserData("taxResidencyIdNumber", taxResidencyIDNumber);
 
+    updateUserFieldInUserDataAddress("city", city);
     updateUserFieldInUserDataAddress("street", street);
     updateUserFieldInUserDataAddress("building", buildingHouse);
     updateUserFieldInUserDataAddress("floor", floor);
@@ -143,8 +145,36 @@ const AddressInfo = () => {
 
   const validateForm = () => {
     const errors = {};
+    if(countryOfOrigin === "Lebanon")
+    {
+
+      if (!city.trim()) {
+        errors.city = "City is required";
+      }
+
+      if (!street.trim()) {
+        errors.street = "Street is required";
+      }
+      if (!buildingHouse.trim()) {
+        errors.buildingHouse = "Building/House is required";
+      }
+      if (!floor.trim()) {
+        errors.floor = "Floor is required";
+      }
+      if (!houseTelNo.trim()) {
+        errors.houseTelNo = "House number is required";
+      }
+      if (!apartment.trim()) {
+        errors.apartment = "Apartment is required";
+      }
+  }
+
     if (!alternateContactName.trim()) {
-      errors.alternateContactName = "alternateContactName is required";
+      errors.alternateContactName = "Alternate Contact Name is required";
+    }
+
+    if (!alternateTelephoneValue.trim()) {
+      errors.alternateTelephoneValue = "Alternate Telephone Number is required";
     }
 
     return errors;
@@ -296,6 +326,19 @@ const AddressInfo = () => {
               <div className="form-group">
                 <input
                   type="text"
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
+                  placeholder=""
+                  className="form-control mb-3"
+                />
+                <label className="floating-label">City</label>
+              </div>
+              {errors.city && (
+            <div className="text-danger error">{errors.city}</div>
+          )}
+              <div className="form-group">
+                <input
+                  type="text"
                   value={street}
                   onChange={(e) => setStreet(e.target.value)}
                   placeholder=""
@@ -303,9 +346,9 @@ const AddressInfo = () => {
                 />
                 <label className="floating-label">Street</label>
               </div>
-              {/* {errors.street && (
+              {errors.street && (
                 <div className="text-danger error">{errors.street}</div>
-              )} */}
+              )}
               <div className="form-group">
                 <input
                   type="text"
@@ -316,9 +359,9 @@ const AddressInfo = () => {
                 />
                 <label className="floating-label">Building/House</label>
               </div>
-              {/* {errors.buildingHouse && (
+              {errors.buildingHouse && (
                 <div className="text-danger error">{errors.buildingHouse}</div>
-              )} */}
+              )}
               <div className="form-group">
                 <input
                   type="text"
@@ -329,9 +372,9 @@ const AddressInfo = () => {
                 />
                 <label className="floating-label">Floor</label>
               </div>
-              {/* {errors.floor && (
+              {errors.floor && (
                 <div className="text-danger error">{errors.floor}</div>
-              )} */}
+              )}
               <div className="form-group">
                 <input
                   type="text"
@@ -342,9 +385,9 @@ const AddressInfo = () => {
                 />
                 <label className="floating-label">Apartment</label>
               </div>
-              {/* {errors.apartment && (
+              {errors.apartment && (
                 <div className="text-danger error">{errors.apartment}</div>
-              )} */}
+              )}
               <div className="form-group">
                 <input
                   type="text"
@@ -355,9 +398,9 @@ const AddressInfo = () => {
                 />
                 <label className="floating-label">House Tel No.</label>
               </div>
-              {/* {errors.houseTelNo && (
+              {errors.houseTelNo && (
                 <div className="text-danger error">{errors.houseTelNo}</div>
-              )} */}
+              )}
             </>
           )}
           {statusInLebanon === "nonresident" && (
@@ -540,7 +583,13 @@ const AddressInfo = () => {
                 paddingLeft: "50px",
                 height: "45px",
               }}
+
             />
+                          {errors.alternateTelephoneValue && (
+                <div className="text-danger error">
+                  {errors.alternateTelephoneValue}
+                </div>
+              )}
             {validationMessage3 && (
               <p
                 style={{

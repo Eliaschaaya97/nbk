@@ -195,7 +195,7 @@ const IfYes = () => {
 
       <div className="intro d-flex flex-column align-items-center">
         <p className="mb-3">
-          Please refer to your branch. We will contact you within 3 working days.
+          Please refer to your branch. We will contact you within 3 - 5 working days.
         </p>
         <form className="form" onSubmit={handleFormSubmit}>
           
