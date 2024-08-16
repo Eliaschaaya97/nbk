@@ -21,6 +21,7 @@ const initialState = {
       dob: "",
       placeOfBirth: "",
       countryOfOrigin: "",
+      nationality:"",
       nationalId: "",
       expirationDateNationalId: "",
       registerPlaceAndNo: "",

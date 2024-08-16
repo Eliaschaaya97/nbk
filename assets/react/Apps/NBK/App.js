@@ -67,12 +67,12 @@ const App = ({parameters}) => {
                 <Logo />
             </div>
             
-            {headerData.currentPage === "AddressInfo" && <Main />}
+            {headerData.currentPage === "" && <Main />}
             {headerData.currentPage === "IfNo" && <IfNo />}
             {headerData.currentPage === "IfYes" && <IfYes />}
             {headerData.currentPage === "UserInfo" && <UserInfo />}
             {headerData.currentPage === "UserIntroduce" && <UserIntroduce />}
-            {headerData.currentPage === "" && <AddressInfo />}
+            {headerData.currentPage === "AddressInfo" && <AddressInfo />}
             {headerData.currentPage === "UserJob" && <UserJob />}
             {headerData.currentPage === "BRODetails" && <BRODetails />}
             {headerData.currentPage === "PoliticalPosition" && <PoliticalPosition />}

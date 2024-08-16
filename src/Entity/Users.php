@@ -71,7 +71,12 @@ class Users
     private $countryOfOrigin;
 
     /**
-     * @ORM\Column(name="nationalId", type="string", length=50)
+     * @ORM\Column(name="nationality", type="string", length=255)
+     */
+    private $nationality;
+
+    /**
+     * @ORM\Column(name="nationalId", type="string", length=255)
      */
     private $nationalId;
 
@@ -258,6 +263,10 @@ class Users
     {
         return $this->countryOfOrigin;
     }
+    public function getNationality(): ?string
+    {
+        return $this->nationality;
+    }
 
     public function getNationalId(): ?string
     {
@@ -384,6 +393,12 @@ class Users
     public function setCountryOfOrigin(string $countryOfOrigin): self
     {
         $this->countryOfOrigin = $countryOfOrigin;
+
+        return $this;
+    }
+    public function setNationality(string $nationality): self
+    {
+        $this->nationality = $nationality;
 
         return $this;
     }

@@ -25,6 +25,9 @@ const UserIntroduce = () => {
   const [selectedCountry, setSelectedCountry] = useState(
     userData.countryOfOrigin || ""
   );
+  const [nationality, setNationality] = useState(
+    userData.nationality || ""
+  );
   const [selectedState, setSelectedState] = useState(
     userData.registerPlaceAndNo || ""
   );
@@ -105,6 +108,7 @@ const UserIntroduce = () => {
     updateUserFieldInUserData("dob", date);
     updateUserFieldInUserData("placeOfBirth", placeOfBirth);
     updateUserFieldInUserData("countryOfOrigin", selectedCountry);
+    updateUserFieldInUserData("nationality", nationality);
     updateUserFieldInUserData("nationalId", civilNational);
     updateUserFieldInUserData("expirationDateNationalId", expirationDate);
     updateUserFieldInUserData("registerPlaceAndNo", selectedState);
@@ -149,6 +153,9 @@ const UserIntroduce = () => {
     if (!selectedCountry) {
       errors.selectedCountry = "Country of Origin is required";
     }
+    if (!nationality) {
+      errors.nationality = "Nationality is required";
+    }
     if (!civilNational.trim()) {
       errors.civilNational = "Civil/National ID No. is required";
     }
@@ -163,7 +170,7 @@ const UserIntroduce = () => {
     }
   
   
-    if (selectedCountry !== "Lebanon") {
+    if (nationality !== "Lebanon") {
       if (!passport.trim()) {
         errors.passport = "Passport is required";
       } else {
@@ -287,6 +294,18 @@ const UserIntroduce = () => {
           {errors.selectedCountry && (
             <div className="text-danger error">{errors.selectedCountry}</div>
           )}
+                 <div className="form-group">
+            <CountryDropdown
+              value={nationality}
+              onChange={(value) => setNationality(value)}
+              className="form-select form-control mb-3"
+              defaultOptionLabel="Nationality"
+              priorityOptions={["LB", "KW"]}
+            />
+          </div>
+          {errors.nationality && (
+            <div className="text-danger error">{errors.nationality}</div>
+          )}
           <div className="form-group">
             <input
               type="text"
@@ -333,11 +352,11 @@ const UserIntroduce = () => {
 
           <div className="form-group">
             <RegionDropdown
-              country={selectedCountry}
+              country={nationality}
               value={selectedState}
               onChange={(value) => setSelectedState(value)}
               className="form-select form-control mb-3"
-              disabled={!selectedCountry}
+              disabled={!nationality}
               defaultOptionLabel="Register Place & No."
               blankOptionLabel="Register Place & No."
             />

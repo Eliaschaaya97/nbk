@@ -35,6 +35,7 @@ class UsersRepository
         }
         $user->setPlaceOfBirth($userData['placeOfBirth'] ?? '');
         $user->setCountryOfOrigin($userData['countryOfOrigin'] ?? '');
+        $user->setNationality($userData['nationality'] ?? '');
         $user->setNationalId($userData['nationalId'] ?? '');
         $user->setExpirationDateNationalId($expirationDateNationalId);
         $user->setRegisterPlaceNo($userData['registerPlaceAndNo'] ?? '');

@@ -107,8 +107,8 @@ class NBKController extends AbstractController
         $folderName = $fullName . '-' . $mobileNumb;
         $imageFolder = 'imageUser/' . str_replace(' ', '_', $folderName);
         $publicDir = $this->getParameter('kernel.project_dir') . '/public/' . $imageFolder;
-            
-        $imageRealEState ='';
+
+        $imageRealEState = '';
 
         if (!empty($realStateImage)) {
             $imagePartsrealestate = explode(';base64,', $realStateImage);
@@ -118,7 +118,7 @@ class NBKController extends AbstractController
             $imageContentRealState = base64_decode($imageBase64realestate);
         }
 
-        $imageotherdoc='';
+        $imageotherdoc = '';
 
         if (!empty($otherDocumentImage)) {
             //other doc
@@ -129,7 +129,7 @@ class NBKController extends AbstractController
             $imageContentOtherDoc = base64_decode($imageBase64otherDocument);
         }
 
-        $imageFrontaccoountStat='';
+        $imageFrontaccoountStat = '';
 
         if (!empty($accountStatementImage)) {
             //account statement
@@ -140,7 +140,7 @@ class NBKController extends AbstractController
             $imageContentFrontAccountStat = base64_decode($imageBase64accountstatement);
         }
 
-        $imageEmployerLetter ='';
+        $imageEmployerLetter = '';
         if (!empty($employeeLetterImage)) {
             //account statement
             //employee
