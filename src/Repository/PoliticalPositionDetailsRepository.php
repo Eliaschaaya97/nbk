@@ -23,7 +23,7 @@ class PoliticalPositionDetailsRepository
         $politicalPosition->setPepName($userData['pepName'] ?? '');
         $politicalPosition->setRelationship($userData['relationship'] ?? '');
         $politicalPosition->setPepPosition($userData['pepPosition'] ?? '');
-        $politicalPosition->setAdditionalInfo($userData['additionalInfo'] ?? '');
+
 
 
         return $politicalPosition;

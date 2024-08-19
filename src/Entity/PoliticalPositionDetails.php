@@ -47,10 +47,7 @@ class PoliticalPositionDetails
      */
     private $pepPosition;
 
-    /**
-     * @ORM\Column(name="additionalInfo", type="string", length=255, nullable=true)
-     */
-    private $additionalInfo;
+
 
     /**
      * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="politicalPositionDetails")
@@ -144,17 +141,7 @@ class PoliticalPositionDetails
         return $this;
     }
 
-    public function getAdditionalInfo(): ?string
-    {
-        return $this->additionalInfo;
-    }
 
-    public function setAdditionalInfo(?string $additionalInfo): self
-    {
-        $this->additionalInfo = $additionalInfo;
-
-        return $this;
-    }
 
     public function getUser(): ?Users
     {

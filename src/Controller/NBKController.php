@@ -196,14 +196,12 @@ class NBKController extends AbstractController
 
 
         $pdfContent = $this->generatePdf($data);
-
         $email = (new Email())
             ->from('monitoring@suyool.com')
             ->to($branchEmail)
             ->subject('Form submitted from ' . $data['user']['fullName'])
             ->text('Please find attached the form submitted from ' . $data['user']['fullName'] . '.');
         $email->attach($pdfContent, $data['user']['fullName'] . ' Data.pdf');
-
         $this->mailer->send($email);
 
         $email = (new Email())
@@ -403,6 +401,7 @@ class NBKController extends AbstractController
         $options->set('isHtml5ParserEnabled', true);
         $options->set('isRemoteEnabled', true);
         $dompdf = new Dompdf($options);
+
         $html = '<html><body>';
         $html .= $this->printKeyValuePairs($data);
         $html .= '</body></html>';
@@ -416,7 +415,7 @@ class NBKController extends AbstractController
         $html = '<table style="border-collapse: collapse; width: 100%;">';
 
         foreach ($data as $key => $value) {
-            if (is_array($value)) {
+            if (is_array($value)) {     
                 $uppercaseKey = strtoupper($key);
                 $html .= '<tr><td colspan="2" style="border: 1px solid #ddd; padding: 8px; background-color: #f2f2f2;"><strong>' . $uppercaseKey . '</strong></td></tr>';
                 $html .= $this->printKeyValuePairs($value);
