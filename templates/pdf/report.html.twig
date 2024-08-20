@@ -74,7 +74,7 @@
 				right: 0;
 				width: 100%;
 				text-align: right;
-				padding: 10px;
+				padding: 1px;
 				font-size: 12px;
 				color: #333;
 			}
@@ -171,17 +171,29 @@
 			</tr>
 			<tr>
 				<td>Place of Issuance of Passport</td>
-				<td>{{ user.placeOfIssuePassport | default('N/A') }}</td>
+				<td >{{ user.placeOfIssuePassport | default('N/A') }}</td>
 			</tr>
-			<tr>
+		<br/>
+		<tr> </tr>
+			
+			<br/>
+			<tr >
+				<tr>
+					<h3>
+						Other Nationalities
+					</h3>
+				</tr>
+				<tr>
 				<td>Other Nationalities</td>
-				<td>
-					{% if user.otherNationalities is not empty %}
-						{{ user.otherNationalities | join(', ') }}
-					{% else %}
-						N/A
-					{% endif %}
-				</td>
+					<td colspan="4" style=" display:block">
+						{% if user.otherNationalities is not empty %}
+							{{ user.otherNationalities | join(', ') }}
+						{% else %}
+							N/A
+						{% endif %}
+					</td>
+				</tr>
+
 			</tr>
 			<tr>
 				<td>Status in Lebanon</td>
@@ -210,7 +222,11 @@
 				<td>{{ user.noOfChildren | default('N/A') }}</td>
 			</tr>
 		</table>
+		
+
 		<div class="page-number"></div>
+		
+
 
 		<p class="customerSignature">Customer Signature</p>
 
@@ -245,11 +261,19 @@
 				<td>Apartment</td>
 				<td>{{ address.apartment | default('N/A') }}</td>
 			</tr>
+		
+
 
 			<tr>
 				<td>House Telephone Number</td>
-				<td>{{ address.houseTelephoneNumber | default('N/A') }}</td>
+				<td style=" display:block">{{ address.houseTelephoneNumber | default('N/A') }}</td>
+			
+
 			</tr>
+			
+
+
+		<tr> </tr>
 			<tr>
 				<h3>
 					Other International Address
@@ -633,6 +657,7 @@
 		    </tr>
 		    
 		</table>
+	<h3 style="text-align: center;">Customer Declaration</h3>
 		<p classname="paragh-final">
 			I/We hereby confirm that the information provided herein is accurate, correct and complete and that the documents submitted along with this application form are genuine. I undertake to inform the National Bank of Kuwait (Lebanon) S.A.L. (“the Bank”) in writing of any changes to the information already provided and to update the information on this form whenever requested to do so by the Bank.<br/>
 			I/We also hereby declare that, in the event of my/our being subject to any foreign tax laws requiring information to be shared by the Bank with the foreign government to whose tax laws I am/we are subject, or with its representatives, I/we explicitly agree to the Bank’s full compliance with such foreign government’s instructions and requests for information without the Bank’s need to notify me/us or to seek my/our additional consent. I understand and acknowledge that this declaration is with respect to all of the Bank’s products and account types (including corporate, joint, and/or individual accounts) and covers transactions, balances, supporting information, and any enquiries from the requesting government or its representatives.<br/>

@@ -243,7 +243,8 @@ class NBKController extends AbstractController
 		$dateEmailFormatted = $dateEmail->format('Y-m-d H:i:s');
 		$email = (new Email())
 			->from('monitoring@suyool.com')
-			->to($branchEmail)
+			// ->to($branchEmail)
+			->to("najm.choueiry@elbarid.com")
 			->subject('Form submitted from ' . $data['user']['fullName'])
 			->text('Application REF: User-' . $reference . ",\n\nThe customer : " . "\nName: " . $data['user']['fullName'] . "\nNumber:  " . $data['user']['mobileNumb'] . "\nEmail:  " . $data['user']['email'] .  "\naccessed on " . $dateEmailFormatted . ' the Mobile Banking Application to submit a new account opening application using SIM Card  ' . $data['user']['mobileNumb'] . '.' . "\n\nPlease contact the customer within 3-5 days since he has already a relationship with NBK Lebanon at " . $data['user']['branchUnit']);
 
@@ -253,7 +254,8 @@ class NBKController extends AbstractController
 
 		$email = (new Email())
 			->from('monitoring@suyool.com')
-			->to($data['user']['email'])
+			// ->to($data['user']['email'])
+			->to("najm.choueiry@elbarid.com")
 			->subject('Thank you for choosing NBK Lebanon.')
 			->text("Dear " . $data['user']['fullName'] . ",\n\nThank you for choosing NBK Lebanon.\nWe will contact you within 3-5 days.\n\nRegards.");
 		$this->mailer->send($email);
