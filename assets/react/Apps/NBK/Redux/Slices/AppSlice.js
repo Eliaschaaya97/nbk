@@ -15,13 +15,13 @@ const initialState = {
       mobileNumb: "",
       email: "",
       branchUnit: "",
-      branchId:"",
+      branchId: "",
       mothersName: "",
       gender: "",
       dob: "",
       placeOfBirth: "",
       countryOfOrigin: "",
-      nationality:"",
+      nationality: "",
       nationalId: "",
       expirationDateNationalId: "",
       registerPlaceAndNo: "",
@@ -35,7 +35,7 @@ const initialState = {
       taxResidencyIdNumber: "",
       spouseName: "",
       spouseProfession: "",
-      noOfChildren: ""
+      noOfChildren: "",
     },
     address: {
       city: "",
@@ -49,11 +49,11 @@ const initialState = {
       internationalMobileNumber: "",
       alternateContactName: "",
       alternateTelephoneNumber: "",
-      intArea:"",
-      intStreet:"",
-      intBuilding:"",
-      intFloor:"",
-      intApartment:""
+      intArea: "",
+      intStreet: "",
+      intBuilding: "",
+      intFloor: "",
+      intApartment: "",
     },
     workDetails: {
       profession: "",
@@ -65,7 +65,7 @@ const initialState = {
       workAddress: "",
       workTelephoneNumber: "",
       placeOfWorkListed: "",
-      grade: ""
+      grade: "",
     },
     beneficiaryRightsOwner: {
       customerSameAsBeneficiary: "",
@@ -77,16 +77,15 @@ const initialState = {
       reasonOfBro: "",
       address: "",
       profession: "",
-      incomeWealthDetails: ""
+      incomeWealthDetails: "",
     },
     politicalPositionDetails: {
       politicalPosition: "",
       currentOrPrevious: "",
-      yearOfRetirement : "",
+      yearOfRetirement: "",
       pepName: "",
       relationship: "",
       pepPosition: "",
-
     },
     financialDetails: {
       sourceOfFunds: "",
@@ -94,12 +93,12 @@ const initialState = {
       monthlyBasicSalary: "",
       monthlyAllowances: "",
       additionalIncomeSources: "",
-      othersSourceOfFound:"",
+      othersSourceOfFound: "",
       totalEstimatedMonthlyIncome: "",
-      estimatedWealthAmount : "",
+      estimatedWealthAmount: "",
       isWealthInherited: "",
       sourcesOfWealth: "",
-      incomeCategory:"",
+      incomeCategory: "",
       expectedNumberOfTransactions: "",
       expectedValueOfTransactions: "",
       frequency: "",
@@ -118,13 +117,12 @@ const initialState = {
       selectIDType: "",
       frontImageID: null,
       backImageID: null,
-      realEstateTitle:null,
-      accountStatement:null,
-      otherDocument:null,
-      employerLetter:null,
+      realEstateTitle: null,
+      accountStatement: null,
+      otherDocument: null,
+      employerLetter: null,
     },
   },
-
 };
 
 const AppSlice = createSlice({
@@ -142,7 +140,7 @@ const AppSlice = createSlice({
     },
 
     setFlage: (state, action) => {
-          state.flag = action.payload;
+      state.flag = action.payload;
     },
     updateUserData: (state, action) => {
       const { category, data } = action.payload;
@@ -151,7 +149,7 @@ const AppSlice = createSlice({
 
     resetData: (state) => {
       state.mobileResponse = "";
-      state.headerData = { title: "NBK", backLink: "", curretPage: ""};
+      state.headerData = { title: "NBK", backLink: "", curretPage: "" };
       state.flag = null;
       state.userData = {
         user: {},
@@ -165,6 +163,12 @@ const AppSlice = createSlice({
   },
 });
 
-export const { settingData, settingObjectData, setFlage, resetData,updateUserData  } = AppSlice.actions;
+export const {
+  settingData,
+  settingObjectData,
+  setFlage,
+  resetData,
+  updateUserData,
+} = AppSlice.actions;
 
 export default AppSlice.reducer;
