@@ -393,9 +393,9 @@ class NBKController extends AbstractController
 
 	public function getBranchEmail($branchId)
 	{
-		// $branchEmails = [1=>"Sanayehbr@nbk.com.lb", 2=>"Bhamdounbr@nbk.com.lb",3=>"privatebr@nbk.com.lb"];
-		$branchEmails = [1 => "zeina.abdallah@nbk.com.lb ", 2 => "maysaa.nasereddine@nbk.com.lb", 3 => "zeina.abdallah@nbk.com.lb "];
-		// $branchEmails = [1 => "elionajem51@gmail.com", 2 => "eliaschaaya97@gmail.com", 3 => "habchipatrick@gmail.com"];
+		$branchEmails = [1=>"Sanayehbr@nbk.com.lb", 2=>"Bhamdounbr@nbk.com.lb",3=>"privatebr@nbk.com.lb"];
+		//$branchEmails = [1 => "zeina.abdallah@nbk.com.lb ", 2 => "maysaa.nasereddine@nbk.com.lb", 3 => "zeina.abdallah@nbk.com.lb "];
+		//  $branchEmails = [1 => "elionajem51@gmail.com", 2 => "eliaschaaya97@gmail.com", 3 => "habchipatrick@gmail.com"];
 		if (array_key_exists($branchId, $branchEmails)) {
 			return $branchEmails[$branchId];
 		} else {
