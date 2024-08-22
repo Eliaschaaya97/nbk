@@ -95,7 +95,7 @@ const PoliticalPosition = () => {
         errors.PEPPosition = "PEP Position is required";
       }
       if (!yearOfRetirement.trim()) {
-        errors.yearOfRetirement = "Year Of Retirement is required";
+        errors.yearOfRetirement = ""
       }
 
     }

@@ -225,7 +225,6 @@ const AddressInfo = () => {
       setHouseTelNo(value);
     }
   };
-  
   const handleChange = (value, country) => {
     setValue(value);
     const countryCode = country?.countryCode.toUpperCase();

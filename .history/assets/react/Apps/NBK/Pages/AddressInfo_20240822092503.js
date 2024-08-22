@@ -219,13 +219,15 @@ const AddressInfo = () => {
   };
   const handleInputChange = (e) => {
     const { value } = e.target;
-    // Check if the input is numeric
+    // Remove the prefix for validation
+    const numberWithoutPrefix = value.replace("+961", "");
+    // Check if the remaining part is numeric
     const regex = /^[0-9]*$/;
-    if (regex.test(value)) {
-      setHouseTelNo(value);
+    if (regex.test()) {
+      setHouseTelNo(`+961${numberWithoutPrefix}`);
     }
   };
-  
+
   const handleChange = (value, country) => {
     setValue(value);
     const countryCode = country?.countryCode.toUpperCase();
