@@ -211,7 +211,7 @@ const IfYes = () => {
             <label className="floating-label">Full Name</label>
           </div>
           {errors.fullName && <div className="error text-danger">{errors.fullName}</div>}
-          <div className="label-div"><label className="label-tel" >Mobile No.</label></div>
+          <div className="label-div"><label className=" label-tel" >Mobile No.</label></div>
           <PhoneInput
           enableSearch
             className="mb-3"

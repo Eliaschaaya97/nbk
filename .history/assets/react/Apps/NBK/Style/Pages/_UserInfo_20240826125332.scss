@@ -1,5 +1,4 @@
-#AddressInfo{
- 
+#UserInfo{
   button.btn-Back{
     width: 41px;
     height: 41px;
@@ -11,17 +10,20 @@
     border: none;
 
 }
+.submit-btn{
+  margin-top: 310px;
+}
+
+    
     .intro {
         display: flex;
         flex-direction: column;
-        align-items: center;
 
         p{
             display: flex;
-            align-items: flex-start;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
             color: #034a8e;
-            max-width: 100%;
+            width: 85%;
             font-size: 17px;
             font-weight: bold;
             font-family: $AvenirHeavy;
@@ -32,6 +34,14 @@
     .form{
         display: flex;
         flex-direction: column;
+        width: 100%;
+        label{
+          font-family: $Regular;
+        }
+        .select-wrapper {
+          height: 200px;
+          overflow-y: visible;
+        }
         .label-div{
           padding-top: 16px;
           position: relative;
@@ -40,13 +50,10 @@
             font-size: 15px;
             position: absolute;
             top: -3px;
-            font-family: LibreFranklinRegular;
-            color: #999;
-            
-          }}
-        label{
-          font-family: $Regular;
-        }
+            font-family: LibreFranklinRegular; 
+            color: #999;   
+                     }
+
         div.error {
           display: flex;
           justify-content: flex-start;
@@ -66,6 +73,7 @@
                 font-size: 16px;
                 border-radius: 4px; 
                 font-family: $LibreFranklinRegular;
+          
                 &:focus {
                   outline: none;
                   border-color: #034a8e; 
@@ -84,6 +92,7 @@
                 color: #999; 
                 font-size: 14px; 
                 pointer-events: none;
+                text-align: center;
               }
         
               input:focus + .floating-label,
@@ -95,6 +104,7 @@
 
             .form-control{
                 padding: 10px;
+
             }
         }
     
@@ -110,71 +120,24 @@
         transition: 0.3s; 
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
     }
-    .buttons {
-      display: flex;
-      gap: 20px;
 
-      button {
-          padding: 10px 66px;
-          font-size: 16px;
-          font-weight: bold;
-          border: 1px solid #7588A034;
-          color: #034A8E;
-          margin-bottom: 15px;
-          border-radius: 5px;
-          cursor: pointer;
-          background-color: #E5ECF3;
-      }
-
-      button.active {
-          background-color: #034A8E; /* Darker blue for active state */
-          color: white; /* White text when active */
-      }
-  }
-
-}
-
-@media (min-width: 395px){
-    #AddressInfo{
-        max-width: 100%; 
-
-        .form{
-            width: 100%;
-        }
-}
-}
-
-@media (min-width: 345px){
-    #AddressInfo{
-        width: 100%;
-
-        .form{
-            width: 100%;
-        }
-}
-}
-@media (max-width: 520px){
-  #AddressInfo{
-      .buttons {
-          button {
-              padding: 0 20%;
-              font-size: 15px;
+    @media (min-width: 340px){
+      #UserInfo{
+  
+          .intro {
+              p{
+                  font-size: 17px;   
+                  max-width: 85%;
+              }
+          }   
+  
+          .form{
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              width: 100%;
           }
-      }
-}
-}
-.form{
-  .error {
-    display: flex;
-    justify-content: flex-start;
-    width: 100%;
-    margin-bottom: 4px;
+  }
   }
 }
-.form-control {
-  font-family: $LibreFranklinRegular;
-}
 
-button {
-  font-family: $AvenirHeavy;
-}

@@ -1,10 +1,5 @@
-#VerifyYourId{
+#UserJob{
 
-    .Title{
-        font-size: 16px !important;
-        color: #034A8E !important ;
-        font-family: $AvenirHeavy !important;
-    }
     button.btn-Back{
         width: 41px;
         height: 41px;
@@ -24,24 +19,32 @@
             font-family: $Regular;
           }
 
-   
+        p{
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 10px;
+            color: #034a8e;
+            max-width: 100%;
+            font-size: 17px;
+            font-weight: bold;
+        }
 
     }
 
     .form{
-        width: 90%;
         display: flex;
         flex-direction: column;
         .label-div{
             padding-top: 16px;
+
             position: relative;
-            margin-bottom: 10px;
             .label-tel{
               font-size: 15px;
               position: absolute;
               top: -3px;
               font-family: LibreFranklinRegular;
               color: #999;
+              margin-bottom: 10px;
               
             }}
 
@@ -59,47 +62,6 @@
             width: 100%; // Ensure input fields take full width
    button{
     font-family: $AvenirHeavy;
-   }
-   .p-step{
-    font-family: $AvenirBook;
-    font-size: 14px;
-    color: #7588A0;
-
-
-   }
-   .p-sub{
-    font-family: $AvenirBook;
-    font-size: 10px;
-    color: #7588A0;
-
-   }
-   .box{ 
-    width: 100%;
-    height:220px ;
-    box-shadow: 0pt 2pt 6pt rgba(0, 0, 0, 0.2);
-    margin-bottom: 20px;
-    .box-image{
-        width: 100%;
-        text-align: center;
-        height: 100%;
-        img{
-            margin-top: 46px;
-        }
-        .img{
-            margin-top: unset;
-            width: 100%;
-            height: 100%;
-
-        }
-        .p-img{
-            font-size: 16px;
-            font-family: $Bold;
-            color: #D7DDE3;
-        }
-
-    }
-
-
    }
 
             input {
@@ -136,11 +98,7 @@
             }
 
             .form-control{
-                border: 1px solid #7588A034;
                 padding: 10px;
-                min-width: 150px;
-                width: 100%;
-
             }
 
         }

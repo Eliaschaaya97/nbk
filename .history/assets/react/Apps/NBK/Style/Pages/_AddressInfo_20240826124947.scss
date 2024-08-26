@@ -1,23 +1,20 @@
-#UserJob{
+#AddressInfo{
+ 
+  button.btn-Back{
+    width: 41px;
+    height: 41px;
+    color: #034a8e;
+    position: absolute;
+    top: 7%;
+    left:5%;
+    background: none;
+    border: none;
 
-    button.btn-Back{
-        width: 41px;
-        height: 41px;
-        color: #034a8e;
-        position: absolute;
-        top: 7%;
-        left:5%;
-        background: none;
-        border: none;
-   
-    }
+}
     .intro {
         display: flex;
         flex-direction: column;
         align-items: center;
-        label{
-            font-family: $Regular;
-          }
 
         p{
             display: flex;
@@ -27,6 +24,7 @@
             max-width: 100%;
             font-size: 17px;
             font-weight: bold;
+            font-family: $AvenirHeavy;
         }
 
     }
@@ -34,20 +32,21 @@
     .form{
         display: flex;
         flex-direction: column;
-        .label-div{
-            padding-top: 16px;
-            position: relative;
-            margin-bottom: 10px;
-            .label-tel{
-              font-size: 15px;
-              position: absolute;
-              top: -3px;
-              font-family: LibreFranklinRegular;
-              color: #999;
-              
-            }}
+        .label-div{padding-top: 16px;
 
-  
+          position: relative;
+          .label-tel{
+            font-size: 15px;
+            position: absolute;
+            top: -3px;
+            font-family: LibreFranklinRegular;
+            color: #999;
+            margi
+            
+          }}
+        label{
+          font-family: $Regular;
+        }
         div.error {
           display: flex;
           justify-content: flex-start;
@@ -59,9 +58,7 @@
         .form-group {
             position: relative;
             width: 100%; // Ensure input fields take full width
-   button{
-    font-family: $AvenirHeavy;
-   }
+
 
             input {
                 width: 100%;
@@ -99,27 +96,8 @@
             .form-control{
                 padding: 10px;
             }
-
-        }
-
-        .custom-control-input {
-            width: 1.5em;
-            height: 1.5em; 
-            margin-right: 5px; 
-            font-size: 13px;
-            cursor: pointer;
-            align-self: start; 
-            
         }
     
-        .custom-control-label {
-            display: block;
-            margin-bottom: 5px;
-            width: 100%;
-            padding: 9px;
-            font-size: 11px;
-            color: #7588A0; 
-        }
       .btn-proceed {
         width: 100%;
         background-color: #034a8e;
@@ -132,48 +110,71 @@
         transition: 0.3s; 
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
     }
-
     .buttons {
-        display: flex;
-        gap: 20px;
+      display: flex;
+      gap: 20px;
 
-        button {
-            padding: 10px 66px;
-            font-size: 16px;
-            font-weight: bold;
-            border: 1px solid #7588A034;
-            color: #034A8E;
-            margin-bottom: 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            background-color: #E5ECF3;
-        }
+      button {
+          padding: 10px 66px;
+          font-size: 16px;
+          font-weight: bold;
+          border: 1px solid #7588A034;
+          color: #034A8E;
+          margin-bottom: 15px;
+          border-radius: 5px;
+          cursor: pointer;
+          background-color: #E5ECF3;
+      }
 
-        button.active {
-            background-color: #034A8E; /* Darker blue for active state */
-            color: white; /* White text when active */
-        }
-    }
+      button.active {
+          background-color: #034A8E; /* Darker blue for active state */
+          color: white; /* White text when active */
+      }
+  }
 
 }
 
-@media (max-width: 520px){
-    #UserJob{
-        .buttons {
-            button {
-                padding: 0 20%;
-                font-size: 15px;
-            }
+@media (min-width: 395px){
+    #AddressInfo{
+        max-width: 100%; 
+
+        .form{
+            width: 100%;
         }
 }
 }
 
-@media (min-width: 350px){
-    #UserJob{
+@media (min-width: 345px){
+    #AddressInfo{
         width: 100%;
 
         .form{
             width: 100%;
         }
 }
+}
+@media (max-width: 520px){
+  #AddressInfo{
+      .buttons {
+          button {
+              padding: 0 20%;
+              font-size: 15px;
+          }
+      }
+}
+}
+.form{
+  .error {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    margin-bottom: 4px;
+  }
+}
+.form-control {
+  font-family: $LibreFranklinRegular;
+}
+
+button {
+  font-family: $AvenirHeavy;
 }
