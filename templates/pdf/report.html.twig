@@ -158,7 +158,7 @@
 			</tr>
 
 			<tr>
-				<td>Registered Placed No</td>
+				<td>Register Place &amp No</td>
 				<td>{{ user.registerPlaceAndNo | default('N/A') }}</td>
 			</tr>
 			<tr>
@@ -317,7 +317,7 @@
 
 
 			<tr>
-				<td>International Building</td>
+				<td>International Building/House</td>
 				<td>{{ address.intBuilding | default('N/A') }}</td>
 			</tr>
 
@@ -370,7 +370,7 @@
 			</tr>
 
 			<tr>
-				<td>Educational Level</td>
+				<td>Education Level</td>
 				<td>{{ workDetails.educationLevel | default('N/A') }}</td>
 			</tr>
 
@@ -385,7 +385,7 @@
 			</tr>
 
 			<tr>
-				<td>Place of Work Listed</td>
+				<td>Work listed in stock exchange?</td>
 				<td>{{ workDetails.placeOfWorkListed | default('N/A') }}</td>
 			</tr>
 
@@ -396,11 +396,11 @@
 		<p class="customerSignature">Customer Signature</p>
 
 
-		<h2 class="title">Beneficiary Rights Owner</h2>
+		<h2 class="title">BENEFICIARY RIGHTS OWNER (BRO)</h2>
 		<table>
 
 			<tr>
-				<td>Customer Same As Beneficiary</td>
+				<td>Customer same as BRO</td>
 				<td>{{ beneficiaryRightsOwner.customerSameAsBeneficiary | default('N/A') }}</td>
 			</tr>
 			<tr>
@@ -443,7 +443,7 @@
 			</tr>
 
 			<tr>
-				<td>Income Wealth Details</td>
+				<td>Income &amp Wealth Details</td>
 				<td>{{ beneficiaryRightsOwner.incomeWealthDetails | default('N/A') }}</td>
 			</tr>
 
@@ -452,7 +452,7 @@
 
 		<p class="customerSignature">Customer Signature</p>
 
-		<h2 class="title">Political Position Details</h2>
+		<h2 class="title">Are you or any of your first or second degree relatives or close associates holding a political position?</h2>
 		<table>
 
 			<tr>
@@ -460,26 +460,26 @@
 				<td>{{ politicalPositionDetails.politicalPosition | default('N/A') }}</td>
 			</tr>
 			<tr>
-				<td>Current or Previous</td>
+				<td>If Yes, Current or Previous</td>
 				<td>{{ politicalPositionDetails.currentOrPrevious | default('N/A') }}</td>
 			</tr>
 			<tr>
-				<td>Year Of Retirement</td>
+				<td>If Previous, Year of Retirement</td>
 				<td>{{ politicalPositionDetails.yearOfRetirement | default('N/A') }}</td>
 			</tr>
 
 			<tr>
-				<td>Pep Name</td>
+				<td>Political Exposed Person Name</td>
 				<td>{{ politicalPositionDetails.pepName | default('N/A') }}</td>
 			</tr>
 
 			<tr>
-				<td>Relationship</td>
+				<td>Relationship with account holder</td>
 				<td>{{ politicalPositionDetails.relationship | default('N/A') }}</td>
 			</tr>
 
 			<tr>
-				<td>Pep Position</td>
+				<td>Political Exposed Person Position</td>
 				<td>{{ politicalPositionDetails.pepPosition | default('N/A') }}</td>
 			</tr>
 
@@ -515,7 +515,7 @@
 				<td>Additional Income Sources</td>
 				<td>
 					{% if financialDetails.additionalIncomeSources is not empty %}
-						<ul>
+						<ul style="list-style-type: none; padding-left: 0;">
 							{% for source in financialDetails.additionalIncomeSources %}
 								<li>{{ source }}</li>
 							{% endfor %}
@@ -525,9 +525,10 @@
 					{% endif %}
 				</td>
 			</tr>
+			
 
 			<tr>
-				<td>Other Source of Funds</td>
+				<td>If Others, please specify</td>
 				<td>{{ financialDetails.othersSourceOfFound | default('N/A') }}</td>
 			</tr>
 
@@ -542,7 +543,7 @@
 			</tr>
 
 			<tr>
-				<td>Is Wealth Inherited</td>
+				<td>Is your Wealth Inherited?</td>
 				<td>{{ financialDetails.isWealthInherited | default('N/A') }}</td>
 			</tr>
 
@@ -587,7 +588,7 @@
 			</tr>
 
 			<tr>
-				<td>Account Balance</td>
+				<td>Account Balance US.Dollars</td>
 				<td>{{ financialDetails.accountBalance | default('N/A') }}</td>
 			</tr>
 
@@ -603,7 +604,7 @@
 			</tr>
 
 			<tr>
-				<td>Second Account Balance</td>
+				<td>Second Account Balance US.Dollars</td>
 				<td>{{ financialDetails.accountBalance2 | default('N/A') }}</td>
 			</tr>
 
@@ -618,7 +619,7 @@
 			</tr>
 
 			<tr>
-				<td>Third Account Balance</td>
+				<td>Third Account Balance US.Dollars</td>
 				<td>{{ financialDetails.accountBalance3 | default('N/A') }}</td>
 			</tr>
 
@@ -633,7 +634,7 @@
 			</tr>
 
 			<tr>
-				<td>ID Type</td>
+				<td>Identification Type</td>
 				<td>{{ financialDetails.selectIDType | default('N/A') }}</td>
 			</tr>
 
