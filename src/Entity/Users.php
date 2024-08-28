@@ -197,6 +197,11 @@ class Users
         return $this->fullName;
     }
 
+
+    public function getCreated(): ?\DateTimeInterface
+    {
+        return $this->created;
+    }
     public function setFullName(string $fullName): self
     {
         $this->fullName = $fullName;

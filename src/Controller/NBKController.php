@@ -197,6 +197,7 @@ class NBKController extends AbstractController
 
 
 		$pdfContent = $this->generateReportPdf($data);
+	
 
 
 
@@ -228,7 +229,7 @@ class NBKController extends AbstractController
 		if ($financialDetails) {
 			$financialDetails->setUser($user);
 		}
-
+	
 		// Persist and flush all entities
 		$this->entityManager->persist($user);
 		$this->entityManager->persist($address);
@@ -319,13 +320,10 @@ class NBKController extends AbstractController
 	 */
 	public function getUserByMobile($mobileNumber): Response
 	{
-
 		if (!$mobileNumber) {
 			return new Response('Mobile number not provided', 400);
 		}
-
 		$user = $this->entityManager->getRepository(Users::class)->findOneBy(['mobileNumb' => $mobileNumber]);
-
 		if (!$user) {
 			$statusCode = 0;
 			$message = 'Mobile number not provided';
@@ -420,9 +418,14 @@ class NBKController extends AbstractController
 
 	public function generateReportPdf(array $data): string
 	{
-
+		$userRepository = $this->entityManager->getRepository(Users::class);
+		$query = $userRepository->createQueryBuilder('u')
+			->select('MAX(u.id)')
+			->getQuery();
+		$lastUserId = $query->getSingleScalarResult()+1;
 		$time = new DateTime();
 		$html = $this->renderView('pdf/report.html.twig', [
+			'reference' => $lastUserId,
 			'user' => $data['user'],
 			'address' => $data['address'],
 			'workDetails' => $data['workDetails'],

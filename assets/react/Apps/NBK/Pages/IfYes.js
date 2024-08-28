@@ -282,7 +282,7 @@ const IfYes = () => {
         onRequestClose={() => setModalIsOpenNum(false)}
         contentLabel="Example Modal"
       >
-        <p className='p-modal'>Phone number already exist !</p>
+        <p className='p-modal'>Phone number already exist !!!</p>
       
       </Modal>
         </form>

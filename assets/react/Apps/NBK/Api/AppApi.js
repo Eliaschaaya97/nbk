@@ -46,13 +46,17 @@ const AppAPI = () => {
   };
 
   const fetUsers = (phoneNumber) => {
+    
     try {
         return axiosClient
             .get(`/user/checkMobile/${phoneNumber}`)
             .then((response) => {
              localStorage.setItem("statusCode",response?.data?.statusCode);
                return response?.data?.statusCode
-            })
+
+            }
+          )
+                     
     } catch (e) {
         console.log(e);
     }
