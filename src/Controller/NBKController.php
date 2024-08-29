@@ -2,7 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Address;
+use App\Entity\BeneficiaryRightsOwner;
+use App\Entity\FinancialDetails;
+
+use App\Entity\PoliticalPositionDetails;
 use App\Entity\Users;
+use App\Entity\WorkDetails;
+use App\Entity\Logs;
 use App\Repository\AddressRepository;
 use App\Repository\BeneficiaryRightsOwnerRepository;
 use App\Repository\FinancialDetailsRepository;
@@ -24,13 +31,22 @@ use Dompdf\Dompdf;
 use Dompdf\Options;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+use Psr\Log\LoggerInterface;
 
 class NBKController extends AbstractController
 {
-	public function __construct(EntityManagerInterface $entityManager, MailerInterface $mailer)
+	private $entityManager;
+	private $generallServices;
+    private $loggerInterface;
+
+	
+	public function __construct(EntityManagerInterface $entityManager, MailerInterface $mailer, GenerallServices $generallServices, LoggerInterface $loggerInterface)
 	{
 		$this->entityManager = $entityManager;
 		$this->mailer = $mailer;
+		$this->generallServices = $generallServices;
+        $this->loggerInterface = $loggerInterface;
+
 	}
 
 	#[Route('/nbk', name: 'app_react')]
@@ -369,31 +385,124 @@ class NBKController extends AbstractController
 	public function submitForm($id)
 	{
 		$user = $this->entityManager->getRepository(Users::class)->findOneBy(['id' => $id]);
-		$branchId = $user->getBranchId();
+		
+		$addressEntities = $this->entityManager->createQueryBuilder()
+        ->select('a')
+        ->from(Address::class, 'a')
+        ->where('a.user = :user')
+        ->setParameter('user', $user)
+		->getQuery()
+		->getResult();
+		
+
+		$workDetailsEntities = $this->entityManager->createQueryBuilder()
+        ->select('w')
+        ->from(WorkDetails::class, 'w')
+        ->where('w.user = :user')
+        ->setParameter('user', $user)
+        ->getQuery()
+        ->getResult();
+
+		$beneficiaryRightsOwnerEntities = $this->entityManager->createQueryBuilder()
+			->select('b')
+			->from(BeneficiaryRightsOwner::class, 'b')
+			->where('b.user = :user')
+			->setParameter('user', $user)
+			->getQuery()
+			->getResult();
+
+		$politicalPositionDetailsEntities = $this->entityManager->createQueryBuilder()
+			->select('p')
+			->from(PoliticalPositionDetails::class, 'p')
+			->where('p.user = :user')
+			->setParameter('user', $user)
+			->getQuery()
+			->getResult();
+
+		$financialDetailsEntities = $this->entityManager->createQueryBuilder()
+			->select('f')
+			->from(FinancialDetails::class, 'f')
+			->where('f.user = :user')
+			->setParameter('user', $user)
+			->getQuery()
+			->getResult();
+		$user = $this->generallServices->convertUserToArray($user);
+
+		if ($user['mothersName'] !== null)
+		{
+
+			$addressArray = $this->generallServices->convertAddressToArray($addressEntities);
+			$workDetailsArray = $this->generallServices->convertWorkDetailsToArray($workDetailsEntities);
+			$beneficiaryRightsOwnerArray = $this->generallServices->convertBeneficiaryRightsOwnerToArray($beneficiaryRightsOwnerEntities);
+			$politicalPositionDetailsArray = $this->generallServices->convertPoliticalPositionDetailsToArray($politicalPositionDetailsEntities);
+			$financialDetailsArray = $this->generallServices->convertFinancialDetailsToArray($financialDetailsEntities);
+
+			$data = [
+				'user' => $user,
+				'address' =>  $addressArray,
+				'workDetails' =>  $workDetailsArray,
+				'beneficiaryRightsOwner' =>  $beneficiaryRightsOwnerArray,
+				'politicalPositionDetails' =>  $politicalPositionDetailsArray,
+				'financialDetails' =>  $financialDetailsArray
+			];
+		}else {
+			$data = [
+				'user' =>$this->generallServices->convertOnlyUserYesToArray($user),
+				'address' =>  null,
+				'workDetails' => null,
+				'beneficiaryRightsOwner' =>  null,
+				'politicalPositionDetails' => null,
+				'financialDetails' => $this->generallServices->convertFinancialYesToArray()
+			];
+		}
+		$pdfContent = $this->generateReportPdf($data);
+
+		$branchId = $this->entityManager->getRepository(Users::class)->findOneBy(['id' => $id])->getBranchId();
 		$branchEmail = $this->getBranchEmail($branchId);
 
-		// Process your form submission
+		$dateEmailFormatted =  $this->entityManager->getRepository(Users::class)->findOneBy(['id' => $id])->getCreated()->format('Y-m-d');
 
-		// Assuming you have extracted form data, including email recipient and content
-		$emailContent = 'To check the user please follow this link https://ubuntunbk.suyool.com/userInfo/' . $id;
+		// $emailContent = 'To check the user please follow this link https://ubuntunbk.suyool.com/userInfo/' . $id;
+
+		$emailContent = "The customer : " . "\nName: " . $data['user']['fullName'] . "\nNumber:  " . $data['user']['mobileNumb'] . "\nEmail:  " . $data['user']['email'] .  "\naccessed on " . $dateEmailFormatted . ' the Mobile Banking Application to submit a new account opening application using SIM Card  ' . $data['user']['mobileNumb'] . '.' . "\n\nPlease contact the customer within 3-5 days since he has already a relationship with NBK Lebanon at " . $data['user']['branchUnit'] ;
 
 		// Create and send the email
 		$email = (new Email())
 			->from('monitoring@suyool.com')
 			->to($branchEmail)
-			->subject('Test NBK')
+			// ->to('sanayehbr@nbk.com.lb')
+			->subject('Form submitted from ' . $data['user']['fullName'])
 			->text($emailContent);
 
-		$this->mailer->send($email);
+		$email->attach($pdfContent, $data['user']['fullName'] . ' Data.pdf', 'application/pdf');
+		$logs = new Logs();
 
-		return new Response('Email sent successfully.');
+		$response = $this->mailer->send($email);
+		try {
+			$logs->setidentifier("sending");
+			$logs->seturl("test");
+			$logs->setrequest(json_encode($data));
+			$logs->setresponse("Success");
+			$logs->setresponseStatusCode(200);
+			$this->entityManager->persist($logs);
+			$this->entityManager->flush();
+			return new Response('Email sent successfully.');
+		} catch (\Exception $error) {
+			$logs->setidentifier("sending");
+			$logs->seturl("test");
+			$logs->setrequest(json_encode($data));
+			$logs->setresponse("Fail");
+			$logs->setresponseStatusCode(400);
+			$this->entityManager->persist($logs);
+			$this->entityManager->flush();
+			return new Response('Error sending email.');
+		}
 	}
 
 	public function getBranchEmail($branchId)
 	{
-		// $branchEmails = [1=>"Sanayehbr@nbk.com.lb", 2=>"Bhamdounbr@nbk.com.lb",3=>"privatebr@nbk.com.lb"];
+		$branchEmails = [1=>"sanayehbr@nbk.com.lb", 2=>"Bhamdounbr@nbk.com.lb",3=>"PrivateBanking@nbk.com.lb"];
 		//$branchEmails = [1 => "zeina.abdallah@nbk.com.lb ", 2 => "maysaa.nasereddine@nbk.com.lb", 3 => "zeina.abdallah@nbk.com.lb "];
-		 $branchEmails = [1 => "elionajem51@gmail.com", 2 => "eliaschaaya97@gmail.com", 3 => "habchipatrick@gmail.com"];
 		if (array_key_exists($branchId, $branchEmails)) {
 			return $branchEmails[$branchId];
 		} else {
