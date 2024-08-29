@@ -50,6 +50,8 @@ class UsersRepository
         $user->setSpouseName($userData['spouseName'] ?? '');
         $user->setSpouseProfession($userData['spouseProfession'] ?? '');
         $user->setNoOfChildren((int)($userData['noOfChildren'] ?? 0));
+        $user->setRegisterNumber((int)($userData['registerNumber'] ?? 0));
+
 
         return $user;
     }

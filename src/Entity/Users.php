@@ -89,6 +89,10 @@ class Users
      * @ORM\Column(name="registerPlaceNo", type="string", length=255)
      */
     private $registerPlaceNo;
+      /**
+     * @ORM\Column(name="registerNumber", type="integer", length=255)
+     */
+    private $registerNumber;
 
     /**
      * @ORM\Column(name="maritalStatus", type="string", length=20)
@@ -361,6 +365,10 @@ class Users
     {
         return $this->noOfChildren;
     }
+    public function getRegisterNumber(): ?int
+    {
+        return $this->registerNumber;
+    }
 
     public function getBranchId(): ?int
     {
@@ -496,6 +504,12 @@ class Users
     public function setNoOfChildren(int $noOfChildren): self
     {
         $this->noOfChildren = $noOfChildren;
+
+        return $this;
+    }
+    public function setRegisterNumber(int $registerNumber): self
+    {
+        $this->registerNumber = $registerNumber;
 
         return $this;
     }

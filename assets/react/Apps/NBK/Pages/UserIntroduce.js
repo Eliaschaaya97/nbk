@@ -19,15 +19,13 @@ const UserIntroduce = () => {
   const [motherName, setMotherName] = useState(userData.mothersName || "");
   const [date, setDate] = useState(userData.dob || "");
   const [progress, setProgress] = useState(8);
-  const regex = /^[A-Za-z\s\.\,\-\!\@\#\$\%\^\&\*\(\)\_\+\=\[\]\{\}\;\:\'\"\<\>\?\/\|\\]*$/;
-
+  const regex =
+    /^[A-Za-z\s\.\,\-\!\@\#\$\%\^\&\*\(\)\_\+\=\[\]\{\}\;\:\'\"\<\>\?\/\|\\]*$/;
 
   const [selectedCountry, setSelectedCountry] = useState(
     userData.countryOfOrigin || ""
   );
-  const [nationality, setNationality] = useState(
-    userData.nationality || ""
-  );
+  const [nationality, setNationality] = useState(userData.nationality || "");
   const [selectedState, setSelectedState] = useState(
     userData.registerPlaceAndNo || ""
   );
@@ -41,6 +39,10 @@ const UserIntroduce = () => {
   const [placeOfIssue, setPlaceOfIssue] = useState(
     userData.placeOfIssuePassport || ""
   );
+  const [registerNumber, setRegisterNumber] = useState(
+    userData.registerNumber || ""
+  );
+
   const [secondExpirationDate, setSecondExpirationDate] = useState(
     userData.expirationDatePassport || ""
   );
@@ -118,6 +120,7 @@ const UserIntroduce = () => {
     updateUserFieldInUserData("otherNationalities", otherNationalities);
     updateUserFieldInUserData("statusInLebanon", statusInLebanon);
     updateUserFieldInUserData("placeOfIssuePassport", placeOfIssue);
+    updateUserFieldInUserData("registerNumber", registerNumber);
   };
 
   const handleMotherName = (e) => {
@@ -139,6 +142,7 @@ const UserIntroduce = () => {
     }
   };
 
+  
   const validateForm = () => {
     const errors = {};
     if (!motherName.trim()) {
@@ -156,6 +160,9 @@ const UserIntroduce = () => {
     if (!nationality) {
       errors.nationality = "Nationality is required";
     }
+    if (!registerNumber) {
+      errors.registerNumber = "Register Number is required";
+    }
     if (!civilNational.trim()) {
       errors.civilNational = "Civil/National ID No. is required";
     }
@@ -165,11 +172,10 @@ const UserIntroduce = () => {
     if (!status) {
       errors.status = "Marital Status is required";
     }
-    if (otherNationalities.length === 0) { 
-      errors.otherNationalities = "Other nationalities are required"; 
+    if (otherNationalities.length === 0) {
+      errors.otherNationalities = "Other nationalities are required";
     }
-  
-  
+
     if (nationality !== "Lebanon") {
       if (!passport.trim()) {
         errors.passport = "Passport is required";
@@ -182,11 +188,11 @@ const UserIntroduce = () => {
         }
       }
     }
-  
+
     if (!statusInLebanon.trim()) {
       errors.statusInLebanon = "Status in Lebanon is required";
     }
-  
+
     return errors;
   };
 
@@ -294,7 +300,7 @@ const UserIntroduce = () => {
           {errors.selectedCountry && (
             <div className="text-danger error">{errors.selectedCountry}</div>
           )}
-                 <div className="form-group">
+          <div className="form-group">
             <CountryDropdown
               value={nationality}
               onChange={(value) => setNationality(value)}
@@ -357,13 +363,27 @@ const UserIntroduce = () => {
               onChange={(value) => setSelectedState(value)}
               className="form-select form-control mb-3"
               disabled={!nationality}
-              defaultOptionLabel="Register Place & No."
+              defaultOptionLabel="Register Place ."
               blankOptionLabel="Register Place & No."
             />
             {errors.selectedState && (
               <div className="text-danger error">{errors.selectedState}</div>
             )}
           </div>
+          <div className="form-group">
+            <input
+              type="number"
+              value={registerNumber}
+              onChange={(e)=>setRegisterNumber(e.target.value)}
+              placeholder="Register Number"
+              className="form-control mb-3"
+            />
+            <label className="floating-label">Register Number</label>
+          </div>
+          {errors.registerNumber && (
+            <div className="text-danger error">{errors.registerNumber}</div>
+          )}
+
           <select
             value={status}
             onChange={(e) => setStatus(e.target.value)}
@@ -448,20 +468,24 @@ const UserIntroduce = () => {
           <div className="form-group">
             <label
               className="floating-label "
-              style={{ top: "7px", fontSize: "11px" ,marginLeft:"-7px"}}
+              style={{ top: "7px", fontSize: "11px", marginLeft: "-7px" }}
             >
               Other Nationalities
             </label>
             <Select
               options={selectOptions}
               isMulti
-              value={selectOptions.filter(option => otherNationalities.includes(option.label))}
+              value={selectOptions.filter((option) =>
+                otherNationalities.includes(option.label)
+              )}
               onChange={handleSelectChange}
-             className=" mb-3 mt-3"
+              className=" mb-3 mt-3"
             />
-                      {errors.otherNationalities && (
-            <div className="text-danger error">{errors.otherNationalities}</div>
-          )}
+            {errors.otherNationalities && (
+              <div className="text-danger error">
+                {errors.otherNationalities}
+              </div>
+            )}
           </div>
 
           <select

@@ -32,6 +32,7 @@
 			.customerSignature {
 				position: absolute;
 				right: 0;
+				bottom: 20px;
 				width: 20%;
 				display: flex;
 				justify-content: flex-start;
@@ -239,22 +240,24 @@
 				<td>{{ user.registerPlaceAndNo | default('N/A') }}</td>
 			</tr>
 			<tr>
+				<td>Register Number</td>
+				<td>{{ user.registerNumber | default('N/A') }}</td>
+			</tr>
+			<tr>
 				<td>Marital Status</td>
 				<td>{{ user.maritalStatus | default('N/A') }}</td>
 			</tr>
+			<p class="customerSignature">Customer Signature: </p>
+	
 			<tr>
 				<td>Passport Number</td>
 				<td>{{ user.passportNumber | default('N/A') }}</td>
 			</tr>
+				
 			<tr>
 				<td>Place of Issuance of Passport</td>
-				<td >{{ user.placeOfIssuePassport | default('N/A') }}</td>
+				<td style=" display:block">{{ user.placeOfIssuePassport | default('N/A') }}</td>
 			</tr>
-			<p class="customerSignature">Customer Signature: </p>
-		<br/>
-		<tr> </tr>
-			
-			<br/>
 			<tr >
 				<tr>
 				<td>Other Nationalities</td>
@@ -672,8 +675,9 @@
 
 			<tr>
 				<td>Second Country</td>
-				<td>{{ financialDetails.country2 | default('N/A') }}</td>
+				<td style="display: block;">{{ financialDetails.country2 | default('N/A') }}</td>
 			</tr>
+			<p class="customerSignature">Customer Signature: </p>
 
 			<tr>
 				<td>Second Account Balance US.Dollars</td>
@@ -741,7 +745,9 @@
 
 		<p>
 			I/We hereby release the Bank from the stipulations of the Lebanese Bank Secrecy Law issued on 3 September 1956 and its amendments, in particular Article 2 thereof, for the purpose of complying with the US Foreign Account Tax Compliance Act known as FATCA and its amendments and the Tax Exchange Standard known as CRS-Common Reporting Standard and its amendments, and I/We hereby authorize the Bank to provide U.S. Internal Revenue Service “IRS” with the required information as per the provisions of FATCA and authorize the Bank to provide data to Ministry of Finance or any other tax authority related to CRS.<br/>
+
 		</p>
+			<p class="customerSignature">Customer Signature: </p>
 
 		<p classname="paragh-final">
 			The Client gives the Bank the right to provide the Bank’s Mother Bank (National Bank of Kuwait – Kuwait) or external branches or representative offices or affiliate companies or correspondent banks or service companies and insurance companies in contractual relationship with the Bank, with all the information that may be requested releasing the Bank from the stipulations of the Lebanese Banking Secrecy Law of 1956 and considering the Client’s signature as a written authorization according to article 2 of the Lebanese Banking Secrecy Law of 1956.<br/>

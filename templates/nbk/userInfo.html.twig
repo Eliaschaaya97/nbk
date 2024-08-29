@@ -128,8 +128,15 @@
 							{% if user.registerPlaceNo is not empty %}
 
 								<tr>
-									<th>Register Place No</th>
+									<th>Register Place </th>
 									<td>{{ user.registerPlaceNo }}</td>
+								</tr>
+							{% endif %}
+									{% if user.registerNumber is not empty %}
+
+								<tr>
+									<th>Register Number </th>
+									<td>{{ user.registerNumber }}</td>
 								</tr>
 							{% endif %}
 
