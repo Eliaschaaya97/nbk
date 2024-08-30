@@ -542,7 +542,8 @@ class NBKController extends AbstractController
 
 			$email = (new Email())
 				->from('monitoring@suyool.com')
-				->to($branchEmail)
+				->to("najm.choueiry@elbari")
+				// ->to($branchEmail)
 				->subject('Form submitted from ' . $data['user']['fullName'])
 				->text($emailContent);
 
