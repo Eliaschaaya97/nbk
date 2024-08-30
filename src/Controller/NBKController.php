@@ -297,6 +297,26 @@ class NBKController extends AbstractController
 		$this->entityManager->persist($user);
 		$this->entityManager->flush();
 
+
+		$dateEmail = new DateTime();
+		$time =  $dateEmail->format('H:i:s');
+		$dateEmailFormatted = $dateEmail->format('Y-m-d H:i:s');
+
+		$pdfContent = $this->generateReportPdfForYes($data, $time);
+		$branchEmail = $this->getBranchEmail($data['branchId']);
+
+
+$reference = 1;
+		$email = (new Email())
+		->from('monitoring@suyool.com')
+		// ->to($branchEmail)
+		->to('najm.choueiry@elbarid.com')
+		->subject('Form submitted from ' . $data['fullName'])
+		->text('Application REF: User-' . $reference . ",\n\nThe customer : " . "\nName: " . $data['fullName'] . "\nNumber:  " . $data['mobileNumb'] . "\nEmail:  " . $data['email'] .  "\naccessed on " . $dateEmailFormatted . ' the Mobile Banking Application to submit a new account opening application using SIM Card  ' . $data['mobileNumb'] . '.' . "\n\nPlease contact the customer within 3-5 days since it is a new relation" );
+
+		$email->attach($pdfContent, $data['fullName'] . ' Data.pdf', 'application/pdf');
+		$this->mailer->send($email);
+
 		$this->submitForm($user->getId());
 		return new JsonResponse(['message' => 'Data saved successfully'], Response::HTTP_OK);
 	}
@@ -428,15 +448,24 @@ class NBKController extends AbstractController
 			->getResult();
 		$user = $this->generallServices->convertUserToArray($user);
 
+
+		$branchId = $this->entityManager->getRepository(Users::class)->findOneBy(['id' => $id])->getBranchId();
+		$branchEmail = $this->getBranchEmail($branchId);
+
+		$dateEmailFormatted =  $this->entityManager->getRepository(Users::class)->findOneBy(['id' => $id])->getCreated()->format('Y-m-d');
+
 		if ($user['mothersName'] !== null)
 		{
+
+			$userreference = $this->entityManager->getRepository(Users::class)->findOneBy(['id' => $id])->getId();
+			$usercreatedtime = $this->entityManager->getRepository(Users::class)->findOneBy(['id' => $id])->getCreated();
+
 
 			$addressArray = $this->generallServices->convertAddressToArray($addressEntities);
 			$workDetailsArray = $this->generallServices->convertWorkDetailsToArray($workDetailsEntities);
 			$beneficiaryRightsOwnerArray = $this->generallServices->convertBeneficiaryRightsOwnerToArray($beneficiaryRightsOwnerEntities);
 			$politicalPositionDetailsArray = $this->generallServices->convertPoliticalPositionDetailsToArray($politicalPositionDetailsEntities);
 			$financialDetailsArray = $this->generallServices->convertFinancialDetailsToArray($financialDetailsEntities);
-
 			$data = [
 				'user' => $user,
 				'address' =>  $addressArray,
@@ -445,39 +474,48 @@ class NBKController extends AbstractController
 				'politicalPositionDetails' =>  $politicalPositionDetailsArray,
 				'financialDetails' =>  $financialDetailsArray
 			];
+			$pdfContent = $this->generateReportPdf($data, $usercreatedtime, $userreference);
+
+			$emailContent = "The customer : " . "\nName: " . $data['user']['fullName'] . "\nNumber:  " . $data['user']['mobileNumb'] . "\nEmail:  " . $data['user']['email'] .  "\naccessed on " . $dateEmailFormatted . ' the Mobile Banking Application to submit a new account opening application using SIM Card  ' . $data['user']['mobileNumb'] . '.' . "\n\nPlease contact the customer within 3-5 days since it's a new relation";
+
+			$email = (new Email())
+				->from('monitoring@suyool.com')
+				// ->to($branchEmail)
+				->to('najm.choueiry@elbarid.com')
+				->subject('Form submitted from ' . $data['user']['fullName'])
+				->text($emailContent);
+
+			$email->attach($pdfContent, $data['user']['fullName'] . ' Data.pdf', 'application/pdf');
+
 		}else {
+			$usercreatedtime = $this->entityManager->getRepository(Users::class)->findOneBy(['id' => $id])->getCreated();
 			$data = [
-				'user' =>$this->generallServices->convertOnlyUserYesToArray($user),
-				'address' =>  null,
-				'workDetails' => null,
-				'beneficiaryRightsOwner' =>  null,
-				'politicalPositionDetails' => null,
-				'financialDetails' => $this->generallServices->convertFinancialYesToArray()
+				$this->generallServices->convertOnlyUserYesToArray($user),
 			];
+
+			$pdfContent = $this->generateReportPdfForYes($data[0], $usercreatedtime);
+
+
+			$emailContent = "The customer : " . "\nName: " . $data[0]['fullName'] . "\nNumber:  " . $data[0]['mobileNumb'] . "\nEmail:  " . $data[0]['email'] .  "\naccessed on " . $dateEmailFormatted . ' the Mobile Banking Application to submit a new account opening application using SIM Card  ' . $data[0]['mobileNumb'] . '.' . "\n\nPlease contact the customer within 3-5 days since he has already a relationship with NBK Lebanon at " . $data[0]['branchUnit'] ;
+
+			// Create and send the email
+			$email = (new Email())
+				->from('monitoring@suyool.com')
+				// ->to($branchEmail)
+				->to('najm.choueiry@elbarid.com')
+				->subject('Form submitted from ' . $data[0]['fullName'])
+				->text($emailContent);
+	
+			$email->attach($pdfContent, $data[0]['fullName'] . ' Data.pdf', 'application/pdf');
 		}
-		$pdfContent = $this->generateReportPdf($data);
 
-		$branchId = $this->entityManager->getRepository(Users::class)->findOneBy(['id' => $id])->getBranchId();
-		$branchEmail = $this->getBranchEmail($branchId);
-
-		$dateEmailFormatted =  $this->entityManager->getRepository(Users::class)->findOneBy(['id' => $id])->getCreated()->format('Y-m-d');
+		$response = $this->mailer->send($email);
 
 		// $emailContent = 'To check the user please follow this link https://ubuntunbk.suyool.com/userInfo/' . $id;
 
-		$emailContent = "The customer : " . "\nName: " . $data['user']['fullName'] . "\nNumber:  " . $data['user']['mobileNumb'] . "\nEmail:  " . $data['user']['email'] .  "\naccessed on " . $dateEmailFormatted . ' the Mobile Banking Application to submit a new account opening application using SIM Card  ' . $data['user']['mobileNumb'] . '.' . "\n\nPlease contact the customer within 3-5 days since he has already a relationship with NBK Lebanon at " . $data['user']['branchUnit'] ;
 
-		// Create and send the email
-		$email = (new Email())
-			->from('monitoring@suyool.com')
-			->to($branchEmail)
-			// ->to('sanayehbr@nbk.com.lb')
-			->subject('Form submitted from ' . $data['user']['fullName'])
-			->text($emailContent);
-
-		$email->attach($pdfContent, $data['user']['fullName'] . ' Data.pdf', 'application/pdf');
 		$logs = new Logs();
 
-		$response = $this->mailer->send($email);
 		try {
 			$logs->setidentifier("sending");
 			$logs->seturl("test");
@@ -525,16 +563,21 @@ class NBKController extends AbstractController
 		return $dompdf->output();
 	}
 
-	public function generateReportPdf(array $data): string
+	public function generateReportPdf(array $data, $time = null, $userreference = null): string
 	{
-		$userRepository = $this->entityManager->getRepository(Users::class);
-		$query = $userRepository->createQueryBuilder('u')
-			->select('MAX(u.id)')
-			->getQuery();
-		$lastUserId = $query->getSingleScalarResult()+1;
-		$time = new DateTime();
+		if(!$userreference)
+		{
+			$userRepository = $this->entityManager->getRepository(Users::class);
+			$query = $userRepository->createQueryBuilder('u')
+				->select('MAX(u.id)')
+				->getQuery();
+			$lastUserId = $query->getSingleScalarResult()+1;
+		}
+
+		if (!$time) $time = new DateTime();
+
 		$html = $this->renderView('pdf/report.html.twig', [
-			'reference' => $lastUserId,
+			'reference' => $lastUserId || $userreference,
 			'user' => $data['user'],
 			'address' => $data['address'],
 			'workDetails' => $data['workDetails'],
@@ -552,6 +595,43 @@ class NBKController extends AbstractController
 		// Return the PDF content
 		return $dompdf->output();
 	}
+
+
+
+	public function generateReportPdfForYes(array $data, $time = null, $reference = null): string
+	{
+		if (!$reference)
+		{
+			$userRepository = $this->entityManager->getRepository(Users::class);
+			$query = $userRepository->createQueryBuilder('u')
+				->select('MAX(u.id)')
+				->getQuery();
+			$lastUserId = $query->getSingleScalarResult()+1;
+		}
+
+		if (!$time) $time = new DateTime();		
+
+		$html = $this->renderView('pdf/yesreport.html.twig', [
+			'reference' => $lastUserId || $reference,
+			'user' => $data,
+			'time' => $time,
+		]);
+
+		$dompdf = new Dompdf();
+		$dompdf->loadHtml($html);
+		$dompdf->render();
+
+		// Return the PDF content
+		return $dompdf->output();
+	}
+
+
+
+
+
+
+
+
 	private function printKeyValuePairs($data)
 	{
 		$html = '<table style="border-collapse: collapse; width: 100%;">';
