@@ -363,7 +363,7 @@ const UserIntroduce = () => {
               onChange={(value) => setSelectedState(value)}
               className="form-select form-control mb-3"
               disabled={!nationality}
-              defaultOptionLabel="Register Place ."
+              defaultOptionLabel="Register Place "
               blankOptionLabel="Register Place & No."
             />
             {errors.selectedState && (

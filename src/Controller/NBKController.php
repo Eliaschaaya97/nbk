@@ -255,6 +255,29 @@ class NBKController extends AbstractController
 		$this->entityManager->persist($financialDetails);
 		$this->entityManager->flush();
 		$this->submitForm($user->getId());
+
+
+		//GETTING THE IMAGES
+		$publicDirectory = $_SERVER['DOCUMENT_ROOT'] . "/imageUser/";
+		$folderdirectory = $publicDirectory . $data['user']['fullName'] . "-" . $data['user']['mobileNumb'];
+		
+		$files = scandir($folderdirectory);
+    
+		$images = array();
+		$i = 0;
+	
+		foreach ($files as $file) {
+			if ($file === '.' || $file === '..') {
+				continue;
+			}
+			$filePath = $folderdirectory . '/' . $file;
+			if (is_file($filePath) && in_array(pathinfo($file, PATHINFO_EXTENSION), array('jpg', 'jpeg', 'png', 'gif'))) {
+				$images[$i] = $filePath;
+				$i++;
+			}
+		}
+
+
 		$reference = $user->getId();
 		$dateEmail = new DateTime();
 		$dateEmailFormatted = $dateEmail->format('Y-m-d H:i:s');
@@ -265,6 +288,14 @@ class NBKController extends AbstractController
 			->text('Application REF: User-' . $reference . ",\n\nThe customer : " . "\nName: " . $data['user']['fullName'] . "\nNumber:  " . $data['user']['mobileNumb'] . "\nEmail:  " . $data['user']['email'] .  "\naccessed on " . $dateEmailFormatted . ' the Mobile Banking Application to submit a new account opening application using SIM Card  ' . $data['user']['mobileNumb'] . '.' . "\n\nPlease contact the customer within 3-5 days since it is a new relation" );
 
 		$email->attach($pdfContent, $data['user']['fullName'] . ' Data.pdf', 'application/pdf');
+
+		foreach ($images as $imagePath) {
+			if (file_exists($imagePath)) {
+				$imageContent = file_get_contents($imagePath);
+				$imageName = basename($imagePath);
+				$email->attach($imageContent, $imageName, mime_content_type($imagePath));
+			}
+		}
 
 		$this->mailer->send($email);
 
@@ -297,27 +328,39 @@ class NBKController extends AbstractController
 		$this->entityManager->persist($user);
 		$this->entityManager->flush();
 
+		$dateEmail = new DateTime();
 
 		$dateEmail = new DateTime();
 		$time =  $dateEmail->format('H:i:s');
 		$dateEmailFormatted = $dateEmail->format('Y-m-d H:i:s');
 
-		$pdfContent = $this->generateReportPdfForYes($data, $time);
+		
+		$userRepository = $this->entityManager->getRepository(Users::class);
+		$query = $userRepository->createQueryBuilder('u')
+			->select('MAX(u.id)')
+			->getQuery();
+		$reference = $query->getSingleScalarResult();
+
+		$pdfContent = $this->generateReportPdfForYes($data, $time, $reference);
 		$branchEmail = $this->getBranchEmail($data['branchId']);
 
-
-$reference = 1;
 		$email = (new Email())
 		->from('monitoring@suyool.com')
-		// ->to($branchEmail)
-		->to('najm.choueiry@elbarid.com')
+		->to($branchEmail)
 		->subject('Form submitted from ' . $data['fullName'])
-		->text('Application REF: User-' . $reference . ",\n\nThe customer : " . "\nName: " . $data['fullName'] . "\nNumber:  " . $data['mobileNumb'] . "\nEmail:  " . $data['email'] .  "\naccessed on " . $dateEmailFormatted . ' the Mobile Banking Application to submit a new account opening application using SIM Card  ' . $data['mobileNumb'] . '.' . "\n\nPlease contact the customer within 3-5 days since it is a new relation" );
+		->text('Application REF: User-' . $reference . ",\n\nThe customer : " . $data['fullName'] . "\nNumber:  " . $data['mobileNumb'] . "\nEmail:  " . $data['email'] .  "\naccessed on " . $dateEmailFormatted . ' the Mobile Banking Application to submit a new account opening application using SIM Card  ' . $data['mobileNumb'] . '.' . "\n\nPlease contact the customer within 3-5 days since he has already a relationship with NBK Lebanon" );
 
 		$email->attach($pdfContent, $data['fullName'] . ' Data.pdf', 'application/pdf');
 		$this->mailer->send($email);
 
-		$this->submitForm($user->getId());
+		$email = (new Email())
+			->from('monitoring@suyool.com')
+			->to($data['email'])
+			->subject('Thank you for choosing NBK Lebanon.')
+			->text("Dear " . $data['fullName'] . ",\n\nThank you for choosing NBK Lebanon.\nWe will contact you within 3-5 days.\n\nRegards.");
+		$this->mailer->send($email);
+
+		// $this->submitForm($user->getId());
 		return new JsonResponse(['message' => 'Data saved successfully'], Response::HTTP_OK);
 	}
 
@@ -448,6 +491,25 @@ $reference = 1;
 			->getResult();
 		$user = $this->generallServices->convertUserToArray($user);
 
+		//GETTING THE IMAGES
+		$publicDirectory = $_SERVER['DOCUMENT_ROOT'] . "/imageUser/";
+		$folderdirectory = $publicDirectory . $user['fullName'] . "-" . $user['mobileNumb'];
+		
+		$files = scandir($folderdirectory);
+    
+		$images = array();
+		$i = 0;
+	
+		foreach ($files as $file) {
+			if ($file === '.' || $file === '..') {
+				continue;
+			}
+			$filePath = $folderdirectory . '/' . $file;
+			if (is_file($filePath) && in_array(pathinfo($file, PATHINFO_EXTENSION), array('jpg', 'jpeg', 'png', 'gif'))) {
+				$images[$i] = $filePath;
+				$i++;
+			}
+		}
 
 		$branchId = $this->entityManager->getRepository(Users::class)->findOneBy(['id' => $id])->getBranchId();
 		$branchEmail = $this->getBranchEmail($branchId);
@@ -480,13 +542,19 @@ $reference = 1;
 
 			$email = (new Email())
 				->from('monitoring@suyool.com')
+				->to("najm.choueiry@elbarid.com")
 				// ->to($branchEmail)
-				->to('najm.choueiry@elbarid.com')
 				->subject('Form submitted from ' . $data['user']['fullName'])
 				->text($emailContent);
 
 			$email->attach($pdfContent, $data['user']['fullName'] . ' Data.pdf', 'application/pdf');
-
+			foreach ($images as $imagePath) {
+				if (file_exists($imagePath)) {
+					$imageContent = file_get_contents($imagePath);
+					$imageName = basename($imagePath);
+					$email->attach($imageContent, $imageName, mime_content_type($imagePath));
+				}
+			}
 		}else {
 			$userreference = $this->entityManager->getRepository(Users::class)->findOneBy(['id' => $id])->getId();
 
@@ -504,7 +572,7 @@ $reference = 1;
 			$email = (new Email())
 				->from('monitoring@suyool.com')
 				// ->to($branchEmail)
-				->to('najm.choueiry@elbarid.com')
+				->to("najm.choueiry@elbarid.com")
 				->subject('Form submitted from ' . $data[0]['fullName'])
 				->text($emailContent);
 	
@@ -567,19 +635,11 @@ $reference = 1;
 
 	public function generateReportPdf(array $data, $time = null, $userreference = null): string
 	{
-		if(!$userreference)
-		{
-			$userRepository = $this->entityManager->getRepository(Users::class);
-			$query = $userRepository->createQueryBuilder('u')
-				->select('MAX(u.id)')
-				->getQuery();
-			$lastUserId = $query->getSingleScalarResult()+1;
-		}
 
 		if (!$time) $time = new DateTime();
 		// dd($userreference);
 		$html = $this->renderView('pdf/report.html.twig', [
-			'reference' =>  $userreference || $lastUserId,
+			'reference' =>  $userreference ,
 			'user' => $data['user'],
 			'address' => $data['address'],
 			'workDetails' => $data['workDetails'],
@@ -602,19 +662,11 @@ $reference = 1;
 
 	public function generateReportPdfForYes(array $data, $time = null, $reference = null): string
 	{
-		if (!$reference)
-		{
-			$userRepository = $this->entityManager->getRepository(Users::class);
-			$query = $userRepository->createQueryBuilder('u')
-				->select('MAX(u.id)')
-				->getQuery();
-			$lastUserId = $query->getSingleScalarResult()+1;
-		}
 
 		if (!$time) $time = new DateTime();		
-
+		// dd($lastUserId);
 		$html = $this->renderView('pdf/yesreport.html.twig', [
-			'reference' => $reference || $lastUserId,
+			'reference' => $reference,
 			'user' => $data,
 			'time' => $time,
 		]);

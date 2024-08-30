@@ -22,12 +22,7 @@
 				text-transform: uppercase;
 				text-align: center;
 			}
-			h2.title {
-				page-break-before: always;
-			}
-			h2.title:first-of-type {
-				page-break-before: auto;
-			}
+
 
 			.customerSignature {
 				position: absolute;
@@ -175,8 +170,8 @@
 	<body>
 		<div class="page-number"></div>
 		<div class="headertitle" style="display: flex; flex-direction: column; align-items: center">
-			<h1>National Bank of Kuwait (Lebanon) S.A.L.</h1>
-			<h3>Customer Profile Form – KYC for Individuals</h3>
+			<h2>National Bank of Kuwait (Lebanon) S.A.L.</h2>
+			<h4>Customer Profile Form – KYC for Individuals</h4>
 			<p>{{ time|date('Y-m-d H:i:s') }}</p>
 			<div class="ref-mob">
 				<div class="phone-number">{{ user.mobileNumb}}</div>
@@ -187,7 +182,7 @@
 		<h2 class="title">New Relation</h2>
 		<table>
 			<tr>
-				<td>Name</td>
+				<td>Full Name</td>
 				<td>{{ user.fullName | default('N/A') }}</td>
 			</tr>
 			<tr>
@@ -747,7 +742,7 @@
 			I/We hereby release the Bank from the stipulations of the Lebanese Bank Secrecy Law issued on 3 September 1956 and its amendments, in particular Article 2 thereof, for the purpose of complying with the US Foreign Account Tax Compliance Act known as FATCA and its amendments and the Tax Exchange Standard known as CRS-Common Reporting Standard and its amendments, and I/We hereby authorize the Bank to provide U.S. Internal Revenue Service “IRS” with the required information as per the provisions of FATCA and authorize the Bank to provide data to Ministry of Finance or any other tax authority related to CRS.<br/>
 
 		</p>
-			<p class="customerSignature">Customer Signature: </p>
+			{# <p class="customerSignature">Customer Signature: </p> #}
 
 		<p classname="paragh-final">
 			The Client gives the Bank the right to provide the Bank’s Mother Bank (National Bank of Kuwait – Kuwait) or external branches or representative offices or affiliate companies or correspondent banks or service companies and insurance companies in contractual relationship with the Bank, with all the information that may be requested releasing the Bank from the stipulations of the Lebanese Banking Secrecy Law of 1956 and considering the Client’s signature as a written authorization according to article 2 of the Lebanese Banking Secrecy Law of 1956.<br/>
