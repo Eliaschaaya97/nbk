@@ -476,7 +476,7 @@ $reference = 1;
 			];
 			$pdfContent = $this->generateReportPdf($data, $usercreatedtime, $userreference);
 
-			$emailContent = "The customer : " . "\nName: " . $data['user']['fullName'] . "\nNumber:  " . $data['user']['mobileNumb'] . "\nEmail:  " . $data['user']['email'] .  "\naccessed on " . $dateEmailFormatted . ' the Mobile Banking Application to submit a new account opening application using SIM Card  ' . $data['user']['mobileNumb'] . '.' . "\n\nPlease contact the customer within 3-5 days since it's a new relation";
+			$emailContent = "The customer : ". $data['user']['fullName'] . "\nNumber:  " . $data['user']['mobileNumb'] . "\nEmail:  " . $data['user']['email'] .  "\naccessed on " . $dateEmailFormatted . ' the Mobile Banking Application to submit a new account opening application using SIM Card  ' . $data['user']['mobileNumb'] . '.' . "\n\nPlease contact the customer within 3-5 days since it's a new relation";
 
 			$email = (new Email())
 				->from('monitoring@suyool.com')
@@ -488,15 +488,17 @@ $reference = 1;
 			$email->attach($pdfContent, $data['user']['fullName'] . ' Data.pdf', 'application/pdf');
 
 		}else {
+			$userreference = $this->entityManager->getRepository(Users::class)->findOneBy(['id' => $id])->getId();
+
 			$usercreatedtime = $this->entityManager->getRepository(Users::class)->findOneBy(['id' => $id])->getCreated();
 			$data = [
 				$this->generallServices->convertOnlyUserYesToArray($user),
 			];
 
-			$pdfContent = $this->generateReportPdfForYes($data[0], $usercreatedtime);
+			$pdfContent = $this->generateReportPdfForYes($data[0], $usercreatedtime, $userreference);
 
 
-			$emailContent = "The customer : " . "\nName: " . $data[0]['fullName'] . "\nNumber:  " . $data[0]['mobileNumb'] . "\nEmail:  " . $data[0]['email'] .  "\naccessed on " . $dateEmailFormatted . ' the Mobile Banking Application to submit a new account opening application using SIM Card  ' . $data[0]['mobileNumb'] . '.' . "\n\nPlease contact the customer within 3-5 days since he has already a relationship with NBK Lebanon at " . $data[0]['branchUnit'] ;
+			$emailContent = "The customer : " . $data[0]['fullName'] . "\nNumber:  " . $data[0]['mobileNumb'] . "\nEmail:  " . $data[0]['email'] .  "\naccessed on " . $dateEmailFormatted . ' the Mobile Banking Application to submit a new account opening application using SIM Card  ' . $data[0]['mobileNumb'] . '.' . "\n\nPlease contact the customer within 3-5 days since he has already a relationship with NBK Lebanon at " . $data[0]['branchUnit'] ;
 
 			// Create and send the email
 			$email = (new Email())
@@ -575,9 +577,9 @@ $reference = 1;
 		}
 
 		if (!$time) $time = new DateTime();
-
+		// dd($userreference);
 		$html = $this->renderView('pdf/report.html.twig', [
-			'reference' => $lastUserId || $userreference,
+			'reference' =>  $userreference || $lastUserId,
 			'user' => $data['user'],
 			'address' => $data['address'],
 			'workDetails' => $data['workDetails'],
@@ -612,7 +614,7 @@ $reference = 1;
 		if (!$time) $time = new DateTime();		
 
 		$html = $this->renderView('pdf/yesreport.html.twig', [
-			'reference' => $lastUserId || $reference,
+			'reference' => $reference || $lastUserId,
 			'user' => $data,
 			'time' => $time,
 		]);
