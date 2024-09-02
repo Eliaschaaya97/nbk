@@ -74,8 +74,13 @@ const IfYes = () => {
       errors.email = 'Email is required';
     } 
     if (!phoneNumber.trim()) {
-      errors.phoneNumber = 'Phone number is required';
+      errors.phoneNumber = 'Phone number is required or invalid';
+    } 
+    // Check if the phone number is invalid
+     if (validationMessage.includes("invalid")) {
+      errors.phoneNumber = 'Phone number is required or invalid';
     }
+  
     if (!branch) {
       errors.branch = 'Branch/Unit selection is required';
     }

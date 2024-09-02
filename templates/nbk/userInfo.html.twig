@@ -387,7 +387,7 @@
 									{% if political.politicalPosition %}
 										<tr>
 											<th>Political Position</th>
-											<td>{{political.politicalPosition}}</td>
+										<td>{{ political.politicalPosition == 1 ? 'Yes' : 'No' }}</td>
 										</tr>
 										<tr>
 											<th>Current Previous</th>

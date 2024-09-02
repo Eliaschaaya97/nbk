@@ -527,7 +527,7 @@
 
 			<tr>
 				<td>Are you or any of your first or second degree relatives or close associates holding a political position?</td>
-				<td>{{ politicalPositionDetails.politicalPosition | default('N/A') }}</td>
+				<td>{{ politicalPositionDetails.politicalPosition == 1 ? 'Yes' : 'No' }}</td>
 			</tr>
 			<tr>
 				<td>If Yes, Current or Previous</td>

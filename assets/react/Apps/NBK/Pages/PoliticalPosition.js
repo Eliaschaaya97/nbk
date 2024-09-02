@@ -72,7 +72,7 @@ const PoliticalPosition = () => {
     } else {
       setErrors(validationErrors);
     }
-    updateUserFieldInUserData("politicalPosition", activeButton);
+    updateUserFieldInUserData("politicalPosition", activeButton === "Yes" ? true : false);
     updateUserFieldInUserData("currentOrPrevious", currentOrPrevious);
     updateUserFieldInUserData("yearOfRetirement", yearOfRetirement);
     updateUserFieldInUserData("pepName", PEPName);

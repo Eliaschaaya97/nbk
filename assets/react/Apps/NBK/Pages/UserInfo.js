@@ -107,7 +107,10 @@ const UserInfo = () => {
       errors.email = "Invalid email address";
     }
     if (!phoneNumber.trim()) {
-      errors.phoneNumber = "Phone number is required";
+      errors.phoneNumber = "Phone number is required or invalid'";
+    }
+    if (validationMessage.includes("invalid")) {
+      errors.phoneNumber = 'Phone number is required or invalid';
     }
 
     if (!branch) {
