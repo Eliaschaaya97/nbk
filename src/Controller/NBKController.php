@@ -298,7 +298,7 @@ class NBKController extends AbstractController
 			}
 		}
 
-		$this->mailer->send($email);
+		$response = $this->mailer->send($email);
 
 		$email = (new Email())
 			->from('monitoring@suyool.com')
@@ -306,6 +306,28 @@ class NBKController extends AbstractController
 			->subject('Thank you for choosing NBK Lebanon.')
 			->text("Dear " . $data['user']['fullName'] . ",\n\nThank you for choosing NBK Lebanon.\nWe will contact you within 3-5 days.\n\nRegards.");
 		$this->mailer->send($email);
+
+		$logs = new Logs();
+
+		try {
+			$logs->setidentifier("sending");
+			$logs->seturl("test");
+			$logs->setrequest(json_encode($data));
+			$logs->setresponse("Success");
+			$logs->setresponseStatusCode(200);
+			$this->entityManager->persist($logs);
+			$this->entityManager->flush();
+			return new JsonResponse('Email sent successfully.');
+		} catch (\Exception $error) {
+			$logs->setidentifier("sending");
+			$logs->seturl("test");
+			$logs->setrequest(json_encode($data));
+			$logs->setresponse("Fail");
+			$logs->setresponseStatusCode(400);
+			$this->entityManager->persist($logs);
+			$this->entityManager->flush();
+			return new JsonResponse('Error sending email.');
+		}
 
 		return new JsonResponse(['message' => 'Data saved successfully'], Response::HTTP_OK);
 	}
