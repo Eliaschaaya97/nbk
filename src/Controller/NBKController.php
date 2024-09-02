@@ -254,7 +254,8 @@ class NBKController extends AbstractController
 		$this->entityManager->persist($politicalPosition);
 		$this->entityManager->persist($financialDetails);
 		$this->entityManager->flush();
-		$this->submitForm($user->getId());
+
+		// $this->submitForm($user->getId());
 
 
 		//GETTING THE IMAGES
@@ -285,7 +286,7 @@ class NBKController extends AbstractController
 			->from('monitoring@suyool.com')
 			->to($branchEmail)
 			->subject('Form submitted from ' . $data['user']['fullName'])
-			->text('Application REF: User-' . $reference . ",\n\nThe customer : " . "\nName: " . $data['user']['fullName'] . "\nNumber:  " . $data['user']['mobileNumb'] . "\nEmail:  " . $data['user']['email'] .  "\naccessed on " . $dateEmailFormatted . ' the Mobile Banking Application to submit a new account opening application using SIM Card  ' . $data['user']['mobileNumb'] . '.' . "\n\nPlease contact the customer within 3-5 days since it is a new relation" );
+			->text('Application REF: User-' . $reference . ",\n\nThe customer : ". $data['user']['fullName'] . "\nNumber:  " . $data['user']['mobileNumb'] . "\nEmail:  " . $data['user']['email'] .  "\naccessed on " . $dateEmailFormatted . ' the Mobile Banking Application to submit a new account opening application using SIM Card  ' . $data['user']['mobileNumb'] . '.' . "\n\nPlease contact the customer within 3-5 days since it is a new relation" );
 
 		$email->attach($pdfContent, $data['user']['fullName'] . ' Data.pdf', 'application/pdf');
 
