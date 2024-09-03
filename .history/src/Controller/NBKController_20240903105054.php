@@ -99,6 +99,10 @@ class NBKController extends AbstractController
 		$accountStatementImage = $data['financialDetails']['accountStatement'];
 		$employeeLetterImage = $data['financialDetails']['employerLetter'];
 
+
+
+
+
 		$imageParts = explode(';base64,', $frontImageID);
 		$imageBase64 = $imageParts[1];
 		$imageType = explode('/', $imageParts[0])[1];
@@ -107,6 +111,12 @@ class NBKController extends AbstractController
 		$imagePartsBack = explode(';base64,', $backImageID);
 		$imageBase64Back = $imagePartsBack[1];
 		$imageTypeBack = explode('/', $imagePartsBack[0])[1];
+
+		//real estate
+
+
+
+
 
 		// Prepare the file path
 		$fullName = $data['user']['fullName'];
@@ -158,6 +168,8 @@ class NBKController extends AbstractController
 			$imageContentEmployementLetter = base64_decode($imageBase64employee);
 		}
 
+
+
 		if (!file_exists($publicDir)) {
 			mkdir($publicDir, 0777, true);
 		}
@@ -169,6 +181,10 @@ class NBKController extends AbstractController
 		// Decode the base64 data and save the file
 		$imageContent = base64_decode($imageBase64);
 		$imageContentBack = base64_decode($imageBase64Back);
+
+
+
+
 
 		if (file_put_contents($imagePath, $imageContent) === false || file_put_contents($imageBack, $imageContentBack) === false) {
 			return new JsonResponse(['error' => 'Failed to save image content'], Response::HTTP_INTERNAL_SERVER_ERROR);
@@ -586,6 +602,9 @@ class NBKController extends AbstractController
 
 		$response = $this->mailer->send($email);
 
+		// $emailContent = 'To check the user please follow this link https://ubuntunbk.suyool.com/userInfo/' . $id;
+
+
 		$logs = new Logs();
 
 		try {
@@ -682,6 +701,7 @@ class NBKController extends AbstractController
 		return $dompdf->output();
 	}
 
+
 	private function printKeyValuePairs($data)
 	{
 		$html = '<table style="border-collapse: collapse; width: 100%;">';
@@ -706,4 +726,42 @@ class NBKController extends AbstractController
 		return preg_match($pattern, $email) === 1;
 	}
 
+	//    public function submitForm()
+	//    {
+	//        // Process your form submission
+	//
+	//        // Assuming you have extracted form data, including email recipient and content
+	//        $recipientEmail = 'elionajem51@gmail.com';
+	//        $emailContent = 'This is the email content.';
+	//
+	//        // Create a new PHPMailer instance
+	//        $mail = new PHPMailer(true);
+	//
+	//        try {
+	//            // Server settings
+	//            $mail->isSMTP();
+	//            $mail->Host = 'mail.nbk.com.lb'; // SMTP server address
+	//            $mail->SMTPAuth = true;
+	//            $mail->Username = 'noreplyfresh@nbk.com.lb'; // SMTP username
+	//            $mail->Password = 'Albarid@rayan123'; // SMTP password
+	//            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Enable TLS encryption
+	//            $mail->Port = 587; // TCP port to connect to
+	//
+	//            // Recipients
+	//            $mail->setFrom('noreplyfresh@nbk.com.lb', 'Mailer');
+	//            $mail->addAddress($recipientEmail);
+	//
+	//            // Content
+	//            $mail->isHTML(true);
+	//            $mail->Subject = 'Subject of your email';
+	//            $mail->Body    = $emailContent;
+	//
+	//            $mail->send();
+	//            echo 'Message has been sent';
+	//        } catch (Exception $e) {
+	//            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+	//        }
+	//
+	//        // Redirect or render a response after sending the email
+	//    }
 }

@@ -22,6 +22,7 @@ import Disclaimer from "./Pages/Disclaimer";
 const App = ({ parameters }) => {
   const headerData = useSelector((state) => state.appData.headerData);
 
+  const isLoading = useSelector((state) => state?.appData?.isloading);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(settingData({ field: "parameters", value: parameters }));
@@ -59,7 +60,7 @@ const App = ({ parameters }) => {
   }, [headerData.currentPage]);
 
   return (
-    <div id="PageBody">
+    <div id="PageBody" style={{pointerEvents : isLoading ? "none" : ""}}>
       <div className="container d-flex flex-column align-items-center p-3">
         <Logo />
       </div>

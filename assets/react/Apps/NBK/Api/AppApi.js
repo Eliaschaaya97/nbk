@@ -10,7 +10,7 @@ const AppAPI = () => {
   
 
   const SendInformation = (formData) => {
-    // dispatch(settingData({ field: "isloading", value: true }));
+    dispatch(settingData({ field: "isloading", value: true }));
 
     try {
       return axiosClient.post(`/submit-data`, formData).then((response) => {
@@ -19,7 +19,7 @@ const AppAPI = () => {
             const parsedDate = response?.data;
             // console.log("parsed data :", parsedDate)
         }
-        // dispatch(settingData({ field: "isloading", value: false }));
+        dispatch(settingData({ field: "isloading", value: false }));
       });
     } catch (e) {
     //   dispatch(settingData({ field: "isloading", value: false }));
@@ -28,7 +28,7 @@ const AppAPI = () => {
   };
 
   const SendExistingUser = (formData) => {
-    // dispatch(settingData({ field: "isloading", value: true }));
+    dispatch(settingData({ field: "isloading", value: true }));
     
     try {
       return axiosClient.post(`/submit-existing-user`, formData).then((response) => {
@@ -37,7 +37,7 @@ const AppAPI = () => {
             const parsedDate = response?.data;
             // console.log("parsed data :", parsedDate)
         }
-        // dispatch(settingData({ field: "isloading", value: false }));
+        dispatch(settingData({ field: "isloading", value: false }));
       });
     } catch (e) {
     //   dispatch(settingData({ field: "isloading", value: false }));

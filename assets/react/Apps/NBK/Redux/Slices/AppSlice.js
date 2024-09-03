@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+  isloading : false,
   parameters: null,
   mobileResponse: "",
   flag: null,

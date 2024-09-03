@@ -99,6 +99,10 @@ class NBKController extends AbstractController
 		$accountStatementImage = $data['financialDetails']['accountStatement'];
 		$employeeLetterImage = $data['financialDetails']['employerLetter'];
 
+
+
+
+
 		$imageParts = explode(';base64,', $frontImageID);
 		$imageBase64 = $imageParts[1];
 		$imageType = explode('/', $imageParts[0])[1];

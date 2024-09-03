@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import Modal from 'react-modal';
 import { parsePhoneNumberFromString } from "libphonenumber-js";
-
+import {InfinitySpin} from 'react-loader-spinner'
 
 const IfYes = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -18,24 +18,22 @@ const IfYes = () => {
   const [branch, setBranch] = useState('');
   const [errors, setErrors] = useState({});
   const [progress, setProgress] = useState(0);
-  const { SendExistingUser ,fetUsers} = AppAPI();
+  const { SendExistingUser, fetUsers } = AppAPI();
   const parameters = useSelector((state) => state.appData.parameters);
   const dispatch = useDispatch();
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalIsOpenNum, setModalIsOpenNum] = useState(false);
-  const [branchId, setBranchId] = useState(null); 
+  const [branchId, setBranchId] = useState(null);
   const [validationMessage, setValidationMessage] = useState("");
   const [countryCode, setCountryCode] = useState("lb");
-  
-
-  
+  const isLoading = useSelector((state) => state?.appData?.isloading);
 
   const handleButtonClick = () => {
-      if (parameters?.deviceType === "Android") {
-        window.AndroidInterface.callbackHandler("GoToApp");
-      } else if (parameters?.deviceType === "Iphone") {
-        window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
-      }
+    if (parameters?.deviceType === "Android") {
+      window.AndroidInterface.callbackHandler("GoToApp");
+    } else if (parameters?.deviceType === "Iphone") {
+      window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
+    }
 
     if (isBottomSlider) {
       dispatch(settingData({ field: "bottomSlider", value: { isShow: false } }));
@@ -45,9 +43,6 @@ const IfYes = () => {
       dispatch(settingObjectData({ mainField: "headerData", field: "currentPage", value: headerData.backLink }));
     }
   };
-
-  
-
 
   useEffect(() => {
     switch (branch) {
@@ -64,7 +59,7 @@ const IfYes = () => {
         setBranchId(null);
     }
   }, [branch]);
-  
+
   const validateForm = () => {
     const errors = {};
     if (!fullName.trim()) {
@@ -76,21 +71,17 @@ const IfYes = () => {
     if (!phoneNumber.trim()) {
       errors.phoneNumber = 'Phone number is required or invalid';
     } 
-    // Check if the phone number is invalid
-     if (validationMessage.includes("invalid")) {
+    if (validationMessage.includes("invalid")) {
       errors.phoneNumber = 'Phone number is required or invalid';
     }
-  
     if (!branch) {
       errors.branch = 'Branch/Unit selection is required';
     }
     return errors;
   };
-  const regex = /^[A-Za-z\s\-']*$/;
 
   const handleFullNameChange = (event) => {
     const { value } = event.target;
-    // Allow only alphabetic characters and symbols
     const regex = /^[A-Za-z\s\.\,\-\!\@\#\$\%\^\&\*\(\)\_\+\=\[\]\{\}\;\:\'\"\<\>\?\/\|\\]*$/;
     if (regex.test(value)) {
       setFullName(value);
@@ -106,24 +97,19 @@ const IfYes = () => {
   };
 
   const handleFormSubmit = (e) => {
-    
     e.preventDefault();
-    
 
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length === 0) {
-   
-
       setProgress(progress + 20);
       if (progress >= 100) {
         setProgress(100);
       }
 
-    fetUsers(phoneNumber);
-    const statusCode = localStorage.getItem('statusCode');
-    if (statusCode === '1') {
-      setModalIsOpenNum(true);
- 
+      fetUsers(phoneNumber);
+      const statusCode = localStorage.getItem('statusCode');
+      if (statusCode === '1') {
+        setModalIsOpenNum(true);
         setTimeout(() => {
           if (parameters?.deviceType === "Android") {
             window.AndroidInterface.callbackHandler("GoToApp");
@@ -131,26 +117,23 @@ const IfYes = () => {
             window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
           }
         }, 2000);
-   
-    } else {
-      setModalIsOpen(true);
-      SendExistingUser({
-        fullName,
-        mobileNumb: phoneNumber,
-        email,
-        branchUnit: branch,
-        branchId:branchId,
-      });
-      setTimeout(() => {
-        if (parameters?.deviceType === "Android") {
-          window.AndroidInterface.callbackHandler("GoToApp");
-        } else if (parameters?.deviceType === "Iphone") {
-          window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
-        }
-      }, 3000);
-  
-    }
-  
+      } else {
+        SendExistingUser({
+          fullName,
+          mobileNumb: phoneNumber,
+          email,
+          branchUnit: branch,
+          branchId: branchId,
+        });
+        setModalIsOpen(true);
+        setTimeout(() => {
+          if (parameters?.deviceType === "Android") {
+            window.AndroidInterface.callbackHandler("GoToApp");
+          } else if (parameters?.deviceType === "Iphone") {
+            window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
+          }
+        }, 3000);
+      }
     } else {
       setErrors(validationErrors);
     }
@@ -165,18 +148,14 @@ const IfYes = () => {
       })
     );
   };
+
   const handleChange = (value, country) => {
     setPhoneNumber(value);
     const countryCode = country?.countryCode.toUpperCase();
     let length = 0;
-    value?.split("")?.forEach(() => {
+    value?.split("").forEach(() => {
       length++;
     });
-    // if (length >= 9) {
-    //   setValidationMessage('Phone number is valid.');
-    // } else {
-    //   setValidationMessage('Invalid phone number format.');
-    // }
     try {
       const phoneNumber = parsePhoneNumberFromString(value, countryCode);
       if (phoneNumber && phoneNumber.isValid() && length >= 9) {
@@ -190,21 +169,23 @@ const IfYes = () => {
     }
   };
 
+
   return (
+
     <div id="IfYes" className="container d-flex flex-column align-items-center p-3">
+      {isLoading && (
+        <div className="loading-overlay">
+          <InfinitySpin width="200" color="#034a8e" />
+        </div>
+      )}
       <button type="button" className="btn-Back" onClick={getHeaderTitleBack}>
         <FontAwesomeIcon icon={faArrowLeft} size="2xl" />
       </button>
-      
-
-
       <div className="intro d-flex flex-column align-items-center">
         <p className="mb-3">
           Please refer to your branch. We will contact you within 3 - 5 working days.
         </p>
         <form className="form" onSubmit={handleFormSubmit}>
-          
-
           <div className="form-group">
             <input
               type="text"
@@ -216,9 +197,9 @@ const IfYes = () => {
             <label className="floating-label">Full Name</label>
           </div>
           {errors.fullName && <div className="error text-danger">{errors.fullName}</div>}
-          <div className="label-div"><label className="label-tel" >Mobile No.</label></div>
+          <div className="label-div"><label className="label-tel">Mobile No.</label></div>
           <PhoneInput
-          enableSearch
+            enableSearch
             className="mb-3"
             country={countryCode}
             value={phoneNumber}
@@ -227,24 +208,19 @@ const IfYes = () => {
             prefix="+"
             inputStyle={{ width: '100%', paddingLeft: '50px', height: '45px' }}
           />
-           {validationMessage && (
-              <p
-                style={{
-                  color: validationMessage.includes("invalid")
-                    ? "red"
-                    : "#034a8e",
-                    fontFamily:"none",
-                    marginBottom:"10px",
-                     marginTop: "-10px"
-                }}
-              >
-                {validationMessage}
-              </p>
-         
-            )}
-        
+          {validationMessage && (
+            <p
+              style={{
+                color: validationMessage.includes("invalid") ? "red" : "#034a8e",
+                fontFamily: "none",
+                marginBottom: "10px",
+                marginTop: "-10px"
+              }}
+            >
+              {validationMessage}
+            </p>
+          )}
           {errors.phoneNumber && <div className="error text-danger">{errors.phoneNumber}</div>}
-      
           <div className="form-group">
             <input
               type="email"
@@ -256,7 +232,6 @@ const IfYes = () => {
             <label className="floating-label">Email</label>
           </div>
           {errors.email && <div className="error text-danger">{errors.email}</div>}
-          
           <select
             value={branch}
             onChange={handleBranchChange}
@@ -268,28 +243,35 @@ const IfYes = () => {
             <option value="privatebank">Private Bank</option>
           </select>
           {errors.branch && <div className="error text-danger error-status">{errors.branch}</div>}
-          
-          <button type="submit" className="btn-proceed submit-btn" >
+          <button type="submit" className="btn-proceed submit-btn">
             Proceed
           </button>
-          <Modal
-       id='modal'
-        isOpen={modalIsOpen}
-        onRequestClose={() => setModalIsOpen(false)}
-        contentLabel="Example Modal"
-      >
-        <p className='p-modal'>Thank you for choosing NBK Lebanon. <br/> We will contact you within 3-5 days. </p>
-        <button  className='button-modal'  onClick={() => {setModalIsOpen(false) ,handleButtonClick() }  }  type="submit"  >Done</button>
-      </Modal>
-      <Modal
-       id='modalNum'
-        isOpen={modalIsOpenNum}
-        onRequestClose={() => setModalIsOpenNum(false)}
-        contentLabel="Example Modal"
-      >
-        <p className='p-modal'>Phone number already exist !!!</p>
-      
-      </Modal>
+         
+          {!isLoading && (
+            <>
+              <Modal
+                id='modal'
+                isOpen={modalIsOpen}
+                onRequestClose={() => setModalIsOpen(false)}
+                contentLabel="Confirmation Modal"
+              >
+                <p className='p-modal'>
+                  Thank you for choosing NBK Lebanon. <br /> We will contact you within 3-5 days.
+                </p>
+                <button className='button-modal' onClick={() => { setModalIsOpen(false); handleButtonClick(); }} type="button">
+                  Done
+                </button>
+              </Modal>
+              <Modal
+                id='modalNum'
+                isOpen={modalIsOpenNum}
+                onRequestClose={() => setModalIsOpenNum(false)}
+                contentLabel="Phone Number Exists"
+              >
+                <p className='p-modal'>Phone number already exists!</p>
+              </Modal>
+            </>
+          )}
         </form>
       </div>
     </div>

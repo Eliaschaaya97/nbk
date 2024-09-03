@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import Modal from 'react-modal';
 import AppAPI from "../Api/AppApi";
+import {InfinitySpin} from 'react-loader-spinner'
 
 const Disclaimer = () => {
   const [progress, setProgress] = useState(99);
@@ -16,6 +17,7 @@ const Disclaimer = () => {
   const formData = useSelector((state) => state.appData.userData);
   const parameters = useSelector((state) => state.appData.parameters);
 
+  const isLoading = useSelector((state) => state?.appData?.isloading);
 
   const dispatch = useDispatch();
   const getHeaderTitleBack = () => {
@@ -50,6 +52,11 @@ const Disclaimer = () => {
 
   return (
     <div id="CustomerDeclaration" className="container align-items-center p-3">
+          {isLoading && (
+        <div className="loading-overlay" style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
+          <InfinitySpin width="200" color="#034a8e" />
+        </div>
+      )}
          <button
         type="submit"
         className="btn-Back"
@@ -91,15 +98,17 @@ const Disclaimer = () => {
             Submit
           </button>
           
-      <Modal
-       id='modal'
-        isOpen={modalIsOpen}
-        onRequestClose={() => setModalIsOpen(false)}
-        contentLabel="Example Modal"
-      >
-        <p className='p-modal'>Thank you for choosing NBK Lebanon. <br/> We will contact you within 3-5 days. </p>
-        <button  className='button-modal'  onClick={() => {setModalIsOpen(false), handleButtonClick()}  }  type="submit"  >Done</button>
-      </Modal>
+          {!isLoading && 
+              <Modal
+              id='modal'
+                isOpen={modalIsOpen}
+                onRequestClose={() => setModalIsOpen(false)}
+                contentLabel="Example Modal"
+              >
+                <p className='p-modal'>Thank you for choosing NBK Lebanon. <br/> We will contact you within 3-5 days. </p>
+                <button  className='button-modal'  onClick={() => {setModalIsOpen(false), handleButtonClick()}  }  type="submit"  >Done</button>
+              </Modal>
+        }
         </form>
         </div>
       </div>
