@@ -1,17 +1,17 @@
 import React, { useRef, useState } from "react";
 import ProgressBar from "../Component/ProgressBar";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { settingObjectData, updateUserData } from "../Redux/Slices/AppSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import ButtonModile from "./ButtonMobile";
 import ScanID from "./../../../../../assets/images/nbk/Scan ID.svg";
+import DropdownCheckbox from "../Component/DropdownCheckbox";
+import imageCompression from 'browser-image-compression';
 
 import "react-phone-input-2/lib/style.css";
-import DropdownCheckbox from "../Component/DropdownCheckbox";
 
 const VerifyYourId = () => {
-
   const [frontImageID, setFrontImageID] = useState(null);
   const [backImageID, setBackImageID] = useState(null);
   const [accountStatement, setAccountStatement] = useState(null);
@@ -19,23 +19,18 @@ const VerifyYourId = () => {
   const [realEstateTitle, setRealEstateTitle] = useState(null);
   const [otherDocument, setOtherDocument] = useState(null);
   const [progress, setProgress] = useState(93);
-  const [documentStates, setDocumentStates] = useState({});
-
   const [errors, setErrors] = useState({});
   const [next, setNext] = useState(false);
   const [selectIDType, setSelectIDType] = useState("");
+  const [additionalDocuments, setAdditionalDocuments] = useState([]);
+
   const dispatch = useDispatch();
   const fileInputRefFront = useRef(null);
   const fileInputRefBack = useRef(null);
-  const fileInputRefAccountStatement= useRef(null);
-  const fileInputRefEmployerLetterReference= useRef(null);
-  const fileInputRefRealEstateTitleDeed= useRef(null);
-  const fileInputRefother= useRef(null);
-
-
-  const [additionalDocuments, setAdditionalDocuments] = useState([]);
-
-
+  const fileInputRefAccountStatement = useRef(null);
+  const fileInputRefEmployerLetterReference = useRef(null);
+  const fileInputRefRealEstateTitleDeed = useRef(null);
+  const fileInputRefother = useRef(null);
 
   const validateForm = () => {
     const errors = {};
@@ -49,39 +44,29 @@ const VerifyYourId = () => {
       errors.backImageID = "Back ID image is required";
     }
     if (!accountStatement && additionalDocuments.includes('AccountStatement')) {
-        errors.accountStatement = "Account Statement image is required";
-      }
-      if (!employerLetter && additionalDocuments.includes('EmployerLetter')) {
-        errors.employerLetter = "Account Statement image is required";
-      }
-      if (!realEstateTitle && additionalDocuments.includes('RealEstateTitle')) {
-        errors.realEstateTitle = "real Estate Title  image is required";
-      }
-      if (!otherDocument && additionalDocuments.includes('other')) {
-        errors.otherDocument = "Other Document  image is required";
-      }
-  
+      errors.accountStatement = "Account Statement image is required";
+    }
+    if (!employerLetter && additionalDocuments.includes('EmployerLetter')) {
+      errors.employerLetter = "Employer Letter image is required";
+    }
+    if (!realEstateTitle && additionalDocuments.includes('RealEstateTitle')) {
+      errors.realEstateTitle = "Real Estate Title image is required";
+    }
+    if (!otherDocument && additionalDocuments.includes('other')) {
+      errors.otherDocument = "Other Document image is required";
+    }
     return errors;
   };
 
   const IncomeSources = [
-    {
-      id: "1",
-      value: "AccountStatement",
-      label: "Account Statement",
-    },
-    {
-      id: "2",
-      value: "EmployerLetter",
-      label: "Employer Letter Reference",
-    },
+    { id: "1", value: "AccountStatement", label: "Account Statement" },
+    { id: "2", value: "EmployerLetter", label: "Employer Letter Reference" },
     { id: "3", value: "RealEstateTitle", label: "Real Estate Title Deed" },
     { id: "4", value: "other", label: "Other" },
   ];
 
   const handleIncomeSourceChange = (selectedOptions) => {
     setAdditionalDocuments(selectedOptions);
-    // console.log(selectedOptions)
     dispatch(
       updateUserData({
         category: "financialDetails",
@@ -141,43 +126,27 @@ const VerifyYourId = () => {
     }
   };
 
-  const handleFileChange1 = (event, step) => {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-  
-      reader.onloadend = () => {
-        const base64Image = reader.result;
-        if (step === "Front ID") {
-          setFrontImageID(base64Image);
-          dispatch(
-            updateUserData({
-              category: "financialDetails",
-              data: { frontImageID: base64Image },
-            })
-          );
-        } else if (step === "Back ID") {
-          setBackImageID(base64Image);
-          dispatch(
-            updateUserData({
-              category: "financialDetails",
-              data: { backImageID: base64Image },
-            })
-          );
-        }
-      };
-  
-      reader.readAsDataURL(file);
+  const compressImage = async (file) => {
+    const options = {
+      maxSizeMB: 1,
+      maxWidthOrHeight: 1024,
+      useWebWorker: true
+    };
+    try {
+      return await imageCompression(file, options);
+    } catch (error) {
+      console.error("Error compressing image:", error);
+      return file;
     }
   };
-  const handleFileChange = (event, documentType) => {
+
+  const handleFileChange = async (event, documentType) => {
     const file = event.target.files[0];
     if (file) {
+      const compressedFile = await compressImage(file);
       const reader = new FileReader();
-  
       reader.onloadend = () => {
         const base64Image = reader.result;
-  
         switch (documentType) {
           case "AccountStatement":
             setAccountStatement(base64Image);
@@ -219,48 +188,63 @@ const VerifyYourId = () => {
             break;
         }
       };
-  
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(compressedFile);
     }
   };
-  
-  const handleBoxClickAccountStatement = () => {
 
+  const handleFileChange1 = async (event, step) => {
+    const file = event.target.files[0];
+    if (file) {
+      const compressedFile = await compressImage(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64Image = reader.result;
+        if (step === "Front ID") {
+          setFrontImageID(base64Image);
+          dispatch(
+            updateUserData({
+              category: "financialDetails",
+              data: { frontImageID: base64Image },
+            })
+          );
+        } else if (step === "Back ID") {
+          setBackImageID(base64Image);
+          dispatch(
+            updateUserData({
+              category: "financialDetails",
+              data: { backImageID: base64Image },
+            })
+          );
+        }
+      };
+      reader.readAsDataURL(compressedFile);
+    }
+  };
+
+  const handleBoxClickAccountStatement = () => {
     const inputRef = fileInputRefAccountStatement.current;
     if (inputRef) {
       inputRef.click();
-    } else {
-      // console.log("File input ref not set");
     }
   };
   const handleBoxClickEmployerLetterReference = () => {
-
     const inputRef = fileInputRefEmployerLetterReference.current;
     if (inputRef) {
       inputRef.click();
-    } else {
-      // console.log("File input ref not set");
     }
   };
   const handleBoxClickRealEstateTitleDeed = () => {
-
     const inputRef = fileInputRefRealEstateTitleDeed.current;
     if (inputRef) {
       inputRef.click();
-    } else {
-      // console.log("File input ref not set");
     }
   };
-  const handleBoxClickOther= () => {
-
+  const handleBoxClickOther = () => {
     const inputRef = fileInputRefother.current;
     if (inputRef) {
       inputRef.click();
-    } else {
-      // console.log("File input ref not set");
     }
   };
-  
 
   const handleBoxClick1 = (step) => {
     if (step === "front") {
@@ -269,7 +253,6 @@ const VerifyYourId = () => {
       fileInputRefBack.current.click();
     }
   };
-
 
   return (
     <div id="VerifyYourId" className="container align-items-center p-3">
@@ -305,8 +288,7 @@ const VerifyYourId = () => {
           <div className="form-group">
             <p className="p-step">Step 1: </p>
             <p className="p-sub">
-              Place the front of your ID into the Camera frame and take a clear
-              photo.
+              Place the front of your ID into the Camera frame and take a clear photo.
             </p>
             <div className="box" onClick={() => handleBoxClick1("front")}>
               <div className="box-image">
@@ -338,8 +320,7 @@ const VerifyYourId = () => {
           <div className="form-group">
             <p className="p-step">Step 2: </p>
             <p className="p-sub">
-              Place the back of your ID into the Camera frame and take a clear
-              photo.
+              Place the back of your ID into the Camera frame and take a clear photo.
             </p>
             <div className="box" onClick={() => handleBoxClick1("back")}>
               <div className="box-image">
@@ -367,10 +348,7 @@ const VerifyYourId = () => {
               </div>
             )}
           </div>
-          <div
-            className="form-group-dropdown"
-            style={{ marginBottom: "130px" }}
-          >
+          <div className="form-group-dropdown" style={{ marginBottom: "130px" }}>
             <p className="Title">Additional Documents</p>
             <DropdownCheckbox
               idPrefix={"trtype"}
@@ -386,123 +364,122 @@ const VerifyYourId = () => {
                 {errors.additionalDocuments}
               </div>
             )}
-
-
-        
-
-          {additionalDocuments.includes('AccountStatement') &&  <>  <div className="form-group">
-            <div className="box" onClick={() => handleBoxClickAccountStatement("AccountStatement")}>
-              <div className="box-image">
-                {accountStatement ? (
-                  <img className="img" src={accountStatement} alt="AccountStatement" />
-                ) : (
-                  <>
-                    <img src={ScanID} alt="scan upload" />
-                    <p className="p-img">Scan or Upload Account Statement</p>
-                  </>
+            {additionalDocuments.includes('AccountStatement') && (
+              <div className="form-group">
+                <div className="box" onClick={() => handleBoxClickAccountStatement()}>
+                  <div className="box-image">
+                    {accountStatement ? (
+                      <img className="img" src={accountStatement} alt="Account Statement" />
+                    ) : (
+                      <>
+                        <img src={ScanID} alt="scan upload" />
+                        <p className="p-img">Scan or Upload Account Statement</p>
+                      </>
+                    )}
+                  </div>
+                </div>
+                <input
+                  type="file"
+                  accept="image/*"
+                  capture="camera"
+                  ref={fileInputRefAccountStatement}
+                  style={{ display: "none" }}
+                  onChange={(e) => handleFileChange(e, "AccountStatement")}
+                />
+                {errors.accountStatement && (
+                  <div className="error text-danger error-status">
+                    {errors.accountStatement}
+                  </div>
                 )}
               </div>
-            </div>
-            <input
-              type="file"
-              accept="image/*"
-              capture="camera"
-              ref={fileInputRefAccountStatement}
-              style={{ display: "none" }}
-              onChange={(e) => handleFileChange(e, "AccountStatement")}
-            />
-            {errors.accountStatement && (
-              <div className="error text-danger error-status">
-                {errors.accountStatement}
-              </div>
             )}
-          </div> </>}
-
-          { additionalDocuments.includes('EmployerLetter')  &&  <>  <div className="form-group">
-            <div className="box" onClick={() => handleBoxClickEmployerLetterReference("EmployerLetter")}>
-              <div className="box-image">
-                {employerLetter ? (
-                  <img className="img" src={employerLetter} alt="EmployerLetterReference" />
-                ) : (
-                  <>
-                    <img src={ScanID} alt="scan upload" />
-                    <p className="p-img">Scan or Upload Employer Letter Reference</p>
-                  </>
+            {additionalDocuments.includes('EmployerLetter') && (
+              <div className="form-group">
+                <div className="box" onClick={() => handleBoxClickEmployerLetterReference()}>
+                  <div className="box-image">
+                    {employerLetter ? (
+                      <img className="img" src={employerLetter} alt="Employer Letter" />
+                    ) : (
+                      <>
+                        <img src={ScanID} alt="scan upload" />
+                        <p className="p-img">Scan or Upload Employer Letter</p>
+                      </>
+                    )}
+                  </div>
+                </div>
+                <input
+                  type="file"
+                  accept="image/*"
+                  capture="camera"
+                  ref={fileInputRefEmployerLetterReference}
+                  style={{ display: "none" }}
+                  onChange={(e) => handleFileChange(e, "EmployerLetter")}
+                />
+                {errors.employerLetter && (
+                  <div className="error text-danger error-status">
+                    {errors.employerLetter}
+                  </div>
                 )}
               </div>
-            </div>
-            <input
-              type="file"
-              accept="image/*"
-              capture="camera"
-              ref={fileInputRefEmployerLetterReference}
-              style={{ display: "none" }}
-              onChange={(e) => handleFileChange(e, "EmployerLetter")}
-            />
-            {errors.employerLetter && (
-              <div className="error text-danger error-status">
-                {errors.employerLetter}
-              </div>
             )}
-          </div> </>}
-          { additionalDocuments.includes('RealEstateTitle')  &&  <>  <div className="form-group">
-            <div className="box" onClick={() => handleBoxClickRealEstateTitleDeed("RealEstateTitle")}>
-              <div className="box-image">
-                {realEstateTitle ? (
-                  <img className="img" src={realEstateTitle} alt="realEstateTitle" />
-                ) : (
-                  <>
-                    <img src={ScanID} alt="scan upload" />
-                    <p className="p-img">Scan or Upload realEstateTitle</p>
-                  </>
+            {additionalDocuments.includes('RealEstateTitle') && (
+              <div className="form-group">
+                <div className="box" onClick={() => handleBoxClickRealEstateTitleDeed()}>
+                  <div className="box-image">
+                    {realEstateTitle ? (
+                      <img className="img" src={realEstateTitle} alt="Real Estate Title" />
+                    ) : (
+                      <>
+                        <img src={ScanID} alt="scan upload" />
+                        <p className="p-img">Scan or Upload Real Estate Title</p>
+                      </>
+                    )}
+                  </div>
+                </div>
+                <input
+                  type="file"
+                  accept="image/*"
+                  capture="camera"
+                  ref={fileInputRefRealEstateTitleDeed}
+                  style={{ display: "none" }}
+                  onChange={(e) => handleFileChange(e, "RealEstateTitle")}
+                />
+                {errors.realEstateTitle && (
+                  <div className="error text-danger error-status">
+                    {errors.realEstateTitle}
+                  </div>
                 )}
               </div>
-            </div>
-            <input
-              type="file"
-              accept="image/*"
-              capture="camera"
-              ref={fileInputRefRealEstateTitleDeed}
-              style={{ display: "none" }}
-              onChange={(e) => handleFileChange(e, "RealEstateTitle")}
-            />
-            {errors.realEstateTitle && (
-              <div className="error text-danger error-status">
-                {errors.realEstateTitle}
-              </div>
             )}
-          </div> </>}
-          { additionalDocuments.includes('other')  &&  <>  <div className="form-group">
-            <div className="box" onClick={() => handleBoxClickOther("other")}>
-              <div className="box-image">
-                {otherDocument ? (
-                  <img className="img" src={otherDocument} alt="otherDocument" />
-                ) : (
-                  <>
-                    <img src={ScanID} alt="scan upload" />
-                    <p className="p-img">Scan or Upload other</p>
-                  </>
+            {additionalDocuments.includes('other') && (
+              <div className="form-group">
+                <div className="box" onClick={() => handleBoxClickOther()}>
+                  <div className="box-image">
+                    {otherDocument ? (
+                      <img className="img" src={otherDocument} alt="Other Document" />
+                    ) : (
+                      <>
+                        <img src={ScanID} alt="scan upload" />
+                        <p className="p-img">Scan or Upload Other Document</p>
+                      </>
+                    )}
+                  </div>
+                </div>
+                <input
+                  type="file"
+                  accept="image/*"
+                  capture="camera"
+                  ref={fileInputRefother}
+                  style={{ display: "none" }}
+                  onChange={(e) => handleFileChange(e, "other")}
+                />
+                {errors.otherDocument && (
+                  <div className="error text-danger error-status">
+                    {errors.otherDocument}
+                  </div>
                 )}
               </div>
-            </div>
-            <input
-              type="file"
-              accept="image/*"
-              capture="camera"
-              ref={fileInputRefother}
-              style={{ display: "none" }}
-              onChange={(e) => handleFileChange(e, "other")}
-            />
-            {errors.otherDocument && (
-              <div className="error text-danger error-status">
-                {errors.otherDocument}
-              </div>
             )}
-          </div> </>}
-           
-
-
-
           </div>
           <ButtonModile buttonName={"Next"} setNext={setNext} />
         </form>
