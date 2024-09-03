@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import Modal from 'react-modal';
 import AppAPI from "../Api/AppApi";
-import {InfinitySpin} from 'react-loader-spinner'
+import {Oval, TailSpin} from 'react-loader-spinner'
 
 const Disclaimer = () => {
   const [progress, setProgress] = useState(99);
@@ -54,7 +54,7 @@ const Disclaimer = () => {
     <div id="CustomerDeclaration" className="container align-items-center p-3">
           {isLoading && (
         <div className="loading-overlay" style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
-          <InfinitySpin width="200" color="#034a8e" />
+          <TailSpin width="200" color="#034a8e" />
         </div>
       )}
          <button

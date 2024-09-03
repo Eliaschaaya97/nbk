@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import Modal from 'react-modal';
 import { parsePhoneNumberFromString } from "libphonenumber-js";
-import {InfinitySpin} from 'react-loader-spinner'
+import {TailSpin} from 'react-loader-spinner'
 
 const IfYes = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -175,7 +175,7 @@ const IfYes = () => {
     <div id="IfYes" className="container d-flex flex-column align-items-center p-3">
       {isLoading && (
         <div className="loading-overlay">
-          <InfinitySpin width="200" color="#034a8e" />
+          <TailSpin width="200" color="#034a8e" />
         </div>
       )}
       <button type="button" className="btn-Back" onClick={getHeaderTitleBack}>
