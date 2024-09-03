@@ -195,12 +195,6 @@ class NBKController extends AbstractController
 		unset($data['financialDetails']['accountStatement']);
 		unset($data['financialDetails']['realEstateTitle']);
 
-
-		$pdfContent = $this->generateReportPdf($data);
-	
-
-
-
 		// Set the user for Address and WorkDetails
 		$address = $addressRepository->createAddress($data['address'] ?? []);
 		if ($address) {
@@ -264,8 +258,10 @@ class NBKController extends AbstractController
 
 
 		$reference = $user->getId();
+		
 		$dateEmail = new DateTime();
 		$dateEmailFormatted = $dateEmail->format('Y-m-d H:i:s');
+		$pdfContent = $this->generateReportPdf($data, $dateEmailFormatted, $reference);
 		$email = (new Email())
 			->from('monitoring@suyool.com')
 			->to($branchEmail)
@@ -314,6 +310,18 @@ class NBKController extends AbstractController
 		}
 
 		return new JsonResponse(['message' => 'Data saved successfully'], Response::HTTP_OK);
+	}
+
+	public function getBranchEmail($branchId)
+	{
+		// $branchEmails = [1=>"najm.choueiry@elbarid.com", 2=>"najm.choueiry@elbarid.com",3=>"najm.choueiry@elbarid.com"];
+		$branchEmails = [1=>"sanayehbr@nbk.com.lb", 2=>"Bhamdounbr@nbk.com.lb",3=>"PrivateBanking@nbk.com.lb"];
+		//$branchEmails = [1 => "zeina.abdallah@nbk.com.lb ", 2 => "maysaa.nasereddine@nbk.com.lb", 3 => "zeina.abdallah@nbk.com.lb "];
+		if (array_key_exists($branchId, $branchEmails)) {
+			return $branchEmails[$branchId];
+		} else {
+			return null;
+		}
 	}
 
 	#[Route('/submit-existing-user', name: 'submitExistingUser', methods: ['POST'])]
@@ -609,17 +617,6 @@ class NBKController extends AbstractController
 		}
 	}
 
-	public function getBranchEmail($branchId)
-	{
-		// $branchEmails = [1=>"najm.choueiry@elbaird.com", 2=>"najm.choueiry@elbaird.com",3=>"najm.choueiry@elbaird.com"];
-		$branchEmails = [1=>"sanayehbr@nbk.com.lb", 2=>"Bhamdounbr@nbk.com.lb",3=>"PrivateBanking@nbk.com.lb"];
-		//$branchEmails = [1 => "zeina.abdallah@nbk.com.lb ", 2 => "maysaa.nasereddine@nbk.com.lb", 3 => "zeina.abdallah@nbk.com.lb "];
-		if (array_key_exists($branchId, $branchEmails)) {
-			return $branchEmails[$branchId];
-		} else {
-			return null;
-		}
-	}
 
 	public function generatePdf($data)
 	{
