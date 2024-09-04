@@ -173,10 +173,14 @@ const IfYes = () => {
   return (
 
     <div id="IfYes" className="container d-flex flex-column align-items-center p-3">
-      {isLoading && (
+      {true && (<>
         <div className="loading-overlay">
           <TailSpin width="200" color="#034a8e" />
+
         </div>
+        
+        <div className="loading-overlay mt-5">  <p className='mt-5 holdsubmission'>Please hold on while we process your application submission...</p></div>
+        </>
       )}
       <button type="button" className="btn-Back" onClick={getHeaderTitleBack}>
         <FontAwesomeIcon icon={faArrowLeft} size="2xl" />

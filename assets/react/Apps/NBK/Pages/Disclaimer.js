@@ -55,6 +55,7 @@ const Disclaimer = () => {
           {isLoading && (
         <div className="loading-overlay" style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
           <TailSpin width="200" color="#034a8e" />
+          <div className="loading-overlay mt-5">  <p className='mt-5 holdsubmission'>Please hold on while we process your application submission...</p></div>
         </div>
       )}
          <button

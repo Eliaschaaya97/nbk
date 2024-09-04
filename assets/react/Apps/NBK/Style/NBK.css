@@ -138,16 +138,20 @@
   border-radius: 10px;
 }
 #modal {
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
   height: fit-content;
   max-width: 500px;
   padding: 40px;
   text-align: center;
+  margin: auto;
   border-radius: 24px !important;
-  top: 25% !important;
+  top: 0;
+  inset: 20px !important;
 }
 #modal .p-modal {
   text-align: center;
-  font-size: 25px;
+  font-size: 21px;
   padding-bottom: 35px;
   padding-top: 35px;
 }
@@ -222,12 +226,24 @@
 #IfYes .form {
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 #IfYes .form div.error {
   display: flex;
   justify-content: flex-start;
   width: 100%;
+  margin-top: -10px;
+}
+#IfYes .form .label-div {
+  padding-top: 16px;
+  position: relative;
+  margin-bottom: 10px;
+}
+#IfYes .form .label-div .label-tel {
+  font-size: 15px;
+  position: absolute;
+  top: -3px;
+  font-family: LibreFranklinRegular;
+  color: #999;
 }
 #IfYes .form .form-group {
   position: relative;
@@ -292,7 +308,6 @@
   #IfYes .form {
     display: flex;
     flex-direction: column;
-    align-items: center;
     width: 100%;
   }
 }
@@ -302,6 +317,48 @@ input:not(:-moz-placeholder-shown) + .floating-label {
 input:focus + .floating-label,
 input:not(:placeholder-shown) + .floating-label {
   margin-top: -4px !important;
+}
+
+.form-group-dropdown {
+  position: relative;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  width: 100%;
+}
+.form-group-dropdown input {
+  padding: 10px 10px;
+  font-size: 16px;
+  border-radius: 4px;
+  font-family: LibreFranklinRegular;
+}
+.form-group-dropdown input:focus {
+  outline: none;
+  border-color: #034a8e;
+}
+.form-group-dropdown input::-moz-placeholder {
+  color: transparent;
+}
+.form-group-dropdown input::placeholder {
+  color: transparent;
+}
+.form-group-dropdown .floating-label {
+  position: absolute;
+  top: 35%;
+  left: 10px;
+  transform: translateY(-50%);
+  transition: all 0.3s ease;
+  color: #999;
+  font-size: 14px;
+  pointer-events: none;
+}
+.form-group-dropdown input:not(:-moz-placeholder-shown) + .floating-label {
+  font-size: 11px;
+  padding-bottom: 20px;
+}
+.form-group-dropdown input:focus + .floating-label,
+.form-group-dropdown input:not(:placeholder-shown) + .floating-label {
+  font-size: 11px;
+  padding-bottom: 20px;
 }
 
 #IfNo button.btn-Back {
@@ -474,7 +531,6 @@ input:not(:placeholder-shown) + .floating-label {
 #UserInfo .form {
   display: flex;
   flex-direction: column;
-  align-items: center;
   width: 100%;
 }
 #UserInfo .form label {
@@ -484,10 +540,23 @@ input:not(:placeholder-shown) + .floating-label {
   height: 200px;
   overflow-y: visible;
 }
+#UserInfo .form .label-div {
+  padding-top: 16px;
+  position: relative;
+  margin-bottom: 10px;
+}
+#UserInfo .form .label-div .label-tel {
+  font-size: 15px;
+  position: absolute;
+  top: -3px;
+  font-family: LibreFranklinRegular;
+  color: #999;
+}
 #UserInfo .form div.error {
   display: flex;
   justify-content: flex-start;
   width: 100%;
+  margin-top: -10px;
 }
 #UserInfo .form .form-group {
   position: relative;
@@ -546,11 +615,11 @@ input:not(:placeholder-shown) + .floating-label {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 @media (min-width: 340px) {
-  #UserInfo #IfYes .intro p {
+  #UserInfo #UserInfo .intro p {
     font-size: 17px;
     max-width: 85%;
   }
-  #UserInfo #IfYes .form {
+  #UserInfo #UserInfo .form {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -572,6 +641,9 @@ input:not(:placeholder-shown) + .floating-label {
   border-radius: 5px;
 }
 
+#UserIntroduce .css-13cymwt-control {
+  height: 43px;
+}
 #UserIntroduce button.btn-Back {
   width: 41px;
   height: 41px;
@@ -632,6 +704,7 @@ input:not(:placeholder-shown) + .floating-label {
   display: flex;
   justify-content: flex-start;
   width: 100%;
+  margin-top: -10px;
 }
 #UserIntroduce .form .form-group {
   position: relative;
@@ -793,6 +866,7 @@ input:not(:placeholder-shown) + .floating-label {
 #AddressInfo .form .label-div {
   padding-top: 16px;
   position: relative;
+  margin-bottom: 10px;
 }
 #AddressInfo .form .label-div .label-tel {
   font-size: 15px;
@@ -808,6 +882,7 @@ input:not(:placeholder-shown) + .floating-label {
   display: flex;
   justify-content: flex-start;
   width: 100%;
+  margin-top: -10px;
 }
 #AddressInfo .form .form-group {
   position: relative;
@@ -1086,6 +1161,7 @@ button {
 #UserJob .form .label-div {
   padding-top: 16px;
   position: relative;
+  margin-bottom: 10px;
 }
 #UserJob .form .label-div .label-tel {
   font-size: 15px;
@@ -1098,6 +1174,7 @@ button {
   display: flex;
   justify-content: flex-start;
   width: 100%;
+  margin-top: -10px;
 }
 #UserJob .form .form-group {
   position: relative;
@@ -1244,6 +1321,7 @@ button {
   display: flex;
   justify-content: flex-start;
   width: 100%;
+  margin-top: -10px;
 }
 #BRODetails .form .form-group {
   position: relative;
@@ -1386,6 +1464,7 @@ button {
   display: flex;
   justify-content: flex-start;
   width: 100%;
+  margin-top: -10px;
 }
 #PoliticalPosition .form .add-input {
   padding-bottom: 10px;
@@ -1536,6 +1615,7 @@ button {
   display: flex;
   justify-content: flex-start;
   width: 100%;
+  margin-top: -10px;
 }
 #Userinfosalary .form .add-input {
   padding-bottom: 10px;
@@ -1677,6 +1757,7 @@ button {
   display: flex;
   justify-content: flex-start;
   width: 100%;
+  margin-top: -10px;
 }
 #UserAcountBank .form .add-input {
   padding-bottom: 10px;
@@ -1929,30 +2010,228 @@ button {
   font-family: AvenirBook;
 }
 
+#VerifyYourId .Title {
+  font-size: 16px !important;
+  color: #034A8E !important;
+  font-family: AvenirHeavy !important;
+}
+#VerifyYourId button.btn-Back {
+  width: 41px;
+  height: 41px;
+  color: #034a8e;
+  position: absolute;
+  top: 7%;
+  left: 5%;
+  background: none;
+  border: none;
+}
+#VerifyYourId .intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#VerifyYourId .intro label {
+  font-family: PoppinsRegular;
+}
+#VerifyYourId .form {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+}
+#VerifyYourId .form .label-div {
+  padding-top: 16px;
+  position: relative;
+  margin-bottom: 10px;
+}
+#VerifyYourId .form .label-div .label-tel {
+  font-size: 15px;
+  position: absolute;
+  top: -3px;
+  font-family: LibreFranklinRegular;
+  color: #999;
+}
+#VerifyYourId .form div.error {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  margin-top: -10px;
+}
+#VerifyYourId .form .form-group {
+  position: relative;
+  width: 100%;
+}
+#VerifyYourId .form .form-group button {
+  font-family: AvenirHeavy;
+}
+#VerifyYourId .form .form-group .p-step {
+  font-family: AvenirBook;
+  font-size: 14px;
+  color: #7588A0;
+}
+#VerifyYourId .form .form-group .p-sub {
+  font-family: AvenirBook;
+  font-size: 10px;
+  color: #7588A0;
+}
+#VerifyYourId .form .form-group .box {
+  width: 100%;
+  height: 220px;
+  box-shadow: 0pt 2pt 6pt rgba(0, 0, 0, 0.2);
+  margin-bottom: 20px;
+}
+#VerifyYourId .form .form-group .box .box-image {
+  width: 100%;
+  text-align: center;
+  height: 100%;
+}
+#VerifyYourId .form .form-group .box .box-image img {
+  margin-top: 46px;
+}
+#VerifyYourId .form .form-group .box .box-image .img {
+  margin-top: unset;
+  width: 100%;
+  height: 100%;
+}
+#VerifyYourId .form .form-group .box .box-image .p-img {
+  font-size: 16px;
+  font-family: PoppinsBold;
+  color: #D7DDE3;
+}
+#VerifyYourId .form .form-group input {
+  width: 100%;
+  padding: 10px 10px;
+  font-size: 16px;
+  border-radius: 4px;
+  font-family: LibreFranklinRegular;
+}
+#VerifyYourId .form .form-group input:focus {
+  outline: none;
+  border-color: #034a8e;
+}
+#VerifyYourId .form .form-group input::-moz-placeholder {
+  color: transparent;
+}
+#VerifyYourId .form .form-group input::placeholder {
+  color: transparent;
+}
+#VerifyYourId .form .form-group .floating-label {
+  position: absolute;
+  top: 35%;
+  left: 10px;
+  transform: translateY(-50%);
+  transition: all 0.3s ease;
+  color: #999;
+  font-size: 14px;
+  pointer-events: none;
+}
+#VerifyYourId .form .form-group input:not(:-moz-placeholder-shown) + .floating-label {
+  top: 10px;
+  font-size: 11px;
+}
+#VerifyYourId .form .form-group input:focus + .floating-label,
+#VerifyYourId .form .form-group input:not(:placeholder-shown) + .floating-label {
+  top: 10px;
+  font-size: 11px;
+}
+#VerifyYourId .form .form-control {
+  border: 1px solid rgba(117, 136, 160, 0.2039215686);
+  padding: 10px;
+  min-width: 150px;
+  width: 100%;
+}
+#VerifyYourId .custom-control-input {
+  width: 1.5em;
+  height: 1.5em;
+  margin-right: 5px;
+  font-size: 13px;
+  cursor: pointer;
+  align-self: start;
+}
+#VerifyYourId .custom-control-label {
+  display: block;
+  margin-bottom: 5px;
+  width: 100%;
+  padding: 9px;
+  font-size: 11px;
+  color: #7588A0;
+}
+#VerifyYourId .btn-proceed {
+  width: 100%;
+  background-color: #034a8e;
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+#VerifyYourId .buttons {
+  display: flex;
+  gap: 20px;
+}
+#VerifyYourId .buttons button {
+  padding: 10px 66px;
+  font-size: 16px;
+  font-weight: bold;
+  border: 1px solid rgba(117, 136, 160, 0.2039215686);
+  color: #034A8E;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #E5ECF3;
+}
+#VerifyYourId .buttons button.active {
+  background-color: #034A8E; /* Darker blue for active state */
+  color: white; /* White text when active */
+}
+
+@media (max-width: 520px) {
+  #UserJob .buttons button {
+    padding: 0 20%;
+    font-size: 15px;
+  }
+}
+@media (min-width: 350px) {
+  #UserJob {
+    width: 100%;
+  }
+  #UserJob .form {
+    width: 100%;
+  }
+}
 .dropdown-checkbox {
   position: relative;
   display: inline-block;
   font-family: "Poppins Regular";
   color: #576271;
+  z-index: 1;
+  width: 100%;
+  margin-bottom: 10px;
 }
 
 .dropdown-button {
   background-color: #fff;
-  border: 1px solid #226D96;
-  padding: 5px 20px;
+  border: 1px solid #ced4da;
+  color: #999;
+  padding: 5px 7px;
   border-radius: 4px;
   cursor: pointer;
-  width: 235px;
+  width: 100%;
   text-align: left;
+  height: 48px;
+  font-size: 14px;
+  font-family: LibreFranklinRegular;
 }
 
 .dropdown-list {
   position: absolute;
   top: 99%;
   left: 0;
-  font-size: 13px;
+  font-size: 14px;
   background-color: #fff;
-  border: 1px solid #226D96;
+  border: 1px solid #ced4da;
   border-top: none;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
@@ -1963,7 +2242,7 @@ button {
   max-height: 200px;
   overflow-y: auto;
   display: none;
-  width: 235px;
+  width: 100%;
 }
 
 .reports-template-dropdown .dropdown-list {
@@ -2000,5 +2279,68 @@ button {
 }
 .day-select .day-item.selected {
   background-color: #e8b3b0;
+}
+
+@font-face {
+  font-family: PoppinsBold;
+  src: url("../../../../../fonts/Poppins-Bold.ttf");
+}
+@font-face {
+  font-family: PoppinsMedium;
+  src: url("../../../../../fonts/Poppins-Medium.ttf");
+}
+@font-face {
+  font-family: PoppinsRegular;
+  src: url("../../../../../fonts/Poppins-Regular.ttf");
+}
+@font-face {
+  font-family: PoppinsSemiBold;
+  src: url("../../../../../fonts/Poppins-SemiBold.ttf");
+}
+@font-face {
+  font-family: OpenSansRegular;
+  src: url("../../../../../fonts/OpenSans-Regular.ttf");
+}
+@font-face {
+  font-family: PoppinsItalic;
+  src: url("../../../../../fonts/Poppins-Italic.ttf");
+}
+@font-face {
+  font-family: InterRegular;
+  src: url("../../../../../fonts/Inter-Regular.ttf");
+}
+@font-face {
+  font-family: InterBold;
+  src: url("../../../../../fonts/Inter-Bold.ttf");
+}
+@font-face {
+  font-family: AvenirBook;
+  src: url("../../../../../fonts/Avenir_Book.ttf");
+}
+@font-face {
+  font-family: AvenirHeavy;
+  src: url("../../../../../fonts/Avenir_Heavy.ttf");
+}
+@font-face {
+  font-family: LibreFranklinRegular;
+  src: url("../../../../../fonts/LibreFranklin-Regular.ttf");
+}
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.7); /* Semi-transparent background */
+  z-index: 1000; /* Ensure it's on top of other content */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.loading-overlay .holdsubmission {
+  text-align: center;
+  margin-top: 140px !important;
+  font-size: 18px;
+  font-family: PoppinsSemiBold;
 }
 /*# sourceMappingURL=NBK.css.map */
