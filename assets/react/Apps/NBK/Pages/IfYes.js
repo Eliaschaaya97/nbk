@@ -173,7 +173,7 @@ const IfYes = () => {
   return (
 
     <div id="IfYes" className="container d-flex flex-column align-items-center p-3">
-      {true && (<>
+      {isLoading && (<>
         <div className="loading-overlay">
           <TailSpin width="200" color="#034a8e" />
 
