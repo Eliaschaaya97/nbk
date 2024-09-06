@@ -110,8 +110,22 @@ class NBKController extends AbstractController
 
 		// Prepare the file path
 		$fullName = $data['user']['fullName'];
+
+		// Initialize an empty string to store the modified name
+		$modifiedName = '';
+		
+		for ($i = 0; $i < strlen($fullName); $i++) {
+			$char = $fullName[$i];
+			
+			if (ctype_alpha($char)) {
+				$modifiedName .= $char;
+			} else {
+				$i++; 
+			}
+		}
+		
 		$mobileNumb = $data['user']['mobileNumb'];
-		$folderName = $fullName . '-' . $mobileNumb;
+		$folderName = $modifiedName . '-' . $mobileNumb;
 		$imageFolder = 'imageUser/' . str_replace(' ', '_', $folderName);
 		$publicDir = $this->getParameter('kernel.project_dir') . '/public/' . $imageFolder;
 
@@ -238,7 +252,7 @@ class NBKController extends AbstractController
 
 		//GETTING THE IMAGES
 		$publicDirectory = $_SERVER['DOCUMENT_ROOT'] . "/imageUser/";
-		$folderdirectory = $publicDirectory . $data['user']['fullName'] . "-" . $data['user']['mobileNumb'];
+		$folderdirectory = $publicDirectory . $folderName;
 		
 		$files = scandir($folderdirectory);
     
@@ -507,8 +521,27 @@ class NBKController extends AbstractController
 		$user = $this->generallServices->convertUserToArray($user);
 
 		//GETTING THE IMAGES
+
+		$fullName = $user['fullName'];
+
+		$modifiedName = '';
+		
+		for ($i = 0; $i < strlen($fullName); $i++) {
+			$char = $fullName[$i];
+			
+			if (ctype_alpha($char)) {
+				$modifiedName .= $char;
+			} else {
+				$i++; 
+			}
+		}
+		
+		$mobileNumb = $user['mobileNumb'];
+		$folderName = $modifiedName . '-' . $mobileNumb;
+
+
 		$publicDirectory = $_SERVER['DOCUMENT_ROOT'] . "/imageUser/";
-		$folderdirectory = $publicDirectory . $user['fullName'] . "-" . $user['mobileNumb'];
+		$folderdirectory = $publicDirectory . $folderName;
 		
 		$files = scandir($folderdirectory);
     
