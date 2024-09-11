@@ -52,16 +52,6 @@ class Emails
      */
     private $status;
 
-    /**
-     * @ORM\Column(type="datetime", options={"default": "CURRENT_TIMESTAMP"}, nullable=false)
-     */
-    private $updated;
-
-    /**
-     * @ORM\Column(type="datetime", options={"default": "CURRENT_TIMESTAMP"}, nullable=false)
-     */
-    private $created;
-
     // Getters and Setters
 
     public function getId(): ?int
@@ -145,28 +135,6 @@ class Emails
     public function setStatus(string $status): self
     {
         $this->status = $status;
-        return $this;
-    }
-
-    public function getUpdated(): ?\DateTimeInterface
-    {
-        return $this->updated;
-    }
-
-    public function setUpdated(\DateTimeInterface $updated): self
-    {
-        $this->updated = $updated;
-        return $this;
-    }
-
-    public function getCreated(): ?\DateTimeInterface
-    {
-        return $this->created;
-    }
-
-    public function setCreated(\DateTimeInterface $created): self
-    {
-        $this->created = $created;
         return $this;
     }
 }
