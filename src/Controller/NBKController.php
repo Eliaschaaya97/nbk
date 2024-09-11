@@ -288,7 +288,7 @@ class NBKController extends AbstractController
 		<p><strong>The customer:</strong> ' . htmlspecialchars($data['user']['fullName']) . '</p>
 		<p><strong>Number:</strong> ' . htmlspecialchars($data['user']['mobileNumb']) . '</p>
 		<p><strong>Email:</strong> ' . htmlspecialchars($data['user']['email']) . '</p>
-		<p><strong>Accessed on:</strong> ' . htmlspecialchars($dateEmailFormatted) . ' the Mobile Banking Application to submit a new account opening application using SIM Card ' . htmlspecialchars($data['user']['mobileNumb']) . '.</p>
+		<p><strong>Accessed on:</strong> ' . htmlspecialchars($dateEmailFormatted) . ' the Mobile Banking Application to submit a new account opening application.</p>
 		<p>Please contact the customer within 3-5 days since it is a new relation.</p>
 		';
 
@@ -382,7 +382,7 @@ class NBKController extends AbstractController
 		<p><strong>The customer:</strong> ' . htmlspecialchars($data['fullName']) . '</p>
 		<p><strong>Number:</strong> ' . htmlspecialchars($data['mobileNumb']) . '</p>
 		<p><strong>Email:</strong> ' . htmlspecialchars($data['email']) . '</p>
-		<p><strong>Accessed on:</strong> ' . htmlspecialchars($dateEmailFormatted) . ' the Mobile Banking Application to submit a new account opening application using SIM Card ' . htmlspecialchars($data['mobileNumb']) . '.</p>
+		<p><strong>Accessed on:</strong> ' . htmlspecialchars($dateEmailFormatted) . ' the Mobile Banking Application to submit a new account opening application.</p>
 		<p>Please contact the customer within 3-5 days since he has already a relationship with NBK Lebanon.</p>
 		';
 
