@@ -78,7 +78,7 @@ const UserInfoSalary = () => {
     { id: "1", value: "none", label: "None" },
     {
       id: "2",
-      value: "realestatelandsrentincome",
+      value: "real estate lands rent income",
       label: "Real Estate/Lands (Rent Income)",
     },
     { id: "3", value: "trading", label: "Trading" },
@@ -476,7 +476,7 @@ const UserInfoSalary = () => {
             className="form-select form-control mb-3"
           >
             <option value="">Frequency</option>
-            <option value="monthlyy">Monthly</option>
+            <option value="monthly">Monthly</option>
             <option value="yearly">Yearly</option>
           </select>
           {errors.frequency && (
