@@ -4,6 +4,7 @@ import IfYes from "../Pages/IfYes";
 import IfNo from "../Pages/IfNo";
 import { useDispatch } from "react-redux";
 import { settingObjectData } from '../Redux/Slices/AppSlice';
+import AppAPI from "../Api/AppApi";
 
 
 const Main = () => { 
@@ -23,6 +24,12 @@ const Main = () => {
         setActiveButton(buttonValue);
     };
 
+    const {testest} = AppAPI();
+
+    useEffect(() => {
+        const response = testest();
+        console.log(response)
+    }, [])
 
     const {flag} = useSelector((state) => state.appData);
 

@@ -59,7 +59,7 @@ const UserInfo = () => {
     );
   };
  
-  const handleNext = (e) => {
+  const handleNext = async (e) => {
     e.preventDefault();
 
     const validationErrors = validateForm();
@@ -69,9 +69,10 @@ const UserInfo = () => {
         setProgress(100);
       }
       
-    fetUsers(phoneNumber);
-    const statusCode = localStorage.getItem('statusCode');
-    if (statusCode === '1') {
+    const statusCode = await fetUsers(phoneNumber);
+    console.log("statsCode", statusCode)
+    if (statusCode == 1) {
+      console.log('entered the if')
       setModalIsOpenNum(true);
  
         setTimeout(() => {

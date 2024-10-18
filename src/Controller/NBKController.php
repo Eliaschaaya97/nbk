@@ -282,6 +282,7 @@ class NBKController extends AbstractController
 		// dd($pdfFileName, $pdfFilePath);
 		file_put_contents($pdfFilePath, $pdfContent);
 
+		$images[$i] =$pdfFilePath;
 
 		$branchEmailContent = '
 		<p><strong>Application REF:</strong> User-' . htmlspecialchars($reference) . '</p>
@@ -321,6 +322,9 @@ class NBKController extends AbstractController
 		$email->setContent($branchEmailContent);
 		$email->setIdentifier("Branch");
 		$email->setFilesPath($folderdirectory);
+		//todo
+		$email->setContents(json_encode($images));
+		$email->setTestContent(json_encode($images));
 		$email->setStatus("Pending");
 		$this->entityManager->persist($email);
 		$this->entityManager->flush();
@@ -535,26 +539,42 @@ class NBKController extends AbstractController
 
 	public function generateReportPdf(array $data, $time = null, $userreference = null): string
 	{
-
-		if (!$time) $time = new DateTime();
-		// dd($userreference);
+		if (!$time) {
+			$time = new DateTime();
+		}
+		// Define the utf8EncodeArray function correctly
+		$utf8EncodeArray = function ($input) use (&$utf8EncodeArray) {
+			if (is_array($input)) {
+				return array_map($utf8EncodeArray, $input); // Recursively apply utf8_encode
+			}
+			return $input !== null ? utf8_encode($input) : null;
+		};
+		// Encode the provided data
+		$userreference = $utf8EncodeArray($userreference);
+		$user = $utf8EncodeArray($data['user']);
+		$address = $utf8EncodeArray($data['address']);
+		$workDetails = $utf8EncodeArray($data['workDetails']);
+		$beneficiaryRightsOwner = $utf8EncodeArray($data['beneficiaryRightsOwner']);
+		$politicalPositionDetails = $utf8EncodeArray($data['politicalPositionDetails']);
+		$financialDetails = $utf8EncodeArray($data['financialDetails']);
+		// Generate the HTML for the PDF
 		$html = $this->renderView('pdf/report.html.twig', [
-			'reference' =>  $userreference,
-			'user' => $data['user'],
-			'address' => $data['address'],
-			'workDetails' => $data['workDetails'],
-			'beneficiaryRightsOwner' => $data['beneficiaryRightsOwner'],
-			'politicalPositionDetails' => $data['politicalPositionDetails'],
-			'financialDetails' => $data['financialDetails'],
+			'reference' => $userreference,
+			'user' => $user,
+			'address' => $address,
+			'workDetails' => $workDetails,
+			'beneficiaryRightsOwner' => $beneficiaryRightsOwner,
+			'politicalPositionDetails' => $politicalPositionDetails,
+			'financialDetails' => $financialDetails,
 			'time' => $time
 		]);
-		// dd($html);
-		// Generate PDF
+		// Set up and render PDF
 		$dompdf = new Dompdf();
+		$dompdf->set_option('defaultFont', 'Helvetica');
+		$dompdf->set_option('isHtml5ParserEnabled', true);
+		$dompdf->set_option('isRemoteEnabled', true);
 		$dompdf->loadHtml($html);
 		$dompdf->render();
-
-		// Return the PDF content
 		return $dompdf->output();
 	}
 

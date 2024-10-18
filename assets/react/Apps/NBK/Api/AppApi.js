@@ -45,13 +45,34 @@ const AppAPI = () => {
     }
   };
 
-  const fetUsers = (phoneNumber) => {
+  
+
+
+  
+  const testest = () => {
     
+    try {
+        return axiosClient
+            .get(`/nbksession`)
+            .then((response) => {
+             localStorage.setItem("user_id",response?.data?.user_id);
+               return response?.data?.user_id
+            }
+          )
+                     
+    } catch (e) {
+        console.log(e);
+    }
+};
+
+
+  const fetUsers = (phoneNumber) => {
+    console.log("phone number", phoneNumber)
     try {
         return axiosClient
             .get(`/user/checkMobile/${phoneNumber}`)
             .then((response) => {
-             localStorage.setItem("statusCode",response?.data?.statusCode);
+             //localStorage.setItem("statusCode",response?.data?.statusCode);
                return response?.data?.statusCode
 
             }
@@ -66,6 +87,7 @@ const AppAPI = () => {
      SendExistingUser,
     SendInformation,
     fetUsers,
+    testest
 
   };
 };

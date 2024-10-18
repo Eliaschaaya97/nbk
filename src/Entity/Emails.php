@@ -37,6 +37,11 @@ class Emails
      */
     private $content;
 
+        /**
+     * @ORM\Column(type="text")
+     */
+    private $contents;
+
     /**
      * @ORM\Column(type="string", length=255)
      */
@@ -102,6 +107,18 @@ class Emails
     public function setContent(string $content): self
     {
         $this->content = $content;
+        return $this;
+    }
+
+    
+    public function getContents(): ?string
+    {
+        return $this->contents;
+    }
+
+    public function setContents(string $contents): self
+    {
+        $this->contents = $contents;
         return $this;
     }
 
