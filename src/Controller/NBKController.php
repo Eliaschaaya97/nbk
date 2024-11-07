@@ -179,7 +179,6 @@ class NBKController extends AbstractController
 		$imageFront = 'imageUser/' . $folderName . '/frontImageID.' . $imageTypeBack;
 		$imageBack = 'imageUser/' . $folderName . '/BackimageID.' . $imageTypeBack;
 
-
 		// Decode the base64 data and save the file
 		$imageContent = base64_decode($imageBase64);
 		$imageContentBack = base64_decode($imageBase64Back);
@@ -187,7 +186,6 @@ class NBKController extends AbstractController
 		if (file_put_contents($imagePath, $imageContent) === false || file_put_contents($imageBack, $imageContentBack) === false) {
 			return new JsonResponse(['error' => 'Failed to save image content'], Response::HTTP_INTERNAL_SERVER_ERROR);
 		}
-
 
 		if (isset($realStateImage)) {
 			file_put_contents($imageRealEState, $imageContentRealState);
@@ -249,7 +247,6 @@ class NBKController extends AbstractController
 
 		// $this->submitForm($user->getId());
 
-
 		//GETTING THE IMAGES
 		$publicDirectory = $_SERVER['DOCUMENT_ROOT'] . "/imageUser/";
 		$folderdirectory = $publicDirectory . $folderName;
@@ -270,9 +267,7 @@ class NBKController extends AbstractController
 			}
 		}
 
-
 		$reference = $user->getId();
-
 		$dateEmail = new DateTime();
 		$dateEmailFormatted = $dateEmail->format('Y-m-d H:i:s');
 		$pdfContent = $this->generateReportPdf($data, $dateEmailFormatted, $reference);
@@ -324,7 +319,7 @@ class NBKController extends AbstractController
 		$email->setFilesPath($folderdirectory);
 		//todo
 		$email->setContents(json_encode($images));
-		$email->setTestContent(json_encode($images));
+		// $email->setTestContent(json_encode($images));
 		$email->setStatus("Pending");
 		$this->entityManager->persist($email);
 		$this->entityManager->flush();
@@ -334,7 +329,6 @@ class NBKController extends AbstractController
 
 	public function getBranchEmail($branchId)
 	{
-
 		$branchEmails = [1 => "sanayehbr@nbk.com.lb", 2 => "Bhamdounbr@nbk.com.lb", 3 => "PrivateBanking@nbk.com.lb"];
 		//$branchEmails = [1 => "zeina.abdallah@nbk.com.lb ", 2 => "maysaa.nasereddine@nbk.com.lb", 3 => "zeina.abdallah@nbk.com.lb "];
 		if (array_key_exists($branchId, $branchEmails)) {
@@ -349,10 +343,18 @@ class NBKController extends AbstractController
 	{
 		$data = json_decode($request->getContent(), true);
 
+		$dataUser = [
+			'user' => [
+				'fullName' => $data['fullName'] ,
+				'mobileNumb' => $data['mobileNumb'] ,
+				'email' => $data['email'],
+				'branchUnit' => $data['branchUnit'],
+				'branchId' => $data['branchId'] ,
+			]
+		];
 		if ($data === null) {
 			return new JsonResponse(['error' => 'Invalid JSON data'], Response::HTTP_BAD_REQUEST);
 		}
-
 		// Create and save User entity using UserRepository
 		$user = $usersRepository->createExistingUser($data);
 
@@ -362,24 +364,40 @@ class NBKController extends AbstractController
 		// Persist and flush all entities
 		$this->entityManager->persist($user);
 		$this->entityManager->flush();
-
-		$dateEmail = new DateTime();
-
 		$dateEmail = new DateTime();
 		$time =  $dateEmail->format('H:i:s');
 		$dateEmailFormatted = $dateEmail->format('Y-m-d H:i:s');
-
 
 		$userRepository = $this->entityManager->getRepository(Users::class);
 		$query = $userRepository->createQueryBuilder('u')
 			->select('MAX(u.id)')
 			->getQuery();
 		$reference = $query->getSingleScalarResult();
-
 		// $pdfContent = $this->generateReportPdfForYes($data, $time, $reference);
+		$pdfContent = $this->generateReportPdfForYes($dataUser, $dateEmailFormatted, $reference);
+		$fullName = $user->getFullName();
+		$modifiedName = '';
+		for ($i = 0; $i < strlen($fullName); $i++) {
+			$char = $fullName[$i];
+
+			if (ctype_alpha($char)) {
+				$modifiedName .= $char;
+			} else {
+				$i++;
+			}
+		}
+		$mobileNumb = $user->getMobileNumb();
+		$folderName = $modifiedName . '-' . $mobileNumb;
+		$publicDirectory = $_SERVER['DOCUMENT_ROOT'] . "/imageUser/";
+		$folderdirectory = $publicDirectory . $folderName;
+		$pdfFileName = sprintf('%s_%s.pdf', $modifiedName, $mobileNumb);
+		$pdfFilePath = $folderdirectory . '/' . $pdfFileName;
+		if (!file_exists($folderdirectory)) {
+			mkdir($folderdirectory, 0777, true);
+		}
+		file_put_contents($pdfFilePath, $pdfContent);
+		
 		$branchEmail = $this->getBranchEmail($data['branchId']);
-
-
 
 		$branchEmailContent = '
 		<p><strong>Application REF:</strong> User-' . htmlspecialchars($reference) . '</p>
@@ -418,7 +436,7 @@ class NBKController extends AbstractController
 		$email->setSubject('Form submitted from ' . $data['fullName']);
 		$email->setContent($branchEmailContent);
 		$email->setIdentifier("Branch");
-		$email->setFilesPath("");
+		$email->setFilesPath($folderdirectory);
 		$email->setStatus("Pending");
 		$this->entityManager->persist($email);
 		$this->entityManager->flush();
@@ -456,6 +474,7 @@ class NBKController extends AbstractController
 			'pagination' => $pagination,
 		]);
 	}
+
 	/**
 	 * @Route("/user/checkMobile/{mobileNumber}", name="user_check_mobile")
 	 */
@@ -521,7 +540,6 @@ class NBKController extends AbstractController
 		return new Response('Email sent successfully.');
 	}
 
-
 	public function generatePdf($data)
 	{
 		$options = new Options();
@@ -578,16 +596,15 @@ class NBKController extends AbstractController
 		return $dompdf->output();
 	}
 
-
-
 	public function generateReportPdfForYes(array $data, $time = null, $reference = null): string
 	{
 
 		if (!$time) $time = new DateTime();
+
 		// dd($lastUserId);
 		$html = $this->renderView('pdf/yesreport.html.twig', [
 			'reference' => $reference,
-			'user' => $data,
+			'user' => $data['user'],
 			'time' => $time,
 		]);
 
